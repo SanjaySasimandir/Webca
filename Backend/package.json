@@ -7,5 +7,23 @@
     "ngx-socket-io": "^4.2.0",
     "nodemailer": "^6.7.2",
     "socket.io": "^4.4.1"
-  }
+  },
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Server side script for Webca",
+  "main": "app.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SanjaySasimandir/Webca.git"
+  },
+  "author": "Sanjay",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SanjaySasimandir/Webca/issues"
+  },
+  "homepage": "https://github.com/SanjaySasimandir/Webca#readme"
 }
