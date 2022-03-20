@@ -4,7 +4,7 @@ export class RegistrationModel {
         public fullName: String,
         public email: String,
         public password: String,
-        public lastOnline: Date,
+        public lastOnline: String,
         public chats: Array<1000>,
         public role: String
     ){}

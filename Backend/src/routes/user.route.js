@@ -3,17 +3,24 @@ const userRouter = express.Router();
 
 const RegistrationData = require('../models/RegistrationData');
 
-userRouter.get('/test', (req, res) => {
-    console.log('testherde');
-    res.send('here');
+userRouter.post('/dupeUsernameCheck', (req, res) => {
+    let username = req.body.username;
+    RegistrationData.find({ username: username }).then((data) => {
+        if (data[0]) {
+            res.send({ "message": "exists" });
+        }
+        else {
+            res.send({ "message": "ok" });
+        }
+    });
 });
 
-
-userRouter.get('/usernameUniqueCheck', (req, res) => {
-    console.log('here');
-    let ext = req.params;
-    console.log(req.body);
-    res.send('success')
+userRouter.post('/signup', (req, res) => {
+    let newuser = new RegistrationData(req.body.user);
+    console.log(req.body.user);
+    console.log('newuser',newuser);
+    newuser.save();
+    res.send({ "message": "success" });
 });
 
 module.exports = userRouter;

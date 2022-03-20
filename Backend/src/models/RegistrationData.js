@@ -12,7 +12,7 @@ const RegistrationSchema = new Schema({
     fullName: String,
     email: String,
     password: String,
-    lastOnline: Date,
+    lastOnline: String,
     chats: Array,
     role: String
 });

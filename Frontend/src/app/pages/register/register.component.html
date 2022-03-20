@@ -6,29 +6,30 @@
                 <mat-label>username</mat-label>
                 <input matInput placeholder="username" (input)="checkWhetherUniqueUsername()" minlength="5"
                     [formControl]="username">
-                <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
                 <mat-error *ngIf="this.username.invalid">Invalid Username</mat-error>
+                <mat-error *ngIf="this.usernameTaken">Username Taken</mat-error>
             </mat-form-field>
 
             <br>
 
             <mat-form-field appearance="fill">
                 <mat-label>Full Name</mat-label>
-                <input matInput placeholder="Full Name">
-                <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                <input matInput placeholder="Full Name" [formControl]="fullname">
+                <mat-error *ngIf="this.fullname.invalid">Please enter your name here</mat-error>
             </mat-form-field>
             <br>
             <mat-form-field appearance="fill">
                 <mat-label>Email</mat-label>
-                <input matInput placeholder="Email">
-                <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                <input matInput placeholder="Email" [formControl]="email">
+                <mat-error *ngIf="this.email.invalid">Please enter a proper email address</mat-error>
             </mat-form-field>
 
             <br>
 
             <mat-form-field appearance="fill">
                 <mat-label>Password</mat-label>
-                <input matInput [type]="hide_password ? 'password' : 'text'" placeholder="password">
+                <input matInput [type]="hide_password ? 'password' : 'text'" placeholder="password"
+                    [formControl]="password">
                 <button mat-icon-button matSuffix (click)="hide_password = !hide_password"
                     [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide_password">
                     <mat-icon>{{hide_password ? 'visibility_off' : 'visibility'}}</mat-icon>
@@ -37,9 +38,10 @@
 
             <br>
             <div class="col-12 d-flex">
-                <button class="d-flex" mat-button color="primary" (click)="loginRedirect()">Already have an account?</button>
+                <button class="d-flex" mat-button color="primary" (click)="loginRedirect()">Already have an
+                    account?</button>
                 <div class="flex-fill"></div>
-                <button class="d-flex" mat-raised-button color="primary">Register</button>
+                <button class="d-flex" mat-raised-button color="primary" (click)="register()">Register</button>
             </div>
         </div>
     </div>
