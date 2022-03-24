@@ -9,15 +9,32 @@ export class UserauthService {
 
   constructor(private http: HttpClient) { }
 
-  localhost_address = "http://localhost:3000/";
+  server_address = "http://192.168.1.4:3000/"; //localhost as IPv4 address
+  // server_address = "http://localhost:3000/"; //localhost
+  // server_address = "https://webca-app.herokuapp.com/"; //heroku
+  server_users_address = this.server_address + "users/";
 
-  // Check whether username is unique
   dupeUsernameCheck(username: string) {
-    return this.http.post<any>(this.localhost_address + 'users/dupeUsernameCheck', { "username": username });
+    return this.http.post<any>(this.server_users_address + 'dupeUsernameCheck', { "username": username });
   }
 
-  //register a new user
+  dupeEmailCheck(email: string) {
+    return this.http.post<any>(this.server_users_address + 'dupeEmailCheck', { "email": email });
+  }
+
   signup(user: RegistrationModel) {
-    return this.http.post<any>(this.localhost_address + 'users/signup', { "user": user });
+    return this.http.post<any>(this.server_users_address + 'signup', { "user": user });
+  }
+
+  login(creds: any) {
+    return this.http.post<any>(this.server_users_address + 'login', { "creds": creds });
+  }
+
+  whetherLoggedIn() {
+    return !!localStorage.getItem('token');
+  }
+
+  logOut() {
+    localStorage.removeItem('token');
   }
 }

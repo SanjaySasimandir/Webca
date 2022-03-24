@@ -2,6 +2,7 @@
     <div class="row justify-content-center">
         <div class="col-lg-4 row justify-content-center">
 
+            <mat-error *ngIf="this.invalid_credentials">Please enter valid credentials.</mat-error>
             <mat-form-field appearance="fill">
                 <mat-label>username or email</mat-label>
                 <input matInput placeholder="username" [formControl]="username">
@@ -26,7 +27,7 @@
                 <button class="d-flex" mat-button color="primary" (click)="registerRedirect()">Create an
                     account?</button>
                 <div class="flex-fill"></div>
-                <button class="d-flex" mat-raised-button color="primary">Login</button>
+                <button class="d-flex" mat-raised-button color="primary" (click)="login()">Login</button>
             </div>
         </div>
     </div>

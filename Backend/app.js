@@ -7,8 +7,10 @@ const io = require('socket.io')(http, {
         methods: "*"
     }
 });
+const port = process.env.PORT || 3000;
 
 app.use(express.static('./public'));
+
 var corsMiddleware = function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '0.0.0.0'); //replace localhost with actual host
     res.header('Access-Control-Allow-Methods', 'OPTIONS, GET, PUT, PATCH, POST, DELETE');
@@ -17,7 +19,7 @@ var corsMiddleware = function (req, res, next) {
     next();
 }
 app.use(corsMiddleware);
-const port = process.env.PORT || 3000;
+
 
 const cors = require('cors');
 app.use(cors());

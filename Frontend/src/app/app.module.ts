@@ -44,6 +44,11 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { TextFieldModule } from '@angular/cdk/text-field';
+import { MainComponent } from './pages/main/main.component';
+import { UserauthService } from './services/userauth.service';
+import { ChatComponent } from './pages/chat/chat.component';
+import { ChatboxComponent } from './pages/chat/chatbox/chatbox.component';
+import { ChatlistComponent } from './pages/chat/chatlist/chatlist.component';
 
 const materialModules = [
   CdkTreeModule,
@@ -89,6 +94,10 @@ const materialModules = [
     AppComponent,
     LoginComponent,
     RegisterComponent,
+    MainComponent,
+    ChatComponent,
+    ChatboxComponent,
+    ChatlistComponent,
   ],
   imports: [
     BrowserModule,
@@ -99,7 +108,7 @@ const materialModules = [
     ReactiveFormsModule,
     materialModules
   ],
-  providers: [],
+  providers: [UserauthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

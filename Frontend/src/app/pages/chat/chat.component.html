@@ -1,0 +1,250 @@
+<div class="container-fluid outside-container">
+    <nav class="navbar navbar-expand-md navbar-dark bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Webca</a>
+
+            <div class="justify-content-end" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <img mat-icon-button mat-card-avatar [matMenuTriggerFor]="menu"
+                        class=" nav-linkcard-avatar w-100 profile-icon"
+                        src="https://thumbs.dreamstime.com/b/businessman-icon-image-male-avatar-profile-vector-glasses-beard-hairstyle-179728610.jpg">
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="logout()">
+                            <mat-icon>logout</mat-icon>
+                            <span>Logout</span>
+                        </button>
+                    </mat-menu>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container-fluid chat-container align-items-center">
+        <mat-drawer-container>
+            <mat-drawer class="my-auto col-12 col-sm-12 col-md-4 col-lg-4" #drawer mode="side" opened>
+                <mat-tab-group mat-stretch-tabs class="mat-elevation-z4">
+                    <mat-tab label="Groups">
+                        <ng-template matTabContent>
+
+
+                            <form>
+                                <mat-form-field class="col-12 user-search-input" appearance="fill">
+                                    <mat-label>Search groups</mat-label>
+                                    <button mat-icon-button matPrefix
+                                        (click)="viewSearchResults=false;" type="button">
+                                        <mat-icon>arrow_back</mat-icon>
+                                    </button>
+                                    <input matInput placeholder="johndoe12"
+                                     autocomplete="off" maxlength="20"
+                                        (focus)="viewSearchResults=true" (focusout)="hideSearchResults()">
+                                    <button mat-icon-button matSuffix
+                                        (click)="viewSearchResults=false;" type="button">
+                                        <mat-icon>close</mat-icon>
+                                    </button>
+                                    <button mat-icon-button matSuffix
+                                        >
+                                        <mat-icon>search</mat-icon>
+                                    </button>
+                                </mat-form-field>
+                            </form>
+                            <div class="search-results-wrapper shadow-lg"
+                                *ngIf="viewSearchResults">
+                                <!-- <div *ngFor="let searchResult of searchResults">
+                                    <div class="hover-background-change"
+                                        *ngIf="searchResult.username && checkSearchResInContacts(searchResult.username) && this.searchItem.value"
+                                        (click)="selectContactFromSearch(searchResult);this.searchItem.setValue('');searchResult.username='';">
+                                        <mat-card class="col-12 d-flex align-items-center user-card">
+                                            <div class="flex-grow-1 row align-items-center">
+                                                <div mat-card-avatar class="col-2 card-avatar"
+                                                    style="background-image: url('{{searchResult.picture}}')">
+                                                </div>
+                                                <div class="col-8">
+                                                    <mat-card-title class="text-truncate">
+                                                        {{searchResult.firstName}}
+                                                        {{searchResult.lastName}}</mat-card-title>
+                                                    <mat-card-subtitle class="text-truncate">
+                                                        {{searchResult.username}}
+                                                    </mat-card-subtitle>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="col-1 mute-block d-flex justify-content-center align-items-center">
+                                                <mat-icon *ngIf="mutedContacts.includes(searchResult.username)">
+                                                    volume_off
+                                                </mat-icon>
+                                                <mat-icon *ngIf="blockedContacts.includes(searchResult.username)">
+                                                    block
+                                                </mat-icon>
+                                            </div>
+                                        </mat-card>
+                                    </div>
+
+                                    <div class="hover-background-change"
+                                        *ngIf="searchResult.username && !checkSearchResInContacts(searchResult.username) && this.searchItem.value"
+                                        (click)="addNewContact(searchResult);searchItem.setValue('');searchResult.username='';">
+                                        <mat-card class="col-12 d-flex align-items-center user-card">
+                                            <div class="flex-grow-1 row align-items-center">
+                                                <div mat-card-avatar class="col-2 card-avatar"
+                                                    style="background-image: url('{{searchResult.picture}}')">
+                                                </div>
+                                                <div class="col-8">
+                                                    <mat-card-title class="text-truncate">
+                                                        {{searchResult.firstName}}
+                                                        {{searchResult.lastName}}</mat-card-title>
+                                                    <mat-card-subtitle class="text-truncate">
+                                                        {{searchResult.username}}
+                                                    </mat-card-subtitle>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="col-1 mute-block d-flex justify-content-center align-items-center">
+                                                <button mat-icon-button color="primary">
+                                                    <mat-icon>person_add</mat-icon>
+                                                </button>
+                                            </div>
+                                        </mat-card>
+                                    </div>
+                                </div> -->
+
+
+                                <mat-card class="col-12 user-card">
+                                    <mat-card-header>
+                                        <mat-card-title>Loading...</mat-card-title>
+                                    </mat-card-header>
+                                </mat-card>
+
+                                <mat-card class="col-12 user-card">
+                                    <mat-card-header>
+                                        <mat-card-title>No users found</mat-card-title>
+                                    </mat-card-header>
+                                </mat-card>
+                            </div>
+
+
+
+                            <mat-divider class="divider-margin"></mat-divider>
+
+                            <!-- <div class="d-flex justify-content-center align-items-center">
+                                <mat-spinner></mat-spinner>
+                            </div> -->
+
+                            <!-- <mat-card-title>Add users to get started.</mat-card-title> -->
+
+                            <div matRipple class="hover-background-change d-none d-sm-block d-md-block"
+                                >
+                                <mat-card
+                                    class="col-12 d-flex align-items-center user-card">
+                                    <div class="flex-grow-1 row align-items-center">
+                                        <div mat-card-avatar class="col-2 card-avatar"
+                                            style="background-image: url('')">
+                                        </div>
+                                        <div class="col-8">
+                                            <mat-card-title class="text-truncate">
+                                                Name</mat-card-title>
+                                            <mat-card-subtitle class="text-truncate">
+                                                @groupname
+                                            </mat-card-subtitle>
+                                        </div>
+                                    </div>
+                                    <div class="col-1 mute-block d-flex justify-content-center align-items-center">
+                                        <mat-icon>
+                                            volume_off</mat-icon>
+                                        <mat-icon>block
+                                        </mat-icon>
+                                    </div>
+                                </mat-card>
+                            </div>
+
+                            <div matRipple class="hover-background-change d-block d-sm-none d-md-none"
+                                >
+                                <mat-card class="col-12 d-flex align-items-center user-card">
+                                    <div class="flex-grow-1 row align-items-center">
+                                        <div mat-card-avatar class="col-2 card-avatar"
+                                            style="background-image: url('')">
+                                        </div>
+                                        <div class="col-8">
+                                            <mat-card-title class="text-truncate">
+                                                Name</mat-card-title>
+                                            <mat-card-subtitle class="text-truncate">
+                                                @groupname
+                                            </mat-card-subtitle>
+                                        </div>
+                                    </div>
+                                    <div class="col-1 mute-block d-flex justify-content-center align-items-center">
+                                        <mat-icon>
+                                            volume_off</mat-icon>
+                                        <mat-icon>block
+                                        </mat-icon>
+                                    </div>
+                                </mat-card>
+                            </div>
+                        </ng-template>
+                    </mat-tab>
+                    <mat-tab label="Channels">
+                        <ng-template matTabContent>
+
+                            <div matRipple class="hover-background-change d-none d-sm-block d-md-none"
+                                (click)="drawer.close();">
+                                <mat-card
+                                    class="col-12 d-flex align-items-center user-card">
+                                    <div class="flex-grow-1 row align-items-center">
+                                        <div mat-card-avatar class="col-2 card-avatar"
+                                            style="background-image: url('')">
+                                        </div>
+                                        <div class="col-8">
+                                            <mat-card-title class="text-truncate">
+                                                Name</mat-card-title>
+                                            <mat-card-subtitle class="text-truncate">
+                                                @groupname
+                                            </mat-card-subtitle>
+                                        </div>
+                                    </div>
+                                    <div class="col-1 mute-block d-flex justify-content-center align-items-center">
+                                        <mat-icon>
+                                            volume_off</mat-icon>
+                                        <mat-icon>block
+                                        </mat-icon>
+                                    </div>
+                                </mat-card>
+                            </div>
+                            <div matRipple class="hover-background-change d-sm-none d-md-block"
+                                >
+                                <mat-card
+                                    class="col-12 d-flex align-items-center user-card">
+                                    <div class="flex-grow-1 row align-items-center">
+                                        <div mat-card-avatar class="col-2 card-avatar"
+                                            style="background-image: url('')">
+                                        </div>
+                                        <div class="col-8">
+                                            <mat-card-title class="text-truncate">
+                                                Name</mat-card-title>
+                                            <mat-card-subtitle class="text-truncate">
+                                                @groupname
+                                            </mat-card-subtitle>
+                                        </div>
+                                    </div>
+                                    <div class="col-1 mute-block d-flex justify-content-center align-items-center">
+                                        <mat-icon>
+                                            volume_off</mat-icon>
+                                        <mat-icon>block
+                                        </mat-icon>
+                                    </div>
+                                </mat-card>
+                            </div>
+                        </ng-template>
+                    </mat-tab>
+                </mat-tab-group>
+
+            </mat-drawer>
+            <mat-drawer-content class="col-12 col-sm-12 d-inline-flex justify-content-center align-items-center"
+                [ngClass]="{'col-lg-8' : drawer.opened, 'col-lg-12':!drawer.opened,'col-md-8':drawer.opened,'col-md-12':!drawer.opened}">
+                <button mat-fab class="toggle-negative" color="primary" (click)="drawer.toggle()">
+                    <mat-icon>&nbsp;&nbsp;{{drawer.opened? ' arrow_back_ios' : 'arrow_forward_ios'}}
+                    </mat-icon>
+                </button>
+                <app-chatlist class="flex-grow-1">
+                </app-chatlist>
+                <app-chatbox class="flex-grow-1"></app-chatbox>
+            </mat-drawer-content>
+        </mat-drawer-container>
+    </div>
+</div>

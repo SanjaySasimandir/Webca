@@ -6,23 +6,37 @@
                 <mat-label>username</mat-label>
                 <input matInput placeholder="username" (input)="checkWhetherUniqueUsername()" minlength="5"
                     [formControl]="username">
-                <mat-error *ngIf="this.username.invalid">Invalid Username</mat-error>
                 <mat-error *ngIf="this.usernameTaken">Username Taken</mat-error>
+                <mat-error *ngIf="this.username.invalid && !this.usernameTaken">Invalid Username</mat-error>
             </mat-form-field>
 
             <br>
 
             <mat-form-field appearance="fill">
                 <mat-label>Full Name</mat-label>
-                <input matInput placeholder="Full Name" [formControl]="fullname">
+                <input matInput placeholder="Name" [formControl]="fullname">
                 <mat-error *ngIf="this.fullname.invalid">Please enter your name here</mat-error>
             </mat-form-field>
             <br>
             <mat-form-field appearance="fill">
                 <mat-label>Email</mat-label>
                 <input matInput placeholder="Email" [formControl]="email">
-                <mat-error *ngIf="this.email.invalid">Please enter a proper email address</mat-error>
+                <button matSuffix mat-raised-button>Send OTP</button>
+                <mat-error *ngIf="this.email.invalid && !this.emailTaken">Please enter a proper email address
+                </mat-error>
+                <mat-error *ngIf="this.emailTaken">Email already in use</mat-error>
             </mat-form-field>
+            <br>
+
+            <fieldset class="col-12" [disabled]="this.email.invalid || this.email.value == ''">
+                <mat-form-field class="col-12" appearance="fill">
+                    <mat-label>Enter OTP</mat-label>
+                    <input matInput placeholder=" OTP" [formControl]=" otp">
+                    <button matSuffix mat-raised-button>Check OTP</button>
+                    <mat-error *ngIf="true">Wrong OTP</mat-error>
+                </mat-form-field>
+
+            </fieldset>
 
             <br>
 
@@ -41,7 +55,9 @@
                 <button class="d-flex" mat-button color="primary" (click)="loginRedirect()">Already have an
                     account?</button>
                 <div class="flex-fill"></div>
-                <button class="d-flex" mat-raised-button color="primary" (click)="register()">Register</button>
+                <button class="d-flex" mat-raised-button color="primary"
+                    [disabled]="this.username.invalid || this.password.invalid || this.email.invalid || this.fullname.invalid"
+                    (click)="register()">Register</button>
             </div>
         </div>
     </div>
