@@ -1,0 +1,20 @@
+<nav class="navbar navbar-expand-sm navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Webca</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <mat-chip-list>
+                    <a mat-chip color="primary" selected="{{loadedPage=='/login'}}" class="nav-link" *ngIf="!loggedIn"
+                        routerLink="/login">Login</a>
+                    <a mat-chip color="primary" selected="{{loadedPage=='/signup'}}" class="nav-link" *ngIf="!loggedIn"
+                        routerLink="/signup">Register</a>
+                </mat-chip-list>
+                <a class="nav-link logoutButton" *ngIf="loggedIn" (click)="logout()">Logout</a>
+            </div>
+        </div>
+    </div>
+</nav>

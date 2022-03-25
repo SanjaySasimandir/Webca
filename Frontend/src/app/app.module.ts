@@ -49,6 +49,8 @@ import { UserauthService } from './services/userauth.service';
 import { ChatComponent } from './pages/chat/chat.component';
 import { ChatboxComponent } from './pages/chat/chatbox/chatbox.component';
 import { ChatlistComponent } from './pages/chat/chatlist/chatlist.component';
+import { AuthFooterComponent } from './pages/auth-footer/auth-footer.component';
+import { HeaderComponent } from './pages/header/header.component';
 
 const materialModules = [
   CdkTreeModule,
@@ -98,6 +100,8 @@ const materialModules = [
     ChatComponent,
     ChatboxComponent,
     ChatlistComponent,
+    AuthFooterComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,

@@ -26,6 +26,9 @@ app.use(cors());
 
 const bodyparser = require('body-parser');
 app.use(bodyparser.json());
+app.use(bodyparser.urlencoded({
+    extended: true
+}));
 
 app.use(express.json())
 
@@ -34,9 +37,10 @@ app.use(express.urlencoded({ extended: true }));
 const userRouter = require('./src/routes/user.route');
 app.use('/users', userRouter);
 
-app.get('/test', (req, res) => {
-    res.send("working")
-});
+const verifyRouter = require('./src/routes/verify.route');
+app.use('/verify', verifyRouter);
+
+
 
 app.listen(port, () => {
     console.log("Server Listening at port: " + port);

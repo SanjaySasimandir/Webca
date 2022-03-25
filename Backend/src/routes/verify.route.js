@@ -61,7 +61,6 @@ VerifyRoute.post('/verifyMailOtp', (req, res) => {
     var email = req.body.email;
     var otp = req.body.otp;
     EmailVerifyData.find({ email: email }).then(data => {
-        console.log(data)
         if (data[0].otp == otp) {
             res.send({ "message": "success" });
         }

@@ -7,17 +7,18 @@ mongoose.connect('mongodb+srv://bladerunner:bladerunner@clustertopgear.8ok4c.mon
 // Schema Definition
 const Schema = mongoose.Schema;
 
-const RegistrationSchema = new Schema({
+const UserSchema = new Schema({
     username: String,
     fullName: String,
     email: String,
     password: String,
     lastOnline: String,
-    chats: Array,
-    role: String
+    bio: String,
+    picture: String,
+    chats: Array
 });
 
 // Model Creation
-var RegistrationData = mongoose.model('registrationdata', RegistrationSchema);
+var UserData = mongoose.model('userdata', UserSchema);
 
-module.exports = RegistrationData;
+module.exports = UserData;
