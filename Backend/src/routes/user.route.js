@@ -66,4 +66,14 @@ userRouter.post('/uploadPFP', multipartMiddleware, (req, res) => {
     })
 });
 
+const path = require('path');
+userRouter.post('/getPFP', (req, res) => {
+    let userId = jwt.verify(req.body.token, 'Lancia047').uniqueID;
+
+    UserData.findById(userId, { picture: 1 }).then((data) => {
+        res.send({ "pfpURL": data.picture });
+    });
+
+});
+
 module.exports = userRouter;

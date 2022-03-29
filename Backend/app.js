@@ -11,14 +11,14 @@ const port = process.env.PORT || 3000;
 
 app.use(express.static('./public'));
 
-var corsMiddleware = function (req, res, next) {
-    res.header('Access-Control-Allow-Origin', '0.0.0.0'); //replace localhost with actual host
-    res.header('Access-Control-Allow-Methods', 'OPTIONS, GET, PUT, PATCH, POST, DELETE');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, X-Requested-With, Authorization');
+// var corsMiddleware = function (req, res, next) {
+//     res.header('Access-Control-Allow-Origin', '0.0.0.0'); //replace localhost with actual host
+//     res.header('Access-Control-Allow-Methods', 'OPTIONS, GET, PUT, PATCH, POST, DELETE');
+//     res.header('Access-Control-Allow-Headers', 'Content-Type, X-Requested-With, Authorization');
 
-    next();
-}
-app.use(corsMiddleware);
+//     next();
+// }
+// app.use(corsMiddleware);
 
 
 const cors = require('cors');
@@ -31,7 +31,6 @@ app.use(bodyparser.urlencoded({
 }));
 
 app.use(express.json())
-
 app.use(express.urlencoded({ extended: true }));
 
 const userRouter = require('./src/routes/user.route');
@@ -40,8 +39,39 @@ app.use('/users', userRouter);
 const verifyRouter = require('./src/routes/verify.route');
 app.use('/verify', verifyRouter);
 
+const jwt = require('jsonwebtoken');
+const UserData = require('./src/models/UserData');
+const res = require('express/lib/response');
+
+let connectedUsers = new Map();
+
+io.on('connection', (socket) => {
+
+    let token = socket.handshake.query.token;
+    let id = jwt.verify(token, 'Lancia047');
+    console.log('User Connected:' , id);
+    UserData.findById(id.uniqueID).then((data) => {
+        console.log(data.username);
+        io.to({
+            "username": data.username,
+            "chats":data.chats,
+
+        })
+    });
 
 
-app.listen(port, () => {
+
+
+    io.to()
+
+    socket.on('disconnect', () => {
+        console.log('User Disconnected: ' + id);
+    })
+});
+
+
+
+
+http.listen(port, () => {
     console.log("Server Listening at port: " + port);
 });

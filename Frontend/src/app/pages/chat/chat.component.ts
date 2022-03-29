@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Sanitizer } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { UserauthService } from 'src/app/services/userauth.service';
+import { WebSocketService } from 'src/app/services/web-socket.service';
 
 @Component({
   selector: 'app-chat',
@@ -10,7 +11,7 @@ import { UserauthService } from 'src/app/services/userauth.service';
 })
 export class ChatComponent implements OnInit {
 
-  constructor(private router: Router, public userAuth: UserauthService, private _snackBar: MatSnackBar) { }
+  constructor(private router: Router, public userAuth: UserauthService, private _snackBar: MatSnackBar, private webSocket: WebSocketService) { }
 
   newMessageSnackBar(contactName: string) {
     this._snackBar.open('@' + contactName + ' sent you a message', '', {
@@ -38,9 +39,21 @@ export class ChatComponent implements OnInit {
     }, 300);
   }
 
-  profilePicture: string = '';
+  profilePicture: any;
+  loadProfilePicture() {
+    this.userAuth.getPFP().subscribe(data => {
+      if (data.pfpURL) {
+        this.profilePicture = this.userAuth.server_address + data.pfpURL;
+      }
+    });
+  }
 
   ngOnInit(): void {
+    this.webSocket.listen("connect_error").subscribe(err => {
+      console.log(err);
+    })
+    this.webSocket.emit('token', localStorage.getItem('token'));
+    this.loadProfilePicture();
 
   }
 

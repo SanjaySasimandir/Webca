@@ -61,6 +61,7 @@ mat-tab {
     background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
     background-size: cover;
     margin-left: 0.75rem;
+    border: 1.5px solid #ffffff;
 }
 
 mat-card-subtitle {

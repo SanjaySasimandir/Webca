@@ -6,8 +6,7 @@
             <div class="justify-content-end" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
                     <img mat-icon-button mat-card-avatar [matMenuTriggerFor]="menu"
-                        class=" nav-linkcard-avatar w-100 profile-icon"
-                        src="https://thumbs.dreamstime.com/b/businessman-icon-image-male-avatar-profile-vector-glasses-beard-hairstyle-179728610.jpg">
+                        class="card-avatar w-100 profile-icon" [src]="profilePicture">
                     <mat-menu #menu="matMenu">
                         <button mat-menu-item (click)="logout()">
                             <mat-icon>logout</mat-icon>
@@ -29,25 +28,20 @@
                             <form>
                                 <mat-form-field class="col-12 user-search-input" appearance="fill">
                                     <mat-label>Search groups</mat-label>
-                                    <button mat-icon-button matPrefix
-                                        (click)="viewSearchResults=false;" type="button">
+                                    <button mat-icon-button matPrefix (click)="viewSearchResults=false;" type="button">
                                         <mat-icon>arrow_back</mat-icon>
                                     </button>
-                                    <input matInput placeholder="johndoe12"
-                                     autocomplete="off" maxlength="20"
+                                    <input matInput placeholder="johndoe12" autocomplete="off" maxlength="20"
                                         (focus)="viewSearchResults=true" (focusout)="hideSearchResults()">
-                                    <button mat-icon-button matSuffix
-                                        (click)="viewSearchResults=false;" type="button">
+                                    <button mat-icon-button matSuffix (click)="viewSearchResults=false;" type="button">
                                         <mat-icon>close</mat-icon>
                                     </button>
-                                    <button mat-icon-button matSuffix
-                                        >
+                                    <button mat-icon-button matSuffix>
                                         <mat-icon>search</mat-icon>
                                     </button>
                                 </mat-form-field>
                             </form>
-                            <div class="search-results-wrapper shadow-lg"
-                                *ngIf="viewSearchResults">
+                            <div class="search-results-wrapper shadow-lg" *ngIf="viewSearchResults">
                                 <!-- <div *ngFor="let searchResult of searchResults">
                                     <div class="hover-background-change"
                                         *ngIf="searchResult.username && checkSearchResInContacts(searchResult.username) && this.searchItem.value"
@@ -129,10 +123,8 @@
 
                             <!-- <mat-card-title>Add users to get started.</mat-card-title> -->
 
-                            <div matRipple class="hover-background-change d-none d-sm-block d-md-block"
-                                >
-                                <mat-card
-                                    class="col-12 d-flex align-items-center user-card">
+                            <div matRipple class="hover-background-change d-none d-sm-block d-md-block">
+                                <mat-card class="col-12 d-flex align-items-center user-card">
                                     <div class="flex-grow-1 row align-items-center">
                                         <div mat-card-avatar class="col-2 card-avatar"
                                             style="background-image: url('')">
@@ -154,8 +146,7 @@
                                 </mat-card>
                             </div>
 
-                            <div matRipple class="hover-background-change d-block d-sm-none d-md-none"
-                                >
+                            <div matRipple class="hover-background-change d-block d-sm-none d-md-none">
                                 <mat-card class="col-12 d-flex align-items-center user-card">
                                     <div class="flex-grow-1 row align-items-center">
                                         <div mat-card-avatar class="col-2 card-avatar"
@@ -184,8 +175,7 @@
 
                             <div matRipple class="hover-background-change d-none d-sm-block d-md-none"
                                 (click)="drawer.close();">
-                                <mat-card
-                                    class="col-12 d-flex align-items-center user-card">
+                                <mat-card class="col-12 d-flex align-items-center user-card">
                                     <div class="flex-grow-1 row align-items-center">
                                         <div mat-card-avatar class="col-2 card-avatar"
                                             style="background-image: url('')">
@@ -206,10 +196,8 @@
                                     </div>
                                 </mat-card>
                             </div>
-                            <div matRipple class="hover-background-change d-sm-none d-md-block"
-                                >
-                                <mat-card
-                                    class="col-12 d-flex align-items-center user-card">
+                            <div matRipple class="hover-background-change d-sm-none d-md-block">
+                                <mat-card class="col-12 d-flex align-items-center user-card">
                                     <div class="flex-grow-1 row align-items-center">
                                         <div mat-card-avatar class="col-2 card-avatar"
                                             style="background-image: url('')">

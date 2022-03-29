@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
     this.userauthService.login({ "username": this.username.value, "password": this.password.value }).subscribe(status => {
       if (status.message == "success") {
         this.loginError = true;
-        localStorage.setItem('token', JSON.stringify(status.token));
+        localStorage.setItem('token', status.token);
         this.router.navigate(['']);
       }
       else {

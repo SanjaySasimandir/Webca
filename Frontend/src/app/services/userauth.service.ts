@@ -9,7 +9,7 @@ export class UserauthService {
 
   constructor(private http: HttpClient) { }
 
-  server_address = "http://192.168.1.5:3000/"; //localhost as IPv4 address
+  server_address = "http://192.168.1.3:3000/"; //localhost as IPv4 address
   // server_address = "http://172.16.63.127:3000/"; //localhost as IPv4 address
   // server_address = "http://localhost:3000/"; //localhost
   // server_address = "https://webca-app.herokuapp.com/"; //heroku
@@ -29,6 +29,9 @@ export class UserauthService {
 
   login(creds: any) {
     return this.http.post<any>(this.server_users_address + 'login', { "creds": creds });
+  }
+  getPFP() {
+    return this.http.post<any>(this.server_users_address + 'getPFP', { "token": localStorage.getItem('token') });
   }
 
   whetherLoggedIn() {
