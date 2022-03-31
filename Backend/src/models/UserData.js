@@ -15,7 +15,18 @@ const UserSchema = new Schema({
     lastOnline: String,
     bio: String,
     picture: String,
-    chats: Array
+    groups: [{
+        groupname: String,
+        groupid: String,
+        grouppicture: String,
+        grouprole: String,
+        channels: [{
+            channelname: String,
+            channelid: String,
+            channelpicture: String,
+            channelrole: String,
+        }]
+    }]
 });
 
 // Model Creation

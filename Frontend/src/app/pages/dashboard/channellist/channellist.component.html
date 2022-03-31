@@ -1,0 +1,7 @@
+<div class="container-fluid vh-100" *ngIf="selectedGroup.groupname">
+    <mat-card-title>{{selectedGroup.groupname}}</mat-card-title>
+    <div class="channel-list-item" *ngFor="let channels of selectedGroup.channels">
+        <div mat-card-avatar class="channel-icon"></div>
+        <h2 class="channel-name">{{channels.channelname}}</h2>
+    </div>
+</div>

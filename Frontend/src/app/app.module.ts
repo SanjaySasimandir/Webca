@@ -51,6 +51,11 @@ import { ChatboxComponent } from './pages/chat/chatbox/chatbox.component';
 import { ChatlistComponent } from './pages/chat/chatlist/chatlist.component';
 import { AuthFooterComponent } from './pages/auth-footer/auth-footer.component';
 import { HeaderComponent } from './pages/header/header.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { GrouplistComponent } from './pages/dashboard/grouplist/grouplist.component';
+import { ChannellistComponent } from './pages/dashboard/channellist/channellist.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { CreateGroupComponent } from './pages/dashboard/grouplist/create-group/create-group.component';
 
 const materialModules = [
   CdkTreeModule,
@@ -87,7 +92,8 @@ const materialModules = [
   MatRadioModule,
   MatDatepickerModule,
   MatTooltipModule,
-  MatStepperModule
+  MatStepperModule,
+  MatDialogModule,
 
 ];
 
@@ -102,6 +108,10 @@ const materialModules = [
     ChatlistComponent,
     AuthFooterComponent,
     HeaderComponent,
+    DashboardComponent,
+    GrouplistComponent,
+    ChannellistComponent,
+    CreateGroupComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,41 @@
+.container-fluid {
+  background-color: #505050;
+  width: 240px;
+  margin: 0;
+  padding: 0;
+}
+
+mat-card-title {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+  color: #ffffff;
+}
+
+.channel-icon {
+  background-image: url("https://cdn.dribbble.com/users/3754218/screenshots/16228062/media/9a38dc829fa48c2732e852c02eb023bb.png?compress=1&resize=400x300&vertical=top");
+  width: 2.5rem;
+  height: 2.5rem;
+  background-size: cover;
+  object-fit: cover;
+  vertical-align: middle;
+  display: inline-block;
+  border-radius: 1.25rem;
+}
+
+.channel-list-item {
+  background-color: #3a3a3a;
+  padding-left: 0.75rem;
+  padding-top: 0.75rem;
+  margin: 0.25rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.channel-name {
+  display: inline-block;
+  margin-left: 0.75rem;
+  color: #dadce0;
+}

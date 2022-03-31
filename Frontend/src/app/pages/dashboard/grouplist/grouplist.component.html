@@ -1,0 +1,33 @@
+<div class="d-flex">
+    <div class="container-fluid row">
+        <div class="row d-inline group-list">
+            <div class="group-item-cover" *ngFor="let group of groups">
+                <img class="group-item group-avatar {{selectedGroup.groupid == group.groupid ? 'selected-group': ''}}"
+                    [matTooltip]="group.groupname" matTooltipPosition="after" (click)="selectGroup(group)">
+            </div>
+        </div>
+
+        <mat-divider class="create-group-separation"></mat-divider>
+
+        <div class="row align-items-end justify-content-center">
+            <div class="row align-items-end justify-content-center">
+                <button class="create-group" mat-fab color="primary" (click)="openDialog()" matTooltip="Create a group"
+                    matTooltipPosition="after">
+                    <mat-icon>add</mat-icon>
+                </button>
+
+                <div class="profile-settings" matTooltip="Profile" matTooltipPosition="after">
+                    <img mat-icon-button mat-card-avatar [matMenuTriggerFor]="menu" class="card-avatar"
+                        [src]="profilePicture">
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="logout()">
+                            <mat-icon>logout</mat-icon>
+                            <span>Logout</span>
+                        </button>
+                    </mat-menu>
+                </div>
+            </div>
+        </div>
+    </div>
+    <app-channellist [selectedGroup]="selectedGroup"></app-channellist>
+    <app-chatbox></app-chatbox>

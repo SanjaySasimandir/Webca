@@ -7,31 +7,23 @@ mongoose.connect('mongodb+srv://bladerunner:bladerunner@clustertopgear.8ok4c.mon
 // Schema Definition
 const Schema = mongoose.Schema;
 
-const ChannelSchema = new Schema({
-    name: String,
-    members: [{
-        username: String,
-        fullname: String,
-        id: String,
-        online: Boolean,
-        role: String
-    }],
-    description: String,
-    picture: String,
-    pinnedMessage: String,
+const MessageSchema = new Schema({
+    channelName: String,
+    channelID: String,
     messages: [{
         messageType: String,
         message: String,
         messageSender: {
             username: String,
             fullname: String,
-            id: String
+            id: String,
         },
         messageTime: String,
     }]
+
 });
 
 // Model Creation
-var ChannelData = mongoose.model('channeldata', ChannelSchema);
+var MessageData = mongoose.model('messagedata', MessageSchema);
 
-module.exports = ChannelData;
+module.exports = MessageData;

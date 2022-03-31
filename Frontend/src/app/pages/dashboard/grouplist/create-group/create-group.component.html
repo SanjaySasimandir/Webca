@@ -1,0 +1,21 @@
+<h1 mat-dialog-title>Create a group</h1>
+<mat-form-field appearance="outline">
+    <mat-label>Group Name</mat-label>
+    <input matInput [formControl]="groupname" placeholder="mygroup" minlength="4" maxlength="20" required>
+    <mat-error *ngIf="groupname.invalid && groupname.value==''">Group name cannot be empty</mat-error>
+</mat-form-field>
+<br>
+<mat-form-field appearance="outline">
+    <mat-label>Who can join?</mat-label>
+    <mat-select [formControl]="openness">
+        <mat-option value="invite-only">Invite only</mat-option>
+        <mat-option value="public">Public</mat-option>
+    </mat-select>
+</mat-form-field>
+
+<div mat-dialog-actions>
+    <button mat-button (click)="dialogClose()">Cancel</button>
+    <button mat-raised-button [disabled]="this.groupname.invalid || this.openness.invalid"
+        matTooltip="{{(this.groupname.invalid || this.openness.invalid )?'Please fill all the required fields':'yes'}}"
+        (click)="createGroup()" color="primary">Ok</button>
+</div>

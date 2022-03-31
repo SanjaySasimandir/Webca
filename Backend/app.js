@@ -7,19 +7,6 @@ const io = require('socket.io')(http, {
         methods: "*"
     }
 });
-const port = process.env.PORT || 3000;
-
-app.use(express.static('./public'));
-
-// var corsMiddleware = function (req, res, next) {
-//     res.header('Access-Control-Allow-Origin', '0.0.0.0'); //replace localhost with actual host
-//     res.header('Access-Control-Allow-Methods', 'OPTIONS, GET, PUT, PATCH, POST, DELETE');
-//     res.header('Access-Control-Allow-Headers', 'Content-Type, X-Requested-With, Authorization');
-
-//     next();
-// }
-// app.use(corsMiddleware);
-
 
 const cors = require('cors');
 app.use(cors());
@@ -33,45 +20,54 @@ app.use(bodyparser.urlencoded({
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 
+app.use(express.static('./public'));
+
+
+
+/*********Router Definition - Starts *********/
 const userRouter = require('./src/routes/user.route');
 app.use('/users', userRouter);
 
 const verifyRouter = require('./src/routes/verify.route');
 app.use('/verify', verifyRouter);
 
+const GroupRouter = require('./src/routes/groups.route');
+app.use('/groups', GroupRouter);
+/*********Router Definition - Ends *********/
+
+
+const moment = require('moment');
+
+
 const jwt = require('jsonwebtoken');
 const UserData = require('./src/models/UserData');
-const res = require('express/lib/response');
 
 let connectedUsers = new Map();
 
 io.on('connection', (socket) => {
 
     let token = socket.handshake.query.token;
-    let id = jwt.verify(token, 'Lancia047');
-    console.log('User Connected:' , id);
-    UserData.findById(id.uniqueID).then((data) => {
-        console.log(data.username);
-        io.to({
-            "username": data.username,
-            "chats":data.chats,
+    let id = jwt.verify(token, 'Lancia047').uniqueID;
 
-        })
+    let username;
+    socket.join(id);
+    UserData.findById(id, { username: 1 }).then((data) => {
+        console.log('User Connected:', data.username);
+        username = data.username;
     });
+    require('./src/socket-routes/group.socket')(socket, id, io);
 
-
-
-
-    io.to()
 
     socket.on('disconnect', () => {
-        console.log('User Disconnected: ' + id);
+        console.log('User Disconnected: ', username);
+        socket.leave(id)
     })
 });
 
 
 
 
+const port = process.env.PORT || 3000;
 http.listen(port, () => {
     console.log("Server Listening at port: " + port);
 });

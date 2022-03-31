@@ -1,15 +1,15 @@
-import { Component, OnInit, Sanitizer } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { UserauthService } from 'src/app/services/userauth.service';
 import { WebSocketService } from 'src/app/services/web-socket.service';
 
 @Component({
-  selector: 'app-chat',
-  templateUrl: './chat.component.html',
-  styleUrls: ['./chat.component.css']
+  selector: 'app-dashboard',
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.css']
 })
-export class ChatComponent implements OnInit {
+export class DashboardComponent implements OnInit {
 
   constructor(private router: Router, public userAuth: UserauthService, private _snackBar: MatSnackBar, private webSocket: WebSocketService) { }
 

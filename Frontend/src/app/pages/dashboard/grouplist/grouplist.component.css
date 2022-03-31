@@ -1,0 +1,122 @@
+.main-container {
+  background: #303030;
+  padding: 0;
+}
+
+.container-fluid {
+  background-color: #414141;
+  height: calc(100%);
+  width: 74px;
+  margin: 0.3rem;
+  border-radius: 0.5rem 0 0 0.5rem;
+}
+
+.row {
+  padding: 0;
+  margin: 0;
+}
+.create-group {
+  margin-bottom: 10px;
+  border-radius: 0.8rem 0.8rem 0.8rem 0.8rem;
+}
+.create-group mat-icon {
+  scale: 1.5;
+  transition: 0.7s;
+}
+
+.create-group :hover {
+  transform: rotate(90deg);
+  transition: 0.7s;
+}
+
+.card-avatar {
+  background-image: url("https://st.depositphotos.com/1779253/5140/v/380/depositphotos_51405259-stock-illustration-male-avatar-profile-picture-use.jpg");
+  background-size: cover;
+  object-fit: cover;
+  border-radius: 1.5rem;
+  width: 3rem;
+  height: 3rem;
+  padding: 0;
+  margin: 0;
+}
+
+.profile-settings {
+  border-top: 1px solid #7f7c7c;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  cursor: pointer;
+  transition: 0.4s;
+}
+
+.profile-settings :hover {
+  border-radius: 0.5rem !important;
+  border: 1px solid #e0dbdb;
+  /* transform: rotate(-360deg); */
+  transform: scale(1.15);
+  transition: 0.4s;
+}
+
+.group-list {
+  height: calc(100vh - 150px);
+  overflow: scroll;
+  overflow-x: hidden;
+  padding: 0 0.75rem 0 0.75rem;
+}
+
+* {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+.create-group-separation {
+  background-color: #fff;
+  margin-bottom: 10px;
+}
+
+.group-item {
+  cursor: pointer;
+  transition: 0.4s;
+}
+.group-item :hover {
+  transition: 0.4s;
+}
+
+.group-avatar {
+  background-image: url("https://cdn1.iconfinder.com/data/icons/ui-4/502/group-512.png");
+  background-color: #fff;
+  background-size: cover;
+  object-fit: cover;
+  border-radius: 1.5rem;
+  width: 3rem;
+  height: 3rem;
+  padding: 0;
+  margin-top: 0.7rem;
+  margin-bottom: 0.7rem;
+}
+
+.group-tooltip {
+  font-size: 1.5rem;
+  scale: 15rem;
+}
+.group-item-cover {
+  margin: 0;
+  padding: 0;
+  transition: 0.4s;
+  cursor: pointer;
+}
+
+.group-item-cover :hover {
+  transition: 0.4s;
+  border-radius: 0.5rem;
+  background-color: #e4e4e4;
+}
+
+.selected-group {
+  border: 2px solid #ffffff;
+  border-radius: 0.5rem;
+}
+

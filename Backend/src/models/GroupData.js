@@ -9,13 +9,13 @@ const Schema = mongoose.Schema;
 
 const GroupSchema = new Schema({
     name: String,
-    uniqueName: String,
     channels: [{
         channelName: String,
         channelID: String,
     }],
     creationDetails: {
         creatorName: String,
+        creatorUsername: String,
         creatorID: String,
         creationTime: String
     },
@@ -23,10 +23,12 @@ const GroupSchema = new Schema({
         username: String,
         fullname: String,
         id: String,
-        online: Boolean
+        online: Boolean,
+        role: String,
     }],
     description: String,
-    picture: String
+    picture: String,
+    openness: String
 });
 
 // Model Creation
