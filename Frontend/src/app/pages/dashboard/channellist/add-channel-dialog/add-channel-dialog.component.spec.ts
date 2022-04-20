@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ChatboxComponent } from './chatbox.component';
+import { AddChannelDialogComponent } from './add-channel-dialog.component';
 
-describe('ChatboxComponent', () => {
-  let component: ChatboxComponent;
-  let fixture: ComponentFixture<ChatboxComponent>;
+describe('AddChannelDialogComponent', () => {
+  let component: AddChannelDialogComponent;
+  let fixture: ComponentFixture<AddChannelDialogComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ChatboxComponent ]
+      declarations: [ AddChannelDialogComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ChatboxComponent);
+    fixture = TestBed.createComponent(AddChannelDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

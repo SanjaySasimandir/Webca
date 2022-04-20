@@ -16,6 +16,6 @@
 <div mat-dialog-actions>
     <button mat-button (click)="dialogClose()">Cancel</button>
     <button mat-raised-button [disabled]="this.groupname.invalid || this.openness.invalid"
-        matTooltip="{{(this.groupname.invalid || this.openness.invalid )?'Please fill all the required fields':'yes'}}"
-        (click)="createGroup()" color="primary">Ok</button>
+        matTooltip="{{(this.groupname.invalid || this.openness.invalid )?'Please fill all the required fields':'Click to create new group'}}"
+        (click)="createGroup()" color="primary">Create group</button>
 </div>

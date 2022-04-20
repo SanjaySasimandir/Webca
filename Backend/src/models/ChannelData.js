@@ -9,6 +9,7 @@ const Schema = mongoose.Schema;
 
 const ChannelSchema = new Schema({
     name: String,
+    groupid: String,
     members: [{
         username: String,
         fullname: String,

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { GroupService } from 'src/app/services/group.service';
+import { WebSocketService } from 'src/app/services/web-socket.service';
 
 @Component({
   selector: 'app-create-group',
@@ -10,7 +11,7 @@ import { GroupService } from 'src/app/services/group.service';
 })
 export class CreateGroupComponent implements OnInit {
 
-  constructor(private dialogRef: MatDialogRef<CreateGroupComponent>, private groupService: GroupService) { }
+  constructor(private dialogRef: MatDialogRef<CreateGroupComponent>, private groupService: GroupService, private webSocket: WebSocketService) { }
 
   dialogClose() {
     this.dialogRef.close();
@@ -23,6 +24,7 @@ export class CreateGroupComponent implements OnInit {
     console.log('create group')
     this.groupService.createGroup({ "groupname": this.groupname.value, "openness": this.openness.value, "token": localStorage.getItem('token') }).subscribe(res => {
       console.log(res);
+      this.webSocket.emit('get groups trigger',{});
     });
     this.dialogClose();
   }

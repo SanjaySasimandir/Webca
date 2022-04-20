@@ -40,6 +40,8 @@ GroupRouter.post('/create', (req, res) => {
                     role: 'owner'
                 }]
                 group.save().then(response => {
+                    main_channel.groupid = response._id;
+                    main_channel.save();
                     UserData.findById(id).then(user => {
                         user.groups.push({
                             groupname: response.name,

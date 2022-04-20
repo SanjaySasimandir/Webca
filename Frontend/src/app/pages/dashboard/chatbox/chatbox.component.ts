@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { UsersChannelModel } from 'src/app/models/group.model';
 
 @Component({
   selector: 'app-chatbox',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./chatbox.component.css']
 })
 export class ChatboxComponent implements OnInit {
+
+  @Input() selectedChannel = new UsersChannelModel('', '', '', '');
 
   constructor() { }
 

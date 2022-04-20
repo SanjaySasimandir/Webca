@@ -1,0 +1,7 @@
+.container-fluid {
+  background-color: #303030;
+  height: 100%;
+  width: calc(100vw - 316px);
+  margin-left: 2px;
+  color: #fafafa;
+}

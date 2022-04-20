@@ -2,7 +2,7 @@ import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { UsersGroupModel } from 'src/app/models/group.model';
+import { UsersChannelModel, UsersGroupModel } from 'src/app/models/group.model';
 import { UserauthService } from 'src/app/services/userauth.service';
 import { WebSocketService } from 'src/app/services/web-socket.service';
 import { ChannellistComponent } from '../channellist/channellist.component';
@@ -42,6 +42,7 @@ export class GrouplistComponent implements OnInit {
 
   groups: UsersGroupModel[] = [];
   loadGroupList() {
+    this.webSocket.emit('get groups trigger', {});
     this.webSocket.listen('get groups').subscribe((res: any) => {
       this.groups = res;
       console.log(this.groups);
@@ -50,12 +51,15 @@ export class GrouplistComponent implements OnInit {
   }
 
   selectedGroup = new UsersGroupModel('', '', '', '', []);
+  selectedChannel = new UsersChannelModel('', '', '', '');
   groupsbackup: UsersGroupModel[] = [];
+  channelsbackup: UsersChannelModel[] = [];
   selectGroup(group: UsersGroupModel) {
     this.selectedGroup = group;
     this.groupsbackup = this.groups;
     this.groups = [];
     this.groups = this.groupsbackup;
+    this.selectedChannel = this.selectedGroup.channels.filter(channel => channel.channelname == "main")[0];
     this.refreshChannelList();
   }
 

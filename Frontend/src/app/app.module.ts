@@ -47,8 +47,7 @@ import { TextFieldModule } from '@angular/cdk/text-field';
 import { MainComponent } from './pages/main/main.component';
 import { UserauthService } from './services/userauth.service';
 import { ChatComponent } from './pages/chat/chat.component';
-import { ChatboxComponent } from './pages/chat/chatbox/chatbox.component';
-import { ChatlistComponent } from './pages/chat/chatlist/chatlist.component';
+import { ChatboxComponent } from './pages/dashboard/chatbox/chatbox.component';
 import { AuthFooterComponent } from './pages/auth-footer/auth-footer.component';
 import { HeaderComponent } from './pages/header/header.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
@@ -56,6 +55,7 @@ import { GrouplistComponent } from './pages/dashboard/grouplist/grouplist.compon
 import { ChannellistComponent } from './pages/dashboard/channellist/channellist.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { CreateGroupComponent } from './pages/dashboard/grouplist/create-group/create-group.component';
+import { AddChannelDialogComponent } from './pages/dashboard/channellist/add-channel-dialog/add-channel-dialog.component';
 
 const materialModules = [
   CdkTreeModule,
@@ -105,13 +105,13 @@ const materialModules = [
     MainComponent,
     ChatComponent,
     ChatboxComponent,
-    ChatlistComponent,
     AuthFooterComponent,
     HeaderComponent,
     DashboardComponent,
     GrouplistComponent,
     ChannellistComponent,
     CreateGroupComponent,
+    AddChannelDialogComponent,
   ],
   imports: [
     BrowserModule,

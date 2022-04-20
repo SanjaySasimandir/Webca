@@ -1,0 +1,14 @@
+<h1 mat-dialog-title>Create a group</h1>
+<mat-form-field appearance="outline">
+    <mat-label>Cha Name</mat-label>
+    <input matInput [formControl]="channelname" placeholder="mygroup" minlength="4" maxlength="20" (input)="dupeChannelCheck()" required>
+    <mat-error *ngIf="channelname.invalid && channelname.value==''">Group name cannot be empty</mat-error>
+</mat-form-field>
+<br>
+
+<div mat-dialog-actions>
+    <button mat-button [mat-dialog-close]>Cancel</button>
+    <button mat-raised-button [disabled]="this.channelname.invalid"
+        matTooltip="{{(this.channelname.invalid)?'Please enter a channel name':'Click to create new channel'}}"
+        (click)="createChannel()" color="primary">Add Channel</button>
+</div>

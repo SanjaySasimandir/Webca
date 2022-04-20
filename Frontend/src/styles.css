@@ -1,32 +1,33 @@
 /* You can add global styles to this file, and also import other style files */
 
 * {
-    outline: none !important;
+  outline: none !important;
 }
 
-html, body {
-    height: 100%;
+html,
+body {
+  height: 100%;
 }
 
 body {
-    margin: 0;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
-    background: #fafafa;
-}
-
-html, body {
-    height: 100%;
-}
-
-body {
-    margin: 0;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background: #fafafa;
 }
 
 .modal-backdrop {
-    z-index: 0 !important;
+  z-index: 0 !important;
 }
 
-.modal-content{
-    z-index: 0 !important;
+.modal-content {
+  z-index: 0 !important;
+}
+
+.mat-menu-panel.custom-menu {
+  background-color: #494949;
+  color: #fff;
+}
+
+.mat-menu-panel * {
+  color: #fff !important;
 }

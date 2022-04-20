@@ -9,9 +9,10 @@ export class UserauthService {
 
   constructor(private http: HttpClient) { }
 
-  server_address = "http://192.168.1.8:3000/"; //localhost as IPv4 address
-  // server_address = "http://172.16.63.127:3000/"; //localhost as IPv4 address
   // server_address = "http://localhost:3000/"; //localhost
+  server_address = "http://192.168.1.7:3000/"; //localhost as IPv4 address
+  // server_address = "http://192.168.137.1:3000/"; //localhost as IPv4 address
+  // server_address = "http://172.16.63.127:3000/"; //localhost as IPv4 address
   // server_address = "https://webca-app.herokuapp.com/"; //heroku
   server_users_address = this.server_address + "users/";
 

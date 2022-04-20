@@ -1,7 +1,31 @@
-<div class="container-fluid vh-100" *ngIf="selectedGroup.groupname">
-    <mat-card-title>{{selectedGroup.groupname}}</mat-card-title>
-    <div class="channel-list-item" *ngFor="let channels of selectedGroup.channels">
-        <div mat-card-avatar class="channel-icon"></div>
-        <h2 class="channel-name">{{channels.channelname}}</h2>
+<div class="d-inline-flex">
+    <div class="container-fluid vh-100" *ngIf="selectedGroup.groupname">
+        <div class="d-flex">
+            <mat-card-title>{{selectedGroup.groupname}}</mat-card-title>
+            <div class="flex-fill"></div>
+            <button mat-icon-button [matMenuTriggerFor]="menu" matTooltip="Show menu" matTooltipPosition="after">
+                <mat-icon class="group-menu-icon">more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu" color="#fff" class="custom-menu">
+                <button mat-menu-item (click)="addChannel()">
+                    <mat-icon>add</mat-icon>
+                    <span>Add a channel</span>
+                </button>
+                <button mat-menu-item>
+                    <mat-icon>voicemail</mat-icon>
+                    <span>Check voice mail</span>
+                </button>
+                <button mat-menu-item>
+                    <mat-icon>notifications_off</mat-icon>
+                    <span>Disable alerts</span>
+                </button>
+            </mat-menu>
+
+        </div>
+        <div class="channel-list-item" *ngFor="let channel of selectedGroup.channels" (click)="selectedChannel=channel">
+            <div mat-card-avatar class="channel-icon"></div>
+            <h2 class="channel-name">{{channel.channelname}}</h2>
+        </div>
     </div>
+    <app-chatbox *ngIf="selectedGroup.groupname" [selectedChannel]="selectedChannel"></app-chatbox>
 </div>
