@@ -56,6 +56,7 @@ import { ChannellistComponent } from './pages/dashboard/channellist/channellist.
 import { MatDialogModule } from '@angular/material/dialog';
 import { CreateGroupComponent } from './pages/dashboard/grouplist/create-group/create-group.component';
 import { AddChannelDialogComponent } from './pages/dashboard/channellist/add-channel-dialog/add-channel-dialog.component';
+import { InviteComponent } from './pages/invite/invite.component';
 
 const materialModules = [
   CdkTreeModule,
@@ -112,6 +113,7 @@ const materialModules = [
     ChannellistComponent,
     CreateGroupComponent,
     AddChannelDialogComponent,
+    InviteComponent,
   ],
   imports: [
     BrowserModule,

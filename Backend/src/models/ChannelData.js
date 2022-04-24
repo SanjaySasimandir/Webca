@@ -10,16 +10,18 @@ const Schema = mongoose.Schema;
 const ChannelSchema = new Schema({
     name: String,
     groupid: String,
+    channelOpenness: String,
+    description: String,
+    picture: String,
+    pinnedMessage: String,
     members: [{
         username: String,
         fullname: String,
         id: String,
         online: Boolean,
-        role: String
+        role: String,
+        picture: String
     }],
-    description: String,
-    picture: String,
-    pinnedMessage: String,
     messages: [{
         messageType: String,
         message: String,

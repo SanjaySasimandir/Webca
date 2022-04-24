@@ -111,15 +111,17 @@
 
 .group-item-cover :hover {
   transition: 0.4s;
-  border-radius: 0.5rem;
+  /* border-radius: 0.5rem; */
   background-color: #e4e4e4;
+  transform: scale(1.1);
 }
 
 .selected-group {
   border: 2px solid #ffffff;
   border-radius: 0.5rem;
+  transform: scale(1.2);
 }
 
-app-channellist{
+app-channellist {
   width: 240px;
 }

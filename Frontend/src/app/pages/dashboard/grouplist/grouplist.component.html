@@ -29,5 +29,5 @@
             </div>
         </div>
     </div>
-    <app-channellist [selectedGroup]="selectedGroup" [selectedChannel]="selectedChannel"></app-channellist>
+    <app-channellist *ngIf="selectedGroup.groupname" [selectedGroup]="selectedGroup" [selectedChannel]="selectedChannel"></app-channellist>
 </div>

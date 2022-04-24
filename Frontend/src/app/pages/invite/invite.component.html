@@ -1,0 +1,27 @@
+<div class="d-flex align-items-center wh-100 vh-100 main-container">
+    <div class="container-fluid">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-lg-8 col-md-10 col-sm-12 row justify-content-center align-items-center">
+                <div class="col-lg-2 col-md-3 col-sm-5 justify-content-center group-avatar-container">
+                    <img class="group-avatar" src="https://material.angular.io/assets/img/examples/shiba2.jpg">
+                </div>
+                <div class="col-lg-2 col-md-4 col-sm-5 text-center">
+                    <mat-card-title>{{groupname}}</mat-card-title>
+                    <br>
+                    <mat-card-subtitle>{{membercount}} {{membercount > 1 ? 'members' : 'member'}}</mat-card-subtitle>
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-10 col-sm-12 row justify-content-center align-items-center">
+                <div class="col-5 text-center footer">
+                    <mat-card-subtitle>Accept invite to join?</mat-card-subtitle>
+                    <mat-divider></mat-divider>
+                    <mat-card-actions class="d-flex">
+                        <button mat-button color="warn">No, go back</button>
+                        <div class="flex-grow-1"></div>
+                        <button mat-raised-button color="primary" (click)="joingroup()">I accept</button>
+                      </mat-card-actions>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

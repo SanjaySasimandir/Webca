@@ -12,6 +12,8 @@ const GroupSchema = new Schema({
     channels: [{
         channelName: String,
         channelID: String,
+        channelOpenness: String,
+        channelPicture: String,
     }],
     creationDetails: {
         creatorName: String,
@@ -25,10 +27,13 @@ const GroupSchema = new Schema({
         id: String,
         online: Boolean,
         role: String,
+        picture: String
     }],
     description: String,
     picture: String,
-    openness: String
+    openness: String,
+    inviteString: String,
+    mainChannelId: String
 });
 
 // Model Creation

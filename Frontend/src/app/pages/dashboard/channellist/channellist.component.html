@@ -11,9 +11,11 @@
                     <mat-icon>add</mat-icon>
                     <span>Add a channel</span>
                 </button>
-                <button mat-menu-item>
-                    <mat-icon>voicemail</mat-icon>
-                    <span>Check voice mail</span>
+                <button mat-menu-item [cdkCopyToClipboard]="inviteLink">
+                    <mat-icon><span class="material-icons">
+                        content_copy
+                    </span></mat-icon>
+                    <span>Copy invite link</span>
                 </button>
                 <button mat-menu-item>
                     <mat-icon>notifications_off</mat-icon>

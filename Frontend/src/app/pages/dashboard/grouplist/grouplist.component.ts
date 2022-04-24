@@ -64,7 +64,9 @@ export class GrouplistComponent implements OnInit {
   }
 
   refreshChannelList() {
-    this.channelList.ngOnInit()
+    if (this.channelList) {
+      this.channelList.ngOnInit()
+    }
   }
 
   ngOnInit(): void {

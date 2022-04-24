@@ -28,6 +28,9 @@ body {
   color: #fff;
 }
 
-.mat-menu-panel * {
+.mat-menu-panel.custom-menu * {
   color: #fff !important;
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
