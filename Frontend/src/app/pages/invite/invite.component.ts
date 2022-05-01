@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { GroupService } from 'src/app/services/group.service';
+import { UserauthService } from 'src/app/services/userauth.service';
 import { WebSocketService } from 'src/app/services/web-socket.service';
 
 @Component({
@@ -10,13 +11,14 @@ import { WebSocketService } from 'src/app/services/web-socket.service';
 })
 export class InviteComponent implements OnInit {
 
-  constructor(private activatedRoute: ActivatedRoute, private groupService: GroupService, private webSocket: WebSocketService) { }
+  constructor(private activatedRoute: ActivatedRoute, private groupService: GroupService, private webSocket: WebSocketService, private router: Router, private userauth: UserauthService) { }
 
   inviteString = "";
 
   groupname = "";
   membercount = 0;
   picture = "";
+  disable_buttons = true;
 
   joingroup() {
     this.webSocket.emit('join group', { "token": localStorage.getItem('token'), "inviteString": this.inviteString });
@@ -28,19 +30,26 @@ export class InviteComponent implements OnInit {
     });
   }
 
+  inviteInquiry() {
+    this.groupService.inviteInquiry({ "token": localStorage.getItem('token'), "inviteString": this.inviteString }).subscribe((res) => {
+      if (res.message === "member already") {
+        this.router.navigateByUrl('/');
+      }
+      if (res.message === "not member") {
+        this.disable_buttons = false;
+        this.groupname = res.name;
+        this.membercount = res.membercount;
+        if (res.picture) {
+          this.picture = this.userauth + res.picture;
+        }
+      }
+    });
+  }
+
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
       this.inviteString = params['invitestring'];
-      this.groupService.inviteInquiry({ "token": localStorage.getItem('token'), "inviteString": this.inviteString }).subscribe((res) => {
-        if (res.message === "member already") {
-          console.log('time to redirect');
-        }
-        if (res.message === "not member") {
-          this.groupname = res.name;
-          this.membercount = res.membercount;
-          this.picture = res.picture;
-        }
-      });
+      this.inviteInquiry();
     });
     this.socketListeners();
   }

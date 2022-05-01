@@ -27,6 +27,7 @@ export class GrouplistComponent implements OnInit {
 
   logout() {
     this.userAuth.logOut();
+    this.webSocket.close();
     this.router.navigate(['/login']);
   }
 
@@ -42,12 +43,8 @@ export class GrouplistComponent implements OnInit {
 
   groups: UsersGroupModel[] = [];
   loadGroupList() {
+    this.webSocket.connect();
     this.webSocket.emit('get groups trigger', {});
-    this.webSocket.listen('get groups').subscribe((res: any) => {
-      this.groups = res;
-      console.log(this.groups);
-      this.loadProfilePicture();
-    });
   }
 
   selectedGroup = new UsersGroupModel('', '', '', '', []);
@@ -68,8 +65,20 @@ export class GrouplistComponent implements OnInit {
       this.channelList.ngOnInit()
     }
   }
+  socketListeners() {
+    this.webSocket.listen('get groups').subscribe((res: any) => {
+      this.groups = res;
+      console.log(this.groups);
+      this.loadProfilePicture();
+    });
+
+    this.webSocket.listen('new message received').subscribe((res: any) => {
+      console.log(res);
+    });
+  }
 
   ngOnInit(): void {
     this.loadGroupList();
+    this.socketListeners();
   }
 }

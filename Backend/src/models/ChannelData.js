@@ -23,14 +23,17 @@ const ChannelSchema = new Schema({
         picture: String
     }],
     messages: [{
-        messageType: String,
-        message: String,
-        messageSender: {
-            username: String,
-            fullname: String,
-            id: String
-        },
-        messageTime: String,
+        date: String,
+        messagesForTheDay: [{
+            messageType: String,
+            message: String,
+            messageSender: {
+                username: String,
+                fullname: String,
+                id: String
+            },
+            messageTime: String,
+        }]
     }]
 });
 

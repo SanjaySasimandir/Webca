@@ -29,6 +29,8 @@ export class LoginComponent implements OnInit {
       if (status.message == "success") {
         this.loginError = true;
         localStorage.setItem('token', status.token);
+        localStorage.setItem('fullname', status.fullname);
+        localStorage.setItem('username', this.username.value);
         this.router.navigate(['']);
       }
       else {

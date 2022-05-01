@@ -95,14 +95,10 @@ GroupRouter.post('/create', (req, res) => {
 GroupRouter.post('/inviteinquiry', (req, res) => {
     let id = jwt.verify(req.body.data.token, "Lancia047").uniqueID;
     let invString = req.body.data.inviteString;
-    // GroupData.find({ inviteString: invString, members: { "$all": { id: id } } }).then((group) => {
-    // GroupData.find({ inviteString: invString, "members.id": id }).then((grouparr) => {
     GroupData.find({ inviteString: invString }, { name: 1, picture: 1, members: 1 }).then((grouparr) => {
         if (grouparr[0]) {
             let group = grouparr[0];
-            already_member_bool = group.members.filter(member => member.id == id) != [];
-            // if (already_member_bool) {
-            if (group.members.filter(member => member.id == id).length!=0) {
+            if (group.members.filter(member => member.id == id).length != 0) {
                 res.send({ "message": "member already" });
             }
             else {
@@ -115,12 +111,8 @@ GroupRouter.post('/inviteinquiry', (req, res) => {
             }
         }
     });
-    // UserData.findById(id, { _id: 1 }).then((user) => {
-    //     console.log(user);
-    // });
 });
 
-// GroupRouter.post('/joingroup', (req, res) => {
 function joingroup() {
     // let id = jwt.verify(req.body.data.token, "Lancia047").uniqueID;
     // let invString = req.body.data.invString;
@@ -177,7 +169,6 @@ function joingroup() {
         }
     });
 }
-// });
 
 
 module.exports = GroupRouter;

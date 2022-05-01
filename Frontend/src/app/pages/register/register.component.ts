@@ -136,7 +136,7 @@ export class RegisterComponent implements OnInit {
   }
 
   signupUser() {
-    let user = new RegistrationModel(this.fullname.value, this.email.value, this.bio.value, this.username.value, this.password.value);
+    let user = new RegistrationModel(this.fullname.value, this.email.value, this.bio.value, this.username.value, this.password.value, '');
     this.userauthService.signup(user).subscribe(status => {
       if (status.message == "success") {
         this.otpPage = false;

@@ -16,6 +16,9 @@ export class WebSocketService {
       this.socket = io(this.userauthService.server_address + '?token=' + localStorage.getItem('token'), { transports: ['websocket', 'polling', 'flashsocket'] })
     }
   }
+  connect(){
+    this.socket.connect();
+  }
 
 
   listen(eventName: String) {
@@ -28,5 +31,8 @@ export class WebSocketService {
 
   emit(eventName: String, data: any) {
     this.socket.emit(eventName, data);
+  }
+  close(){
+    this.socket.close();
   }
 }

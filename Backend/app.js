@@ -35,6 +35,31 @@ const GroupRouter = require('./src/routes/groups.route');
 app.use('/groups', GroupRouter);
 /*********Router Definition - Ends *********/
 
+const path = require('path');
+// app.get('/imgtest', (req, res) => {
+//     const options = {
+//         root: path.join(__dirname, 'public'),
+//         dotfiles: 'deny',
+//         headers: {
+//           'x-timestamp': Date.now(),
+//           'x-sent': true
+//         }
+//       }
+//     res.sendFile('/pfp/2m7ADozZ44RXYfpD5PxxQYN5.png',options);
+// });
+
+app.post('/imgtest', (req, res) => {
+    console.log(req)
+    const options = {
+        root: path.join(__dirname, 'public'),
+        dotfiles: 'deny',
+        headers: {
+            'x-timestamp': Date.now(),
+            'x-sent': true
+        }
+    }
+    res.sendFile('/pfp/2m7ADozZ44RXYfpD5PxxQYN5.png', options);
+});
 
 const moment = require('moment');
 
@@ -56,6 +81,7 @@ io.on('connection', (socket) => {
         username = data.username;
     });
     require('./src/socket-routes/group.socket')(socket, id, io);
+    require('./src/socket-routes/messages.socket')(socket, id, io);
 
 
     socket.on('disconnect', () => {

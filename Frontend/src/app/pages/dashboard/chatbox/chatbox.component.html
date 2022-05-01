@@ -1,3 +1,73 @@
-<div class="container-fluid d-flex">
-    {{selectedChannel.channelid}}
+<div class="container-fluid">
+    <div class="row d-flex align-items-center title-bar custom-container">
+        asf
+    </div>
+    <div class="row d-flex chat h-auto custom-container">
+        asf
+        <div aria-live="polite" aria-atomic="true" style="position: relative; min-height: 200px;">
+            <!-- Position it -->
+            <div style="position: absolute; top: 0; right: 0;">
+
+                <!-- Then put toasts within -->
+                <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast-header">
+                        <img src="..." class="rounded mr-2" alt="...">
+                        <strong class="mr-auto">Bootstrap</strong>
+                        <small class="text-muted">just now</small>
+                        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="toast-body">
+                        See? Just like this.
+                    </div>
+                </div>
+
+                <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast-header">
+                        <img src="..." class="rounded mr-2" alt="...">
+                        <strong class="mr-auto">Bootstrap</strong>
+                        <small class="text-muted">2 seconds ago</small>
+                        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="toast-body">
+                        Heads up, toasts will stack automatically
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-center align-items-center text-box custom-container">
+            <!-- <mat-card class="d-flex justify-content-center bottom-input-card align-items-center"> -->
+
+            <button mat-fab matSuffix color="primary" type="button" (click)="uploadToggle=!uploadToggle">
+                <mat-icon *ngIf="!uploadToggle"> insert_photo </mat-icon>
+                <mat-icon *ngIf="uploadToggle"> close </mat-icon>
+            </button>
+
+            <input class="form-control w-100 file-input" *ngIf="uploadToggle" single accept="image/*"
+                (change)="imageSelected($event)" type="file" placeholder="Upload an image">
+
+            <button mat-fab matSuffix color="primary" *ngIf="uploadToggle" (click)="sendImageSelected()"
+                [disabled]="!this.selectedImage">
+                <mat-icon>send</mat-icon>
+            </button>
+
+            <mat-card class="w-100 message-input">
+                <mat-form-field appearance="fill" color="warn" class="w-100" *ngIf="!uploadToggle">
+                    <textarea matInput [formControl]="newMessage" placeholder="Enter a message" cdkTextareaAutosize
+                        cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"></textarea>
+                </mat-form-field>
+            </mat-card>
+
+            <button mat-fab matSuffix color="primary" *ngIf="!uploadToggle" (click)="sendMessage()"
+                [disabled]="!this.newMessage.value">
+                <mat-icon>send</mat-icon>
+            </button>
+            <!-- </mat-card> -->
+
+        </div>
+    </div>
 </div>

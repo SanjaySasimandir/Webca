@@ -9,29 +9,15 @@
   background-color: #424242;
 }
 
-.vertical-divider {
-  /* background-image: linear-gradient(to top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1); */
-  background: #00f260;
-  background: -webkit-linear-gradient(to top, #0575e6, #00f260);
-  background: linear-gradient(to top, #0575e6, #00f260);
-  border-radius: 50rem;
-}
-
 .group-avatar-container {
   border-image-slice: 1;
   border-image-source: linear-gradient(to top, #0575e6, #00f260);
-  border-right: 10px solid;
+  border-right: 5px solid;
 }
 
 .group-avatar {
   background-image: url("https://cdn1.iconfinder.com/data/icons/ui-4/502/group-512.png");
   background-color: #fff;
-  /* background-size: cover;
-  object-fit: cover;
-  border-radius: 50%;
-  width: 10rem;
-  height: 10rem;
-  padding: 0; */
   width: 150px;
   height: 150px;
   object-position: 100% 0;
