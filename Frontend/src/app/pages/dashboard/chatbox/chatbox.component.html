@@ -1,45 +1,111 @@
 <div class="container-fluid">
-    <div class="row d-flex align-items-center title-bar custom-container">
+    <div class="row d-flex align-items-center title-bar custom-container" #titleBar>
         asf
     </div>
     <div class="row d-flex chat h-auto custom-container">
-        asf
-        <div aria-live="polite" aria-atomic="true" style="position: relative; min-height: 200px;">
-            <!-- Position it -->
-            <div style="position: absolute; top: 0; right: 0;">
 
-                <!-- Then put toasts within -->
-                <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-                    <div class="toast-header">
-                        <img src="..." class="rounded mr-2" alt="...">
-                        <strong class="mr-auto">Bootstrap</strong>
-                        <small class="text-muted">just now</small>
-                        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
+        <!-- Message Box Starts -->
+        <div class="message-box d-flex flex-column" #messageBox [scrollTop]="messageBox.scrollHeight"
+            *ngIf="!chatIsLoading">
+            <div class="col-12" *ngFor="let message of messagesInChat">
+                <div class="justify-content-start" *ngIf="message.messageSender!=username">
+                    <div class="col-5 d-flex justify-content-end me-auto message-options">
+                        <button mat-icon-button class="mat-message-menu" [matMenuTriggerFor]="menu">
+                            <mat-icon>keyboard_arrow_down</mat-icon>
                         </button>
+                        <mat-menu #menu="matMenu">
+                            <button mat-menu-item type="button" data-bs-toggle="modal"
+                                (click)="messageToForward=message;" data-bs-target="#forwardModal">
+                                <mat-icon class="flip-icon">reply</mat-icon>
+                                <span>Forward</span>
+                            </button>
+                            <button mat-menu-item [cdkCopyToClipboard]="message.messageContent.toString()">
+                                <mat-icon>content_copy</mat-icon>
+                                <span>Copy</span>
+                            </button>
+                        </mat-menu>
                     </div>
-                    <div class="toast-body">
-                        See? Just like this.
+                    <div class="col-5 me-auto">
+                        <div class="text-break message-wrapper" *ngIf="message.messageType=='text'">
+                            {{message.messageContent}}
+                            <div class="d-flex">
+                                <small class="ms-auto">
+                                    <mat-hint>{{message.messageTime}}</mat-hint>
+                                </small>
+                            </div>
+                        </div>
+                        <div class="img-message-wrapper" *ngIf="message.messageType.split('/')[0]=='image'">
+                            <img class="img-responsive w-100 img-round-border"
+                                src="data:{{message.messageType}};base64,{{message.messageContent}}"
+                                alt="Image From FILL HERE FILL">
+                            <div class="d-flex">
+                                <small class="ms-auto">
+                                    <mat-hint>{{message.messageTime}}</mat-hint>
+                                </small>
+                            </div>
+                        </div>
                     </div>
+                    <!-- <div class="col-5 me-auto message-wrapper message-wrapper"
+                *ngIf="message.messageType.split('/')[0]=='video'">
+                <video controls class="video-responsive w-100"
+                    src="data:{{message.messageType}};base64,{{message.messageContent}}" alt="Video From You">
+                </video>
+            </div> -->
                 </div>
-
-                <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-                    <div class="toast-header">
-                        <img src="..." class="rounded mr-2" alt="...">
-                        <strong class="mr-auto">Bootstrap</strong>
-                        <small class="text-muted">2 seconds ago</small>
-                        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
+                <div class="justify-content-end" *ngIf="message.messageSender==username">
+                    <div class="col-5 d-flex justify-content-end ms-auto message-options">
+                        <button class="message-options-user-icon" mat-icon-button [matMenuTriggerFor]="menu">
+                            <mat-icon>keyboard_arrow_down</mat-icon>
                         </button>
+                        <mat-menu #menu="matMenu">
+                            <button mat-menu-item type="button" data-bs-toggle="modal"
+                                (click)="messageToForward=message;" data-bs-target="#forwardModal">
+                                <mat-icon class="flip-icon">reply</mat-icon>
+                                <span>Forward</span>
+                            </button>
+                            <button mat-menu-item [cdkCopyToClipboard]="message.messageContent.toString()">
+                                <mat-icon>content_copy</mat-icon>
+                                <span>Copy</span>
+                            </button>
+                        </mat-menu>
                     </div>
-                    <div class="toast-body">
-                        Heads up, toasts will stack automatically
+                    <div class="col-5 ms-auto">
+                        <div class="text-break message-wrapper message-wrapper-user"
+                            *ngIf="message.messageType=='text'">
+                            {{message.messageContent}}
+                            <div class="d-flex">
+                                <small class="ms-auto">
+                                    <mat-hint class="user-message-date">{{message.messageTime}}</mat-hint>
+                                </small>
+                            </div>
+                        </div>
+                        <div class="img-message-wrapper message-wrapper-user"
+                            *ngIf="message.messageType.split('/')[0]=='image'">
+                            <img class="img-responsive w-100 img-round-border"
+                                src="data:{{message.messageType}};base64,{{message.messageContent}}"
+                                alt="Image From You">
+                            <div class="d-flex">
+                                <small class="ms-auto">
+                                    <mat-hint class="user-message-date">{{message.messageTime}}</mat-hint>
+                                </small>
+                            </div>
+                        </div>
                     </div>
+                    <!-- <div class="col-5 ms-auto message-wrapper message-wrapper-user"
+                *ngIf="message.messageType.split('/')[0]=='video'">
+                <video controls class="video-responsive w-100"
+                    src="data:{{message.messageType}};base64,{{message.messageContent}}" alt="Video From You">
+                </video>
+            </div> -->
+
                 </div>
             </div>
-        </div>
 
-        <div class="d-flex justify-content-center align-items-center text-box custom-container">
+        </div>
+        <!-- Message Box Ends -->
+
+
+        <div class="d-flex justify-content-center align-items-center text-box custom-container" #inputBar>
             <!-- <mat-card class="d-flex justify-content-center bottom-input-card align-items-center"> -->
 
             <button mat-fab matSuffix color="primary" type="button" (click)="uploadToggle=!uploadToggle">

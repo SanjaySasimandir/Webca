@@ -36,6 +36,8 @@ module.exports = function (socket, id, io) {
         let invString = req.inviteString;
         joingroup(user_id, invString, id, io);
     });
+
+
 }
 
 function joingroup(id, invString, socket_id, io) {

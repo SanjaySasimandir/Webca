@@ -7,6 +7,8 @@ import { UserauthService } from 'src/app/services/userauth.service';
 import { WebSocketService } from 'src/app/services/web-socket.service';
 import { ChannellistComponent } from '../channellist/channellist.component';
 import { CreateGroupComponent } from './create-group/create-group.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { NewMessageSnackBarComponent } from '../grouplist/new-message-snack-bar/new-message-snack-bar.component';
 
 @Component({
   selector: 'app-grouplist',
@@ -16,7 +18,11 @@ import { CreateGroupComponent } from './create-group/create-group.component';
 export class GrouplistComponent implements OnInit {
   @ViewChild(ChannellistComponent) channelList!: ChannellistComponent;
 
-  constructor(public dialog: MatDialog, private webSocket: WebSocketService, private userAuth: UserauthService, private router: Router) { }
+  constructor(public dialog: MatDialog,
+    private webSocket: WebSocketService,
+    private userAuth: UserauthService,
+    private router: Router,
+    private snackBar: MatSnackBar) { }
 
   groupname = new FormControl('', [Validators.required, Validators.minLength(5)]);
   openness = new FormControl('invite-only', [Validators.required])
@@ -36,7 +42,6 @@ export class GrouplistComponent implements OnInit {
     this.userAuth.getPFP().subscribe(data => {
       if (data.pfpURL) {
         this.profilePicture = this.userAuth.server_address + data.pfpURL;
-        console.log(this.profilePicture);
       }
     });
   }
@@ -68,13 +73,20 @@ export class GrouplistComponent implements OnInit {
   socketListeners() {
     this.webSocket.listen('get groups').subscribe((res: any) => {
       this.groups = res;
-      console.log(this.groups);
       this.loadProfilePicture();
     });
 
     this.webSocket.listen('new message received').subscribe((res: any) => {
       console.log(res);
+      this.openSnackBar(res);
     });
+  }
+
+  openSnackBar(res: any) {
+    this.snackBar.openFromComponent(NewMessageSnackBarComponent, {
+      duration: 3000,
+      data: { "res": res }
+    })
   }
 
   ngOnInit(): void {

@@ -44,21 +44,23 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { TextFieldModule } from '@angular/cdk/text-field';
+import { MatDialogModule } from '@angular/material/dialog';
+
 import { MainComponent } from './pages/main/main.component';
 import { UserauthService } from './services/userauth.service';
-import { ChatComponent } from './pages/chat/chat.component';
 import { ChatboxComponent } from './pages/dashboard/chatbox/chatbox.component';
 import { AuthFooterComponent } from './pages/auth-footer/auth-footer.component';
 import { HeaderComponent } from './pages/header/header.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { GrouplistComponent } from './pages/dashboard/grouplist/grouplist.component';
 import { ChannellistComponent } from './pages/dashboard/channellist/channellist.component';
-import { MatDialogModule } from '@angular/material/dialog';
 import { CreateGroupComponent } from './pages/dashboard/grouplist/create-group/create-group.component';
 import { AddChannelDialogComponent } from './pages/dashboard/channellist/add-channel-dialog/add-channel-dialog.component';
 import { InviteComponent } from './pages/invite/invite.component';
+import { NewMessageSnackBarComponent } from './pages/dashboard/grouplist/new-message-snack-bar/new-message-snack-bar.component';
 
 const materialModules = [
+  CommonModule,
   CdkTreeModule,
   ClipboardModule,
   TextFieldModule,
@@ -104,7 +106,6 @@ const materialModules = [
     LoginComponent,
     RegisterComponent,
     MainComponent,
-    ChatComponent,
     ChatboxComponent,
     AuthFooterComponent,
     HeaderComponent,
@@ -114,6 +115,7 @@ const materialModules = [
     CreateGroupComponent,
     AddChannelDialogComponent,
     InviteComponent,
+    NewMessageSnackBarComponent,
   ],
   imports: [
     BrowserModule,
