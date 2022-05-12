@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { UsersChannelModel } from 'src/app/models/group.model';
 import { SendMessageModel } from 'src/app/models/sendmessage.model';
@@ -40,6 +40,23 @@ export class ChatboxComponent implements OnInit {
   username = "" + localStorage.getItem('username');
   fullname = "" + localStorage.getItem('fullname');
   newMessage = new FormControl("");
+  messageToForward: any;
+  chatIsLoading = false;
+  messagesInChat = [
+    {
+      "messageContent": 'hello everyone',
+      "messageType": 'text',
+      "messageSender": 'nfsboy',
+      "messageTime": 'now'
+    },
+    {
+      "messageContent": 'hello everyone',
+      "messageType": 'text',
+      "messageSender": 'test123',
+      "messageTime": 'now'
+    },
+  ];
+
   sendMessage() {
     let newMessage = new SendMessageModel(
       this.selectedChannel.channelid,
@@ -53,9 +70,26 @@ export class ChatboxComponent implements OnInit {
     this.webSocket.emit('send message', newMessage);
   }
 
-  socketListeners() {
-    
+  loadedMessages: SendMessageModel[] = [];
+  recieveMessage() {
+    this.webSocket.listen('new message received').subscribe((res: any) => {
+      console.log(res);
+    });
   }
+
+  recieveOldMessages() {
+    this.webSocket.emit('get channel messages trigger', { 'channelid': this.selectedChannel.channelid, 'token': localStorage.getItem('token') });
+    this.webSocket.listen('get channel messages').subscribe((res: any) => {
+      console.log(res);
+    });
+  }
+
+  socketListeners() {
+    this.recieveOldMessages();
+    this.recieveMessage();
+  }
+
+
 
   ngOnInit(): void {
     this.socketListeners();
