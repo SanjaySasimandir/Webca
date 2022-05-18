@@ -24,7 +24,7 @@
             </mat-menu>
 
         </div>
-        <div class="channel-list-item" *ngFor="let channel of selectedGroup.channels" (click)="selectedChannel=channel">
+        <div class="channel-list-item" *ngFor="let channel of selectedGroup.channels" (click)="selectedChannel=channel; refreshChatbox()">
             <div mat-card-avatar class="channel-icon"></div>
             <h2 class="channel-name">{{channel.channelname}}</h2>
         </div>

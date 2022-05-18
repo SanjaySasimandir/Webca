@@ -11,12 +11,12 @@ export class WebSocketService {
   socket: any;
 
   constructor(private userauthService: UserauthService) {
-    if(userauthService.whetherLoggedIn()) {
-      
+    if (userauthService.whetherLoggedIn()) {
+
       this.socket = io(this.userauthService.server_address + '?token=' + localStorage.getItem('token'), { transports: ['websocket', 'polling', 'flashsocket'] })
     }
   }
-  connect(){
+  connect() {
     this.socket.connect();
   }
 
@@ -32,7 +32,20 @@ export class WebSocketService {
   emit(eventName: String, data: any) {
     this.socket.emit(eventName, data);
   }
-  close(){
+
+  listenOnce(eventName: String) {
+    return new Observable((subscriber) => {
+      this.socket.once(eventName, (data: any) => {
+        subscriber.next(data);
+      })
+    })
+  }
+
+  off(eventName: String) {
+    this.socket.off(eventName);
+  }
+
+  close() {
     this.socket.close();
   }
 }

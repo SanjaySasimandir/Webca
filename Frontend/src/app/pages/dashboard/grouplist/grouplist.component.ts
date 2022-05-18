@@ -77,7 +77,6 @@ export class GrouplistComponent implements OnInit {
     });
 
     this.webSocket.listen('new message received').subscribe((res: any) => {
-      console.log(res);
       this.openSnackBar(res);
     });
   }

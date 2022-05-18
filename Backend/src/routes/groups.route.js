@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const UserData = require('../models/UserData');
 const GroupData = require('../models/GroupData');
 const ChannelData = require('../models/ChannelData');
+const FolderData = require('../models/FolderData');
 const jwt = require('jsonwebtoken');
 
 function inviteStringGenerator() {
@@ -58,6 +59,17 @@ GroupRouter.post('/create', (req, res) => {
                     role: 'owner',
                     picture: data.picture
                 }];
+
+                let mainFolder = new FolderData();
+                mainFolder.name = channel.name;
+                mainFolder.author = data.username;
+                mainFolder.creationDate = moment().format('lll');
+                mainFolder.files = [];
+                mainFolder.folders = [];
+                mainFolder.save().then(mainFolder => {
+                    main_channel.mainFolderId = mainFolder._id;
+                });
+
 
                 group.save().then(response => {
                     main_channel.groupid = response._id;

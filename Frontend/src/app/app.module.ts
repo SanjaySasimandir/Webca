@@ -58,6 +58,8 @@ import { CreateGroupComponent } from './pages/dashboard/grouplist/create-group/c
 import { AddChannelDialogComponent } from './pages/dashboard/channellist/add-channel-dialog/add-channel-dialog.component';
 import { InviteComponent } from './pages/invite/invite.component';
 import { NewMessageSnackBarComponent } from './pages/dashboard/grouplist/new-message-snack-bar/new-message-snack-bar.component';
+import { VideoconfComponent } from './pages/videoconf/videoconf.component';
+import { FilesComponent } from './pages/dashboard/files/files.component';
 
 const materialModules = [
   CommonModule,
@@ -116,6 +118,8 @@ const materialModules = [
     AddChannelDialogComponent,
     InviteComponent,
     NewMessageSnackBarComponent,
+    VideoconfComponent,
+    FilesComponent,
   ],
   imports: [
     BrowserModule,

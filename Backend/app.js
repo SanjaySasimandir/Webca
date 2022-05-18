@@ -33,33 +33,44 @@ app.use('/verify', verifyRouter);
 
 const GroupRouter = require('./src/routes/groups.route');
 app.use('/groups', GroupRouter);
+
+const FilesRouter = require('./src/routes/files.route');
+app.use('/files', FilesRouter);
 /*********Router Definition - Ends *********/
 
 const path = require('path');
-// app.get('/imgtest', (req, res) => {
-//     const options = {
-//         root: path.join(__dirname, 'public'),
-//         dotfiles: 'deny',
-//         headers: {
-//           'x-timestamp': Date.now(),
-//           'x-sent': true
-//         }
-//       }
-//     res.sendFile('/pfp/2m7ADozZ44RXYfpD5PxxQYN5.png',options);
-// });
 
-app.post('/imgtest', (req, res) => {
-    console.log(req)
+/*app.get('/imgtest', (req, res) => {
+    console.log(req.headers)
     const options = {
-        root: path.join(__dirname, 'public'),
+        root: path.join(__dirname, '/'),
         dotfiles: 'deny',
         headers: {
             'x-timestamp': Date.now(),
             'x-sent': true
         }
     }
-    res.sendFile('/pfp/2m7ADozZ44RXYfpD5PxxQYN5.png', options);
-});
+    if (req.headers.token) {
+        
+        res.sendFile('/src/models/ChannelData.js', options);
+    }
+    else {
+        res.send("hello");
+    }
+});*/
+
+// app.post('/imgtest', (req, res) => {
+//     console.log(req)
+//     const options = {
+//         root: path.join(__dirname, 'public'),
+//         dotfiles: 'deny',
+//         headers: {
+//             'x-timestamp': Date.now(),
+//             'x-sent': true
+//         }
+//     }
+//     res.sendFile('/pfp/2m7ADozZ44RXYfpD5PxxQYN5.png', options);
+// });
 
 const moment = require('moment');
 
@@ -82,6 +93,7 @@ io.on('connection', (socket) => {
     });
     require('./src/socket-routes/group.socket')(socket, id, io);
     require('./src/socket-routes/messages.socket')(socket, id, io);
+    require('./src/socket-routes/files.socket')(socket, id, io);
 
 
     socket.on('disconnect', () => {

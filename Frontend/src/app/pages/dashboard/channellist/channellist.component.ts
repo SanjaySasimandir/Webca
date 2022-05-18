@@ -1,9 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { UsersChannelModel, UsersGroupModel } from 'src/app/models/group.model';
 import { UserauthService } from 'src/app/services/userauth.service';
 import { WebSocketService } from 'src/app/services/web-socket.service';
+import { ChatboxComponent } from '../chatbox/chatbox.component';
 import { AddChannelDialogComponent } from './add-channel-dialog/add-channel-dialog.component';
 @Component({
   selector: 'app-channellist',
@@ -13,6 +14,7 @@ import { AddChannelDialogComponent } from './add-channel-dialog/add-channel-dial
 export class ChannellistComponent implements OnInit {
   @Input() selectedGroup = new UsersGroupModel('', '', '', '', []);
   @Input() selectedChannel = new UsersChannelModel('', '', '', '');
+  @ViewChild(ChatboxComponent) ChatBox!: ChatboxComponent;
 
 
   constructor(private webSocket: WebSocketService, private dialog: MatDialog, private userAuth: UserauthService, private router: Router) { }
@@ -23,6 +25,12 @@ export class ChannellistComponent implements OnInit {
         "groupid": this.selectedGroup.groupid
       }
     });
+  }
+
+  refreshChatbox() {
+    setTimeout(() => {
+      this.ChatBox.ngOnInit();
+    }, 200)
   }
 
   inviteLink = "";
@@ -48,6 +56,7 @@ export class ChannellistComponent implements OnInit {
       this.initFunctions();
       this.socketListeners();
     }
+    this.refreshChatbox();
   }
 
 }

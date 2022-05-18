@@ -24,13 +24,17 @@ export class AddChannelDialogComponent implements OnInit {
   }
 
   socketListeners() {
-    this.webSocket.listen('dupe channel check result').subscribe((res:any) => {
+    this.webSocket.listen('dupe channel check result').subscribe((res: any) => {
       console.log(res);
     });
   }
 
   ngOnInit(): void {
     this.socketListeners();
+  }
+
+  ngOnDestroy(): void {
+    this.webSocket.off('dupe channel check result');
   }
 
 }

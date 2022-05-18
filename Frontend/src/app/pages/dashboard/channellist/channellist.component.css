@@ -43,3 +43,8 @@ mat-card-title {
 .group-menu-icon {
   color: #fff;
 }
+
+app-chatbox{
+  margin: 0;
+  padding: 0;
+}

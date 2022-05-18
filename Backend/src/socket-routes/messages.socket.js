@@ -10,7 +10,9 @@ module.exports = function (socket, id, io) {
         messagereq.messageSender['id'] = id;
         ChannelData.findById(req.channelid, { members: 1, messages: 1 }).then(channel => {
             let memberstosend = channel.members.filter(member => member.id != id).map(member => member.id);
-            io.to(memberstosend).emit('new message received', messagereq);
+            if (channel.members.length > 1) {
+                io.to(memberstosend).emit('new message received', messagereq);
+            }
             delete messagereq.channelid;
             if (channel) {
                 if (channel.messages.length == 0 || channel.messages[channel.messages.length - 1].date != moment().format('LL')) {
@@ -29,7 +31,8 @@ module.exports = function (socket, id, io) {
             if (user) {
                 ChannelData.findById(channelid, { messages: 1 }).then(channel => {
                     if (channel) {
-                        io.to(id).emit('get channel messages', channel.messages)
+                        let dataToSend = { "channelid": channelid, "messages": channel.messages };
+                        io.to(id).emit('get channel messages', dataToSend)
                     }
                 });
             }

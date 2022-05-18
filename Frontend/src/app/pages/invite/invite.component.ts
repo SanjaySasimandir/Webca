@@ -27,6 +27,9 @@ export class InviteComponent implements OnInit {
   socketListeners() {
     this.webSocket.listen('join group response').subscribe((res: any) => {
       console.log(res);
+      if(res.message=="done"){
+        this.router.navigateByUrl('/');
+      }
     });
   }
 
