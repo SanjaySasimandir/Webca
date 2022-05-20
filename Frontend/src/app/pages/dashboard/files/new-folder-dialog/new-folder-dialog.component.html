@@ -1,0 +1,16 @@
+<h1 mat-dialog-title>Create new folder</h1>
+<mat-form-field appearance="outline">
+    <mat-label>Folder Name</mat-label>
+    <input matInput [formControl]="foldername" placeholder="mygroup" minlength="1" maxlength="20"
+        (input)="dupeFolderCheck()" required>
+    <mat-error *ngIf="foldername.invalid && foldername.value==''">Folder name cannot be empty</mat-error>
+    <mat-error *ngIf="foldername.invalid && foldername.value!=''">Folder already exists</mat-error>
+</mat-form-field>
+<br>
+
+<div mat-dialog-actions>
+    <button mat-button (click)="closeDialog()">Cancel</button>
+    <button mat-raised-button [disabled]="this.foldername.invalid"
+        matTooltip="{{(this.foldername.invalid)?'Please enter a proper folder name': 'Click to create new folder'}}"
+        (click)="createFolder()" color="primary">Create Folder</button>
+</div>

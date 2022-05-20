@@ -25,7 +25,10 @@ export class ChatboxComponent implements OnInit {
     this.dialog.open(FilesComponent, {
       data: {
         "selectedChannel": this.selectedChannel
-      }
+      },
+      disableClose: true,
+      height: '85vh',
+      width: '80vw'
     });
   }
 

@@ -60,6 +60,7 @@ import { InviteComponent } from './pages/invite/invite.component';
 import { NewMessageSnackBarComponent } from './pages/dashboard/grouplist/new-message-snack-bar/new-message-snack-bar.component';
 import { VideoconfComponent } from './pages/videoconf/videoconf.component';
 import { FilesComponent } from './pages/dashboard/files/files.component';
+import { NewFolderDialogComponent } from './pages/dashboard/files/new-folder-dialog/new-folder-dialog.component';
 
 const materialModules = [
   CommonModule,
@@ -120,6 +121,7 @@ const materialModules = [
     NewMessageSnackBarComponent,
     VideoconfComponent,
     FilesComponent,
+    NewFolderDialogComponent,
   ],
   imports: [
     BrowserModule,
