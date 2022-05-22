@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'login', canActivate: [NotLoggedInGuard], component: LoginComponent },
   { path: 'signup', canActivate: [NotLoggedInGuard], component: RegisterComponent },
   { path: 'invite/:invitestring', canActivate: [AuthGuard], component: InviteComponent },
-  // { path: 'video', canActivate: [AuthGuard], component: VideoconfComponent },
+  { path: 'video/:roomid', canActivate: [AuthGuard], component: VideoconfComponent },
 ];
 
 @NgModule({

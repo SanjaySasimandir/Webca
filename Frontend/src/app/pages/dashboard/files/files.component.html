@@ -42,10 +42,12 @@
     </div>
 
     <!-- Files in folder -->
+    <h4 class="fw-bold fs-4 d-flex">Files</h4>
     <div class="d-flex justify-content-center">
-        <table class="vw-100" mat-table *ngIf="selectedFolder" [dataSource]="selectedFolder.files" matSort class="mat-elevation-z8">
+        <table class="vw-100" mat-table *ngIf="selectedFolder" [dataSource]="selectedFolder.files" matSort
+            class="mat-elevation-z8">
 
-            <ng-container matColumnDef="icon">
+            <!-- <ng-container matColumnDef="icon">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name">
                     &nbsp;
                 </th>
@@ -53,13 +55,19 @@
                     <mat-icon *ngIf="element.filetype=='txt'">description</mat-icon>
                     <mat-icon *ngIf="['jpg','png'].indexOf(element.filetype)!=-1">image</mat-icon>
                 </td>
-            </ng-container>
+            </ng-container> -->
 
             <ng-container matColumnDef="name">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name">
                     Filename
                 </th>
-                <td mat-cell *matCellDef="let element" (click)="downloadFile(element.filelocation)"> {{element.name}} </td>
+                <td mat-cell *matCellDef="let element" (click)="downloadFile(element)">
+                    <span class="filetype-icon">
+                        <mat-icon *ngIf="element.filetype=='txt'">description</mat-icon>
+                        <mat-icon *ngIf="['jpg','png'].indexOf(element.filetype)!=-1">image</mat-icon>
+                    </span>
+                    {{element.name}}
+                </td>
             </ng-container>
 
             <ng-container matColumnDef="author">

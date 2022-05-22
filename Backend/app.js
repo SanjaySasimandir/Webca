@@ -94,6 +94,7 @@ io.on('connection', (socket) => {
     require('./src/socket-routes/group.socket')(socket, id, io);
     require('./src/socket-routes/messages.socket')(socket, id, io);
     require('./src/socket-routes/files.socket')(socket, id, io);
+    require('./src/socket-routes/videocall.socket')(socket, id, io);
 
 
     socket.on('disconnect', () => {

@@ -61,6 +61,7 @@ import { NewMessageSnackBarComponent } from './pages/dashboard/grouplist/new-mes
 import { VideoconfComponent } from './pages/videoconf/videoconf.component';
 import { FilesComponent } from './pages/dashboard/files/files.component';
 import { NewFolderDialogComponent } from './pages/dashboard/files/new-folder-dialog/new-folder-dialog.component';
+import { VideoPlayerComponent } from './pages/videoconf/video-player/video-player.component';
 
 const materialModules = [
   CommonModule,
@@ -122,6 +123,7 @@ const materialModules = [
     VideoconfComponent,
     FilesComponent,
     NewFolderDialogComponent,
+    VideoPlayerComponent,
   ],
   imports: [
     BrowserModule,

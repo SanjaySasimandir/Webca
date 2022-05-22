@@ -52,35 +52,11 @@ export class FilesComponent implements OnInit {
   }
 
 
-  /*downloadFile(filelocation: String) {
-    const headers = new Headers({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${localStorage.getItem('token')}`
-    })
-    // this.http.get(this.userauthService.server_address + 'files/getFile/yXGFj8jH_RaMHJhOCT-KcHZ7.zvwVXyBscNglQkn6.jpg', {
-    //   responseType: 'arraybuffer', headers: headers,
-    // }
-
-    this.http.get(this.userauthService.server_address + 'files/getFile/' + filelocation, {
-      responseType: 'arraybuffer', headers: { 'Authorization': `${localStorage.getItem('token')}` }
-    }
-    ).subscribe(response => this.startdownloadFile(response, 'text/plain'));
-
-  }
-  startdownloadFile(data: any, type: string) {
-    let blob = new Blob([data], { type: type });
-    let url = window.URL.createObjectURL(blob);
-    let pwa = window.open(url);
-    if (!pwa || pwa.closed || typeof pwa.closed == 'undefined') {
-      alert('Please disable your Pop-up blocker and try again.');
-    }
-  }*/
-
-  downloadFile(filelocation: string){
+  downloadFile(file: any) {
 
     let token = "" + localStorage.getItem('token')
     const headers = new HttpHeaders().set('authorization', token);
-    this.http.get(this.userauthService.server_address + 'files/getFile/' + filelocation, { headers, responseType: 'blob' as 'json' }).subscribe(
+    this.http.get(this.userauthService.server_address + 'files/getFile/' + file.filelocation, { headers, responseType: 'blob' as 'json' }).subscribe(
       (response: any) => {
         let dataType = response.type;
         console.log(dataType)
@@ -88,8 +64,7 @@ export class FilesComponent implements OnInit {
         binaryData.push(response);
         let downloadLink = document.createElement('a');
         downloadLink.href = window.URL.createObjectURL(new Blob(binaryData, { type: dataType }));
-        if (filelocation)
-          downloadLink.setAttribute('download', filelocation);
+        downloadLink.setAttribute('download', file.name);
         document.body.appendChild(downloadLink);
         downloadLink.click();
         downloadLink.parentNode!.removeChild(downloadLink);
@@ -106,6 +81,10 @@ export class FilesComponent implements OnInit {
       }
     });
     this.refreshParentFolder();
+  }
+
+  sortFolder(folderlist:any){
+    
   }
 
   getMainFolder() {
@@ -138,7 +117,8 @@ export class FilesComponent implements OnInit {
     this.loadFolder(this.previous_folder_ids.pop());
   }
 
-  displayedColumns: string[] = ['icon', 'name', 'author', 'uploadDate'];
+  // displayedColumns: string[] = ['icon', 'name', 'author', 'uploadDate'];
+  displayedColumns: string[] = ['name', 'author', 'uploadDate'];
   displayedColumnsForFolders: string[] = ['icon', 'name'];
   socketListeners() {
     this.webSocket.listenOnce('get main folder').subscribe((res: any) => {

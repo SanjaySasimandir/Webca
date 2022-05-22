@@ -8,6 +8,7 @@ import { MessageSender } from 'src/app/models/sendmessage.model';
 import { Message, MessagesModel } from 'src/app/models/message.model';
 import { MatDialog } from '@angular/material/dialog';
 import { FilesComponent } from '../files/files.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-chatbox',
@@ -18,7 +19,7 @@ export class ChatboxComponent implements OnInit {
 
   @Input() selectedChannel = new UsersChannelModel('', '', '', '');
 
-  constructor(private webSocket: WebSocketService, private dialog: MatDialog) { }
+  constructor(private webSocket: WebSocketService, private dialog: MatDialog, private router: Router) { }
 
   showfiles = false;
   openFiles() {
@@ -102,12 +103,18 @@ export class ChatboxComponent implements OnInit {
     });
   }
 
+  getVideoCallLink() {
+    this.webSocket.emit('get video call link trigger', { "channelid": this.selectedChannel.channelid, "token": localStorage.getItem('token') });
+    this.webSocket.listenOnce('get video call link').subscribe((res: any) => {
+      console.log(res.roomlink)
+      this.router.navigateByUrl('video/' + res.roomlink);
+    });
+  }
+
   socketListeners() {
     this.recieveOldMessages();
     this.recieveMessage();
   }
-
-
 
 
   ngOnInit(): void {

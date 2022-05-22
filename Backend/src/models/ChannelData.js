@@ -51,6 +51,11 @@ const ChannelSchema = new Schema({
         }]
     }],
     mainFolderId: String,
+    videoRoomId: String,
+    videoRoomsList:[{
+        videoRoomId: String,
+        videoRoomLink: String,
+    }]
 });
 
 // Model Creation
