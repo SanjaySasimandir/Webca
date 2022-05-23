@@ -1,1 +1,13 @@
-<p>video-player works!</p>
+<div class="video-player" [ngClass]="{ 'my-video': mode === 'owner' }">
+    <video #videoPlayer muted></video>
+    <div class="action">
+        <button mat-fab class="icon" *ngIf="micIconSrc" color="primary" aria-label="Camera On Or Off"
+            (click)="muteOrUnMute()">
+            <mat-icon>{{micIconSrc}}</mat-icon>
+        </button>
+        <button mat-fab class="icon" *ngIf="webCamIconSrc" color="primary" aria-label="Camera On Or Off"
+            (click)="turnVideoOnOrOff()">
+            <mat-icon>{{webCamIconSrc}}</mat-icon>
+        </button>
+    </div>
+</div>

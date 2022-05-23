@@ -1,4 +1,8 @@
-<div>
-  <h5>Connect with Peer</h5>
-  <app-video-player></app-video-player>
+<div class="container-fluid body-container vh-100">
+  <div class="row">
+    <app-video-player class="col-3" *ngIf="localStream" [mode]="'owner'" [stream]="localStream" class="my-video">
+    </app-video-player>
+    <app-video-player class="col-3" *ngFor="let user of joinedUsers" [stream]="user.stream">
+    </app-video-player>
+  </div>
 </div>

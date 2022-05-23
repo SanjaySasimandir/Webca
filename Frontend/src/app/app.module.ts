@@ -62,6 +62,10 @@ import { VideoconfComponent } from './pages/videoconf/videoconf.component';
 import { FilesComponent } from './pages/dashboard/files/files.component';
 import { NewFolderDialogComponent } from './pages/dashboard/files/new-folder-dialog/new-folder-dialog.component';
 import { VideoPlayerComponent } from './pages/videoconf/video-player/video-player.component';
+import { WebSocketService } from './services/web-socket.service';
+import { GroupService } from './services/group.service';
+import { MediaService } from './services/video/media.service';
+import { PeerService } from './services/video/peer.service';
 
 const materialModules = [
   CommonModule,
@@ -134,7 +138,7 @@ const materialModules = [
     ReactiveFormsModule,
     materialModules
   ],
-  providers: [UserauthService],
+  providers: [UserauthService, WebSocketService, GroupService, MediaService, PeerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
