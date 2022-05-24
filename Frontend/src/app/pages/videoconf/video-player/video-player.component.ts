@@ -4,7 +4,8 @@ import { MediaService } from 'src/app/services/video/media.service';
 @Component({
   selector: 'app-video-player',
   templateUrl: './video-player.component.html',
-  styleUrls: ['./video-player.component.css']
+  styleUrls: ['./video-player.component.css'],
+  providers: [MediaService]
 })
 export class VideoPlayerComponent implements OnInit {
 
@@ -16,7 +17,7 @@ export class VideoPlayerComponent implements OnInit {
   public videoElementRef: any;
 
   constructor(
-    private mediaService: MediaService
+    public mediaService: MediaService
   ) { }
 
   ngOnInit(): void {

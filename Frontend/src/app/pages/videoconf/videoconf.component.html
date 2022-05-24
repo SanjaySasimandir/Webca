@@ -1,4 +1,27 @@
-<div class="container-fluid body-container vh-100">
+<div class="d-flex flex-column vw-100 vh-100 align-items-center justify-content-center body-container"
+  *ngIf="pageloading">
+  <h1 class="text-center logo">Webca</h1> <br>
+  <div class="spinner-grow text-light" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+<div class="d-flex flex-column vw-100 vh-100 align-items-center justify-content-center body-container"
+  *ngIf="invalidLink">
+  <h1 class="text-center">Invalid Link</h1> <br>
+  <button mat-raised-button routerLink="/">Dashboard</button>
+</div>
+<div class="d-flex flex-column vw-100 vh-100 align-items-center justify-content-center body-container"
+  *ngIf="linkexpired">
+  <h1 class="text-center">Link Expired</h1> <br>
+  <button mat-raised-button routerLink="/">Dashboard</button>
+</div>
+<div class="d-flex flex-column vw-100 vh-100 align-items-center justify-content-center body-container"
+  *ngIf="userNotAuthorized">
+  <h1 class="text-center">You are not authorized to enter this call</h1> <br>
+  <button mat-raised-button routerLink="/">Dashboard</button>
+</div>
+
+<div class="container-fluid body-container vh-100" *ngIf="userIsMember">
   <div class="row">
     <app-video-player class="col-3" *ngIf="localStream" [mode]="'owner'" [stream]="localStream" class="my-video">
     </app-video-player>
@@ -6,3 +29,5 @@
     </app-video-player>
   </div>
 </div>
+
+<app-chatbox *ngIf="selectedChannel.channelname" [selectedChannel]="selectedChannel"></app-chatbox>

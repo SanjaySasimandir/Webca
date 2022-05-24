@@ -11,17 +11,11 @@ export interface CallUser {
 export class PeerService {
   public peer: any;
   public myPeerId!: string;
-  public joinUser = new BehaviorSubject<CallUser>(null);
-  // public joinUser!: BehaviorSubject<CallUser>;
-  // public joinUser = new BehaviorSubject<CallUser>({
-  //   peerId: "",
-  //   stream: new MediaStream()
-  // });
-  firstjoinUser = true;
-  // public joinUser = new BehaviorSubject<CallUser>({
-  //   peerId: "",
-  //   stream: new MediaStream
-  // });
+  // public joinUser = new BehaviorSubject<CallUser>(null); // use this if strict = false in tsconfig.json
+  public joinUser = new BehaviorSubject<CallUser>({
+    peerId: "",
+    stream: new MediaStream()
+  });
   public leaveUser = new BehaviorSubject<string>("null");
   public localStream!: MediaStream;
   constructor(private http: HttpClient) { }

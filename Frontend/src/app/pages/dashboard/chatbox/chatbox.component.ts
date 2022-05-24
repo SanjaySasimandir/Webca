@@ -107,7 +107,9 @@ export class ChatboxComponent implements OnInit {
     this.webSocket.emit('get video call link trigger', { "channelid": this.selectedChannel.channelid, "token": localStorage.getItem('token') });
     this.webSocket.listenOnce('get video call link').subscribe((res: any) => {
       console.log(res.roomlink)
-      this.router.navigateByUrl('video/' + res.roomlink);
+      if (res.roomlink != undefined) {
+        this.router.navigateByUrl('video/' + res.roomlink);
+      }
     });
   }
 

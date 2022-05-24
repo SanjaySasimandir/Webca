@@ -51,8 +51,9 @@ const ChannelSchema = new Schema({
         }]
     }],
     mainFolderId: String,
-    videoRoomId: String,
-    videoRoomsList:[{
+    currentvideoRoomId: String,
+    currentvideoRoomLink: String,
+    videoRoomsList: [{
         videoRoomId: String,
         videoRoomLink: String,
     }]

@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
+import { UsersChannelModel } from 'src/app/models/group.model';
 import { CallUser, PeerService } from 'src/app/services/video/peer.service';
 import { WebSocketService } from 'src/app/services/web-socket.service';
 
@@ -35,23 +36,58 @@ export class VideoconfComponent implements OnInit {
     })
   }
 
-  ngOnInit(): void {
-    this.roomId = "" + this.activatedRoute.snapshot.paramMap.get('roomid');
-    console.log(this.roomId)
-    this.startUserStream();
-    this.hanleUserConnect()
-  }
-
-  /*fromhere*/
   public joinedUsers: CallUser[] = [];
   public roomId: string = '';
   public isHideChat = true;
 
-  consolethis() {
-    console.log(this.joinedUsers)
+  fetchChannel(roomid: String) {
+    this.webSocket.emit('fetch channel and attendance', { "token": localStorage.getItem('token'), "roomid": roomid })
   }
 
+  pageloading = true;
+  invalidLink = false;
+  linkexpired = false;
+  userNotAuthorized = false;
+  userIsMember = false;
+  invalidRoomListener() {
+    this.webSocket.listen('invalid room link').subscribe((res: any) => {
+      console.log(res);
+      if (res.message === 'invalid link') {
+        this.invalidLink = true;
+        this.pageloading = false;
+      }
+      else if (res.message === 'link expired') {
+        this.linkexpired = true;
+        this.pageloading = false;
+      }
+      else if (res.message === 'not authorized') {
+        this.userNotAuthorized = true;
+        this.pageloading = false;
+      }
+    });
+  }
 
+  selectedChannel = new UsersChannelModel('', '', '', '');
+  socketListeners() {
+    this.invalidRoomListener();
+    this.webSocket.listenOnce('get video room channel').subscribe((res: any) => {
+      this.selectedChannel = res.channel;
+      this.userIsMember = true;
+      this.pageloading = false;
+    });
+  }
+
+  initialFunctions(){
+    
+  }
+
+  ngOnInit(): void {
+    this.socketListeners();
+    this.roomId = "" + this.activatedRoute.snapshot.paramMap.get('roomid');
+    this.fetchChannel(this.roomId);
+    this.startUserStream();
+    this.handleUserConnect();
+  }
 
   ngAfterViewInit(): void {
     this.listenNewUser();
@@ -75,7 +111,7 @@ export class VideoconfComponent implements OnInit {
   public joinedId = new BehaviorSubject(null);
   public leavedId = new BehaviorSubject(null);
 
-  private hanleUserConnect(): void {
+  private handleUserConnect(): void {
     this.webSocket.listen('user-connected').subscribe((userId: any) => {
       this.joinedId.next(userId);
     })
@@ -106,11 +142,11 @@ export class VideoconfComponent implements OnInit {
   private listenNewUserStream(): void {
     this.peerService.joinUser.subscribe(user => {
       if (user) {
-        // if (user.peerId) {
+        if (user.peerId) {
           if (this.joinedUsers.findIndex(u => u.peerId === user.peerId) < 0) {
             this.joinedUsers.push(user);
           }
-        // }
+        }
       }
     })
   }

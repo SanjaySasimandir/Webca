@@ -138,7 +138,7 @@ const materialModules = [
     ReactiveFormsModule,
     materialModules
   ],
-  providers: [UserauthService, WebSocketService, GroupService, MediaService, PeerService],
+  providers: [UserauthService, WebSocketService, GroupService, PeerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

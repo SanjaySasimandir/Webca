@@ -87,6 +87,7 @@ io.on('connection', (socket) => {
 
     let username;
     socket.join(id);
+    
     UserData.findById(id, { username: 1 }).then((data) => {
         console.log('User Connected:', data.username);
         username = data.username;
@@ -95,23 +96,6 @@ io.on('connection', (socket) => {
     require('./src/socket-routes/messages.socket')(socket, id, io);
     require('./src/socket-routes/files.socket')(socket, id, io);
     require('./src/socket-routes/videocall.socket')(socket, id, io);
-
-
-
-    socket.on('join-room', (req) => {
-        let roomId = req.roomId;
-        let userId = req.userId;
-        console.log('roomId:', roomId, 'userId:', userId);
-        socket.join(roomId);
-        socket.broadcast.to(roomId).emit('user-connected', userId);
-        socket.on('disconnect', () => {
-            socket.broadcast.to(roomId).emit('user-disconnected', userId);
-        })
-        socket.on('chat', (content) => {
-            socket.broadcast.to(roomId).emit('new-message', content);
-        })
-    })
-
 
 
     socket.on('disconnect', () => {
