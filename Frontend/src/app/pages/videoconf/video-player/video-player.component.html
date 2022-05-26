@@ -13,10 +13,10 @@
 
     </div>
 
-    <!-- <div *ngIf="details.fullname">
-        <h3>{{details.fullname}}</h3>
-        <h4>{{details.username}}</h4>
-    </div> -->
+    <div class="position-absolute bottom-0 start-50 translate-middle-x" *ngIf="mode==='view'">
+        <h3 class="shadow">{{details.fullname}}</h3>
+        <h4 class="shadow">@{{details.username}}</h4>
+    </div>
 
     <div class="position-absolute bottom-0 end-0 shadow " *ngIf="mode === 'view'">
         <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="User Actions">

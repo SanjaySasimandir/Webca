@@ -36,8 +36,11 @@ module.exports = function (socket, id, io) {
                                 files: [],
                                 folders: []
                             });
+
+
                             newFolder.save().then(folder => {
                                 parentFolder.folders.push({ name: folder.name, folderid: folder._id });
+                                parentFolder.folders.sort(compare_name)
                                 parentFolder.save().then(folder => {
                                     io.to(id).emit('refresh parent folder', folder);
                                 });
@@ -48,4 +51,14 @@ module.exports = function (socket, id, io) {
             }
         });
     });
+}
+
+function compare_name(a, b) {
+    if (a.name.toLowerCase() < b.name.toLowerCase()) {
+        return -1;
+    }
+    if (a.name.toLowerCase() > b.name.toLowerCase()) {
+        return 1;
+    }
+    return 0;
 }

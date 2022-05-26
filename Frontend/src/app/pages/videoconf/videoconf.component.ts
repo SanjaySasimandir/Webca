@@ -109,13 +109,21 @@ export class VideoconfComponent implements OnInit {
   public joinedId = new BehaviorSubject(null);
   public leavedId = new BehaviorSubject(null);
   public joinedUsersDetails = new Map();
+
   private handleUserConnect(): void {
     // this.webSocket.listen('user-connected').subscribe((userId: any) => {
     //   this.joinedId.next(userId);
-    // })
+    // });
+    
+    this.webSocket.listen('refresh details list').subscribe((res: any) => {
+      this.joinedUsersDetails = new Map(JSON.parse(res.details));
+      console.log(this.joinedUsersDetails);
+    });
+
     this.webSocket.listen('user-connected').subscribe((res: any) => {
       this.joinedId.next(res.userId);
-      this.joinedUsersDetails.set(res.userId, res.details);
+      this.joinedUsersDetails = new Map(JSON.parse(res.details));
+      console.log(this.joinedUsersDetails);
     });
     this.webSocket.listen('user-disconnected').subscribe((userId: any) => {
       this.leavedId.next(userId);

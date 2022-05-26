@@ -79,7 +79,7 @@ const jwt = require('jsonwebtoken');
 const UserData = require('./src/models/UserData');
 
 let connectedUsers = new Map();
-
+let roomDetails = new Map();
 io.on('connection', (socket) => {
 
     let token = socket.handshake.query.token;
@@ -87,7 +87,7 @@ io.on('connection', (socket) => {
 
     let username;
     socket.join(id);
-    
+
     UserData.findById(id, { username: 1 }).then((data) => {
         console.log('User Connected:', data.username);
         username = data.username;
@@ -95,7 +95,7 @@ io.on('connection', (socket) => {
     require('./src/socket-routes/group.socket')(socket, id, io);
     require('./src/socket-routes/messages.socket')(socket, id, io);
     require('./src/socket-routes/files.socket')(socket, id, io);
-    require('./src/socket-routes/videocall.socket')(socket, id, io);
+    require('./src/socket-routes/videocall.socket')(socket, id, io, roomDetails);
 
 
     socket.on('disconnect', () => {

@@ -23,7 +23,6 @@ export class PeerService {
     return new Promise<string>((resolve) => {
       this.initPeer();
       this.peer.on('open', (userPeerId: string) => {
-        console.log('userPeerId', userPeerId);
         this.myPeerId = userPeerId;
         this.handleInComingCall(stream);
         resolve(userPeerId);
@@ -52,7 +51,6 @@ export class PeerService {
   }
 
   private initPeer(): void {
-    console.log('inpeerservice', this.myPeerId)
     this.peer = new Peer(this.myPeerId, {
       host: '/',
       port: 3001,

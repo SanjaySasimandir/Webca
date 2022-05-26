@@ -6,20 +6,31 @@ const VideoCallData = require('../models/VideoCallData');
 const jwt = require('jsonwebtoken');
 const moment = require('moment');
 
-module.exports = function (socket, id, io) {
+module.exports = function (socket, id, io, roomDetails) {
+
 
     socket.on('join-room', (req) => {
         let roomId = req.roomId;
         let userId = req.userId;
-        // console.log('roomId:', roomId, 'userId:', userId);
         socket.join(roomId);
+        let details = { fullname: req.fullname, username: req.username }
+        if (roomDetails.has(roomId)) {
+            roomDetails.get(roomId).set(userId, details);
+        }
+        else {
+            roomDetails.set(roomId, new Map([[userId, details]]));
+        }
         // socket.broadcast.to(roomId).emit('user-connected', userId);
-        let dataToSend = { userId: userId, details: { fullname: req.fullname, username: req.username } };
+        let dataToSend = { userId: userId, details: JSON.stringify(Array.from(roomDetails.get(roomId))) };
+        io.to(id).emit('refresh details list', dataToSend);
         socket.broadcast.to(roomId).emit('user-connected', dataToSend);
         socket.on('disconnect', () => {
+            roomDetails.get(roomId).delete(userId);
             socket.broadcast.to(roomId).emit('user-disconnected', userId);
         });
     });
+
+
 
     socket.on('fetch channel and attendance', (req) => {
         let user_id = jwt.verify(req.token, "Lancia047").uniqueID;
