@@ -13,7 +13,9 @@ module.exports = function (socket, id, io) {
         let userId = req.userId;
         // console.log('roomId:', roomId, 'userId:', userId);
         socket.join(roomId);
-        socket.broadcast.to(roomId).emit('user-connected', userId);
+        // socket.broadcast.to(roomId).emit('user-connected', userId);
+        let dataToSend = { userId: userId, details: { fullname: req.fullname, username: req.username } };
+        socket.broadcast.to(roomId).emit('user-connected', dataToSend);
         socket.on('disconnect', () => {
             socket.broadcast.to(roomId).emit('user-disconnected', userId);
         });

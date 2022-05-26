@@ -1,6 +1,6 @@
 .container-fluid {
   background-color: #303030;
-  width: calc(100vw - 316px);
+  /* width: calc(100vw - 316px); */
   color: #fafafa;
   padding-left: 0.5rem;
   padding-right: 0.5rem;

@@ -1,5 +1,6 @@
-.body-container {
-  background-color: #424242;
+.body-container,
+mat-drawer {
+  background-color: #303030;
   color: #fafafa;
 }
 
@@ -9,3 +10,18 @@
   font-size: 5vw;
 }
 
+.toggler-button-drawer mat-icon {
+  font-size: 250%;
+  line-height: 60%;
+  margin-right: -1rem;
+}
+
+.toggler-button mat-icon {
+  margin-left: -2rem;
+  font-size: 250%;
+  line-height: 60%;
+}
+
+.rounded {
+  border-radius: 1rem !important;
+}

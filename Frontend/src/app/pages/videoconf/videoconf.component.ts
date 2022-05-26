@@ -51,7 +51,6 @@ export class VideoconfComponent implements OnInit {
   userIsMember = false;
   invalidRoomListener() {
     this.webSocket.listen('invalid room link').subscribe((res: any) => {
-      console.log(res);
       if (res.message === 'invalid link') {
         this.invalidLink = true;
         this.pageloading = false;
@@ -77,22 +76,21 @@ export class VideoconfComponent implements OnInit {
     });
   }
 
-  initialFunctions(){
-    
+
+  initialFunctions() {
+    this.startUserStream();
+    this.handleUserConnect();
+    this.listenNewUser();
+    this.listenLeavedUser();
   }
 
+  public initialScreenWidth = 1000;
   ngOnInit(): void {
+    this.initialScreenWidth = window.screen.width;
     this.socketListeners();
     this.roomId = "" + this.activatedRoute.snapshot.paramMap.get('roomid');
     this.fetchChannel(this.roomId);
-    this.startUserStream();
-    this.handleUserConnect();
-  }
-
-  ngAfterViewInit(): void {
-    this.listenNewUser();
-    this.listenLeavedUser();
-    this.detectScreenWith();
+    this.initialFunctions();
   }
 
 
@@ -110,14 +108,18 @@ export class VideoconfComponent implements OnInit {
 
   public joinedId = new BehaviorSubject(null);
   public leavedId = new BehaviorSubject(null);
-
+  public joinedUsersDetails = new Map();
   private handleUserConnect(): void {
-    this.webSocket.listen('user-connected').subscribe((userId: any) => {
-      this.joinedId.next(userId);
-    })
+    // this.webSocket.listen('user-connected').subscribe((userId: any) => {
+    //   this.joinedId.next(userId);
+    // })
+    this.webSocket.listen('user-connected').subscribe((res: any) => {
+      this.joinedId.next(res.userId);
+      this.joinedUsersDetails.set(res.userId, res.details);
+    });
     this.webSocket.listen('user-disconnected').subscribe((userId: any) => {
       this.leavedId.next(userId);
-    })
+    });
   }
 
   private listenNewUser(): void {
@@ -162,8 +164,12 @@ export class VideoconfComponent implements OnInit {
   }
 
   private joinRoom(roomId: string, userPeerId: string): void {
-    console.log(userPeerId)
-    this.webSocket.emit('join-room', { "roomId": roomId, "userId": userPeerId });
+    this.webSocket.emit('join-room', {
+      "roomId": roomId,
+      "userId": userPeerId,
+      "fullname": localStorage.getItem('fullname'),
+      "username": localStorage.getItem('username')
+    });
   }
 
 

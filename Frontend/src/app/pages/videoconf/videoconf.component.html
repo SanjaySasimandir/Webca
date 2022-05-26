@@ -21,13 +21,51 @@
   <button mat-raised-button routerLink="/">Dashboard</button>
 </div>
 
-<div class="container-fluid body-container vh-100" *ngIf="userIsMember">
+<div class="d-flex container-fluid p-0 body-container vh-100" *ngIf="userIsMember">
+
+  <mat-drawer-container class="body-container w-100 p-0">
+    <mat-drawer class="row" #sidenav mode="side" position="end">
+
+      <button mat-fab class="position-absolute top-50 start-0 translate-middle toggler-button-drawer" color="primary"
+        aria-label="Toggle Chat" (click)="sidenav.toggle()" *ngIf="initialScreenWidth<500">
+        <mat-icon>{{sidenav.opened ? 'keyboard_arrow_right' : 'keyboard_arrow_left'}}</mat-icon>
+      </button>
+
+      <app-chatbox class="col-xs-12 col-sm-12 col-md-5 col-lg-4 w-100" *ngIf="selectedChannel.channelname && isHideChat"
+        [selectedChannel]="selectedChannel" [showVideoButton]="false">
+      </app-chatbox>
+    </mat-drawer>
+    <mat-drawer-content class="overflow-hidden">
+      <button mat-fab class="position-absolute top-50 start-100 translate-middle toggler-button" color="primary"
+        aria-label="Toggle Chat" (click)="sidenav.toggle()">
+        <mat-icon>{{sidenav.opened ? 'keyboard_arrow_right' : 'keyboard_arrow_left'}}</mat-icon>
+      </button>
+      <div class="row row-cols-1 row-cols-md-3 mx-auto w-100 p-0">
+        <!-- <app-video-player class="my-video col-1 position-absolute bottom-0 end-0" *ngIf="localStream" [mode]="'owner'" [stream]="localStream">
+        </app-video-player> -->
+        <div *ngFor="let user of joinedUsers">
+          <app-video-player class="col rounded" [stream]="user.stream" [details]="joinedUsersDetails.get(user.peerId)">
+          </app-video-player>
+        </div>
+      </div>
+      <app-video-player
+        class="my-video col-xs-6 col-sm-6 col-md-4 col-lg-3 position-absolute bottom-0 end-0 rounded shadow"
+        *ngIf="localStream" [mode]="'owner'" [stream]="localStream">
+      </app-video-player>
+    </mat-drawer-content>
+  </mat-drawer-container>
+
+</div>
+
+
+<!-- 
+<div class="d-flex container-fluid body-container vh-100" *ngIf="userIsMember">
   <div class="row">
     <app-video-player class="col-3" *ngIf="localStream" [mode]="'owner'" [stream]="localStream" class="my-video">
     </app-video-player>
     <app-video-player class="col-3" *ngFor="let user of joinedUsers" [stream]="user.stream">
     </app-video-player>
   </div>
-</div>
-
-<app-chatbox *ngIf="selectedChannel.channelname" [selectedChannel]="selectedChannel"></app-chatbox>
+  <app-chatbox class="col-4" *ngIf="selectedChannel.channelname && isHideChat" [selectedChannel]="selectedChannel">
+  </app-chatbox>
+</div> -->

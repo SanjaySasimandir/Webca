@@ -1,29 +1,29 @@
 .video-player {
-    position: relative;
-    text-align: center;
-    padding: 0.5rem;
-    background-color: #a59e9e;
-    /* height: fit-content; */
-    margin: 0.5px;
-    width: 100%;
+  position: relative;
+  text-align: center;
+  padding: 0.5rem;
+  background-color: #1d1c1c;
+  /* height: fit-content; */
+  margin: 0.5px;
+  width: 100%;
 }
 .video-player video {
-    max-width: 100%;
-    height: auto;
-    max-height: 400px;
+  max-width: 100%;
+  height: auto;
+  max-height: 400px;
 }
 .video-player .action {
-    width: 100%;
-    position: absolute;
-    bottom: 0.5rem;
-    display: flex;
-    justify-content: center;
+  width: 100%;
+  position: absolute;
+  bottom: 0.5rem;
+  display: flex;
+  justify-content: center;
 }
 .video-player .action .icon {
-    opacity: 0.5;
-    margin: 0.5rem;
+  opacity: 0.5;
+  margin: 0.5rem;
 }
 .my-video {
-    background-color: #a59e9e;
-    width: 100%;
+  background-color: #1d1c1c;
+  width: 100%;
 }

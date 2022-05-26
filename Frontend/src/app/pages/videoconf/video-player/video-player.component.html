@@ -1,6 +1,7 @@
 <div class="video-player" [ngClass]="{ 'my-video': mode === 'owner' }">
     <video #videoPlayer muted></video>
-    <div class="action">
+
+    <div class="action" *ngIf="mode === 'owner'">
         <button mat-fab class="icon" *ngIf="micIconSrc" color="primary" aria-label="Camera On Or Off"
             (click)="muteOrUnMute()">
             <mat-icon>{{micIconSrc}}</mat-icon>
@@ -9,5 +10,27 @@
             (click)="turnVideoOnOrOff()">
             <mat-icon>{{webCamIconSrc}}</mat-icon>
         </button>
+
+    </div>
+
+    <!-- <div *ngIf="details.fullname">
+        <h3>{{details.fullname}}</h3>
+        <h4>{{details.username}}</h4>
+    </div> -->
+
+    <div class="position-absolute bottom-0 end-0 shadow " *ngIf="mode === 'view'">
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="User Actions">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="muteOrUnMute()">
+                <mat-icon>{{micIconSrc}}</mat-icon>
+                <span>{{micIconSrc? 'Mute user' : 'Unmute user'}}</span>
+            </button>
+            <button mat-menu-item (click)="turnVideoOnOrOff()">
+                <mat-icon>{{webCamIconSrc}}</mat-icon>
+                <span>{{webCamIconSrc? 'Hide video' : 'Show Video'}}</span>
+            </button>
+        </mat-menu>
     </div>
 </div>

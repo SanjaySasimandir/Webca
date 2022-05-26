@@ -2,7 +2,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Peer } from 'peerjs';
-// declare var Peer: any;
 export interface CallUser {
   peerId: string;
   stream: MediaStream;
@@ -24,7 +23,8 @@ export class PeerService {
     return new Promise<string>((resolve) => {
       this.initPeer();
       this.peer.on('open', (userPeerId: string) => {
-        this.myPeerId = userPeerId
+        console.log('userPeerId', userPeerId);
+        this.myPeerId = userPeerId;
         this.handleInComingCall(stream);
         resolve(userPeerId);
       })
@@ -52,9 +52,11 @@ export class PeerService {
   }
 
   private initPeer(): void {
+    console.log('inpeerservice', this.myPeerId)
     this.peer = new Peer(this.myPeerId, {
       host: '/',
-      port: 3001
+      port: 3001,
+      // secure: true
     });
   }
 

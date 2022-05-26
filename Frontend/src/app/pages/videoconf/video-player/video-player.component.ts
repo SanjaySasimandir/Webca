@@ -11,6 +11,7 @@ export class VideoPlayerComponent implements OnInit {
 
   @ViewChild('videoPlayer') videoElement?: any;
   @Input() mode: 'view' | 'owner' = 'view';
+  @Input() details: any = { fullname: "", username: "" };
   @Input() stream!: MediaStream;
   public micIconSrc!: string;
   public webCamIconSrc!: string;

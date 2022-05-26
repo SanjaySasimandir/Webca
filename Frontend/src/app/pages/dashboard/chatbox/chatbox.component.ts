@@ -18,6 +18,7 @@ import { Router } from '@angular/router';
 export class ChatboxComponent implements OnInit {
 
   @Input() selectedChannel = new UsersChannelModel('', '', '', '');
+  @Input() showVideoButton: Boolean = true;
 
   constructor(private webSocket: WebSocketService, private dialog: MatDialog, private router: Router) { }
 
