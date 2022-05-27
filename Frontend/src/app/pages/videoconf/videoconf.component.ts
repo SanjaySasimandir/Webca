@@ -114,7 +114,7 @@ export class VideoconfComponent implements OnInit {
     // this.webSocket.listen('user-connected').subscribe((userId: any) => {
     //   this.joinedId.next(userId);
     // });
-    
+
     this.webSocket.listen('refresh details list').subscribe((res: any) => {
       this.joinedUsersDetails = new Map(JSON.parse(res.details));
       console.log(this.joinedUsersDetails);
@@ -178,6 +178,11 @@ export class VideoconfComponent implements OnInit {
       "fullname": localStorage.getItem('fullname'),
       "username": localStorage.getItem('username')
     });
+  }
+
+  public fullScreenStream: any;
+  public setFullScreenStream(stream: any) {
+    this.fullScreenStream = stream;
   }
 
 

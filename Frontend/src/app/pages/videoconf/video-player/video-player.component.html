@@ -13,9 +13,8 @@
 
     </div>
 
-    <div class="position-absolute bottom-0 start-50 translate-middle-x" *ngIf="mode==='view'">
-        <h3 class="shadow">{{details.fullname}}</h3>
-        <h4 class="shadow">@{{details.username}}</h4>
+    <div class="position-absolute bottom-0 start-0 details-text" *ngIf="mode==='view'">
+        <h3 matTooltip="@{{details.username}}" matTooltipPosition="after">{{details.fullname}}</h3>
     </div>
 
     <div class="position-absolute bottom-0 end-0 shadow " *ngIf="mode === 'view'">

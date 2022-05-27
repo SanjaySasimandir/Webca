@@ -29,7 +29,7 @@ export class NewFolderDialogComponent implements OnInit {
   }
 
   dupeFolderCheck() {
-    let folderexists = !!this.data.folders.filter((folder: any) => folder.name == this.foldername).length;
+    let folderexists = !!this.data.folders.filter((folder: any) => folder.name == this.foldername.value).length;
     if (folderexists) {
       this.foldername.setErrors({ incorrect: true });
     }

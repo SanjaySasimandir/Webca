@@ -1,8 +1,10 @@
 <h1 mat-dialog-title>Create a group</h1>
 <mat-form-field appearance="outline">
     <mat-label>Cha Name</mat-label>
-    <input matInput [formControl]="channelname" placeholder="mygroup" minlength="4" maxlength="20" (input)="dupeChannelCheck()" required>
+    <input matInput [formControl]="channelname" placeholder="mygroup" minlength="2" maxlength="20" (input)="dupeChannelCheck()" required>
     <mat-error *ngIf="channelname.invalid && channelname.value==''">Group name cannot be empty</mat-error>
+    <mat-error *ngIf="channelname.invalid && channelname.value.length>1 && channelname.hasError('exists')">Cannot use duplicate channel names</mat-error>
+    <mat-error *ngIf="channelname.invalid && channelname.value.length==1">Channel name should be at least 2 characters</mat-error>
 </mat-form-field>
 <br>
 

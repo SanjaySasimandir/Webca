@@ -12,20 +12,23 @@ export class AddChannelDialogComponent implements OnInit {
 
   constructor(private webSocket: WebSocketService, private dialogRef: MatDialogRef<AddChannelDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) { }
 
-  channelname = new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(20)]);
+  channelname = new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]);
 
   createChannel() {
     this.webSocket.emit('add channel', { "channelname": this.channelname.value, "groupid": this.data.groupid, "token": localStorage.getItem('token') });
   }
 
   dupeChannelCheck() {
+    console.log(this.channelname.errors)
     this.webSocket.emit('dupe channel check', { "channelname": this.channelname.value, "groupid": this.data.groupid });
 
   }
 
   socketListeners() {
     this.webSocket.listen('dupe channel check result').subscribe((res: any) => {
-      console.log(res);
+      if (res.message == true) {
+        this.channelname.setErrors({ exists: true });
+      }
     });
   }
 

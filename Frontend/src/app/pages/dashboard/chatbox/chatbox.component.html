@@ -1,8 +1,10 @@
 <div class="container-fluid">
     <div class="d-flex align-items-center title-bar custom-container" #titleBar>
-        <div class="me-auto ms-auto">{{selectedChannel.channelname}}</div>
-        <button mat-fab color="primary" *ngIf="showVideoButton" (click)="getVideoCallLink()" aria-label="Video Call" matTooltip="Video Call"
-            matTooltipPosition="before">
+        <div class="me-auto ms-auto">
+            <h3><span>{{selectedChannel.channelname}}</span></h3>
+        </div>
+        <button mat-fab color="primary" *ngIf="showVideoButton" (click)="getVideoCallLink()" aria-label="Video Call"
+            matTooltip="Video Call" matTooltipPosition="before">
             <mat-icon>video_call</mat-icon>
         </button>
         <div class="files-button">

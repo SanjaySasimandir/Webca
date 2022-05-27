@@ -40,12 +40,18 @@
         aria-label="Toggle Chat" (click)="sidenav.toggle()">
         <mat-icon>{{sidenav.opened ? 'keyboard_arrow_right' : 'keyboard_arrow_left'}}</mat-icon>
       </button>
-      <div class="row row-cols-1 row-cols-md-3 mx-auto w-100 p-0">
-        <!-- <app-video-player class="my-video col-1 position-absolute bottom-0 end-0" *ngIf="localStream" [mode]="'owner'" [stream]="localStream">
+      <app-video-player class="my-video col-12" *ngIf="fullScreenStream" [stream]="fullScreenStream"
+        (dblclick)="fullScreenStream=''">
+      </app-video-player>
+      <div class="mx-auto w-100 p-0">
+        <div class="row row-cols-1 row-cols-md-3">
+          <!-- <app-video-player class="my-video col-1 position-absolute bottom-0 end-0" *ngIf="localStream" [mode]="'owner'" [stream]="localStream">
         </app-video-player> -->
-        <div *ngFor="let user of joinedUsers">
-          <app-video-player class="col rounded" [stream]="user.stream" [details]="joinedUsersDetails.get(user.peerId)">
-          </app-video-player>
+          <span *ngFor="let user of joinedUsers">
+            <app-video-player class="col rounded" [stream]="user.stream"
+              [details]="joinedUsersDetails.get(user.peerId)" (dblclick)="setFullScreenStream(user.stream)">
+            </app-video-player>
+          </span>
         </div>
       </div>
       <app-video-player

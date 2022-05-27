@@ -12,7 +12,6 @@ module.exports = function (socket, id, io) {
 
     socket.on('dupe channel check', (req) => {
         GroupData.findById(req.groupid, { channels: 1 }).then(group => {
-            console.log(!!group.channels.filter(channel => channel.channelName == req.channelname).length)
             let dupechannelboolean = !!(group.channels.filter(channel => channel.channelName == req.channelname).length);
             io.to(id).emit('dupe channel check result', { "message": dupechannelboolean });
         });
