@@ -85,7 +85,7 @@ export class ChatboxComponent implements OnInit {
     this.newMessage.setValue('');
   }
 
-  loadedMessages: MessagesModel[] = [];
+  loadedMessages: MessagesModel[] = [{ date: moment().format('LL'), messagesForTheDay: [] }];
   recieveOldMessages() {
     this.webSocket.emit('get channel messages trigger', { 'channelid': this.selectedChannel.channelid, 'token': localStorage.getItem('token') });
     this.webSocket.listenOnce('get channel messages').subscribe((res: any) => {

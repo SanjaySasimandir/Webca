@@ -13,13 +13,20 @@ export class AddChannelDialogComponent implements OnInit {
   constructor(private webSocket: WebSocketService, private dialogRef: MatDialogRef<AddChannelDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   channelname = new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]);
+  openness = new FormControl('inviteOnly', [Validators.required]);
 
   createChannel() {
-    this.webSocket.emit('add channel', { "channelname": this.channelname.value, "groupid": this.data.groupid, "token": localStorage.getItem('token') });
+    this.webSocket.emit('add channel', {
+      "channelname": this.channelname.value,
+      "groupid": this.data.groupid,
+      "token": localStorage.getItem('token'),
+      "openness": this.openness.value,
+      "grouprole": this.data.grouprole,
+    });
+    this.dialogRef.close();
   }
 
   dupeChannelCheck() {
-    console.log(this.channelname.errors)
     this.webSocket.emit('dupe channel check', { "channelname": this.channelname.value, "groupid": this.data.groupid });
 
   }
@@ -33,6 +40,7 @@ export class AddChannelDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     this.socketListeners();
   }
 

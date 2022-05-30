@@ -7,14 +7,15 @@
                 <mat-icon class="group-menu-icon">more_vert</mat-icon>
             </button>
             <mat-menu #menu="matMenu" color="#fff" class="custom-menu">
-                <button mat-menu-item (click)="addChannel()">
+                <button mat-menu-item (click)="addChannel()"
+                    *ngIf="selectedGroup.grouprole=='admin' || selectedGroup.grouprole=='owner'">
                     <mat-icon>add</mat-icon>
                     <span>Add a channel</span>
                 </button>
                 <button mat-menu-item [cdkCopyToClipboard]="inviteLink">
                     <mat-icon><span class="material-icons">
-                        content_copy
-                    </span></mat-icon>
+                            content_copy
+                        </span></mat-icon>
                     <span>Copy invite link</span>
                 </button>
                 <button mat-menu-item>
@@ -24,10 +25,12 @@
             </mat-menu>
 
         </div>
-        <div class="channel-list-item" *ngFor="let channel of selectedGroup.channels" (click)="selectedChannel=channel; refreshChatbox()">
+        <div class="channel-list-item" *ngFor="let channel of selectedGroup.channels"
+            (click)="selectedChannel=channel; refreshChatbox()">
             <div mat-card-avatar class="channel-icon"></div>
             <h2 class="channel-name">{{channel.channelname}}</h2>
         </div>
     </div>
-    <app-chatbox *ngIf="selectedGroup.groupname" [selectedChannel]="selectedChannel" style="width: calc(100vw - 316px);"></app-chatbox>
+    <app-chatbox *ngIf="selectedGroup.groupname" [selectedChannel]="selectedChannel"
+        style="width: calc(100vw - 316px);"></app-chatbox>
 </div>

@@ -22,7 +22,8 @@ export class ChannellistComponent implements OnInit {
   addChannel() {
     this.dialog.open(AddChannelDialogComponent, {
       data: {
-        "groupid": this.selectedGroup.groupid
+        "groupid": this.selectedGroup.groupid,
+        "role": this.selectedGroup.grouprole
       }
     });
   }
@@ -51,7 +52,6 @@ export class ChannellistComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.selectedChannel = this.selectedGroup.channels.filter(channel => channel.channelname == "main")[0];
     if (this.selectedGroup.groupname) {
       this.initFunctions();
       this.socketListeners();

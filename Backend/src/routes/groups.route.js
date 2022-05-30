@@ -43,12 +43,26 @@ GroupRouter.post('/create', (req, res) => {
                 role: 'owner',
                 picture: data.picture
             }];
+            main_channel.messages = [{
+                date: moment().format('LL'), messagesForTheDay: [
+                    {
+                        messageType: "text",
+                        message: `Welcome to ${main_channel.name}`,
+                        messageSender: {
+                            username: "webca",
+                            fullname: "Webca Bot",
+                            id: "webcabot"
+                        },
+                        messageTime: moment().format('LT'),
+                    }
+                ]
+            }]
 
             main_channel.save().then(channel => {
                 group.channels = [{
                     channelName: channel.name,
                     channelID: channel._id,
-                    channelOpenness: "inviteOnly",
+                    channelOpenness: "public",
                     channelPicture: "",
                 }];
                 group.members = [{

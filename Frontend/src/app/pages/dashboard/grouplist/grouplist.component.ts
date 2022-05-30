@@ -73,6 +73,10 @@ export class GrouplistComponent implements OnInit {
   socketListeners() {
     this.webSocket.listen('get groups').subscribe((res: any) => {
       this.groups = res;
+      console.log(this.groups)
+      this.refreshChannelList();
+      setTimeout(() => this.refreshChannelList(), 200);
+      
       this.loadProfilePicture();
     });
 

@@ -1,34 +1,39 @@
 .login-outer-wrapper {
-    /* height: 85vh; */
-    padding-left: 2rem !important;
-    padding-right: 2rem !important;
+  /* height: 85vh; */
+  padding-left: 2rem !important;
+  padding-right: 2rem !important;
 }
 
 mat-card-title {
-    margin: 2rem 0 0rem 0!important;
+  margin: 2rem 0 0rem 0 !important;
 }
 
 mat-card-subtitle {
-    margin: 0.75rem 0 2rem 0!important;
+  margin: 0.75rem 0 2rem 0 !important;
 }
 
 .container-fluid {
-    background: #fafafa;
+  background: #fafafa;
 }
 
 mat-card {
-    padding-bottom: 2rem !important;
-    background: #fafafa;
+  padding-bottom: 2rem !important;
+  background: #fafafa;
 }
 
 mat-chip {
-    padding: 0 1.5rem 0 1rem !important;
+  padding: 0 1.5rem 0 1rem !important;
 }
 
 button {
-    width: auto;
+  width: auto;
 }
 
 mat-chip:hover {
-    cursor: pointer;
+  cursor: pointer;
+}
+.main-login-container {
+  background-color: #00124a;
+  background: url("https://cdn.dribbble.com/users/4187655/screenshots/8132508/media/ffc5c7609658ce55bbf5b8d5e0d073d4.png");
+  background-size: cover;
 }

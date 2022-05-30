@@ -7,21 +7,6 @@ mongoose.connect('mongodb+srv://bladerunner:bladerunner@clustertopgear.8ok4c.mon
 // Schema Definition
 const Schema = mongoose.Schema;
 
-const fileSchema = new Schema({
-    name: String,
-    author: String,
-    uploadDate: String,
-    filelocation: String
-});
-
-const folderSchema = new Schema({
-    name: String,
-    author: String,
-    creationDate: String,
-    files: [fileSchema],
-    folders: [this]
-});
-
 const ChannelSchema = new Schema({
     name: String,
     groupid: String,

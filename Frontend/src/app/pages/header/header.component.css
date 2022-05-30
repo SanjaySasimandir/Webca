@@ -1,4 +1,14 @@
-.logoutButton  {
-    cursor: pointer !important;
-    cursor: hand !important;
+.logoutButton {
+  cursor: pointer !important;
+  cursor: hand !important;
+}
+
+.logo {
+  font-family: "Abril Fatface", cursive;
+  color: #fafafa;
+  font-size: 200%;
+}
+
+.nav-link {
+  padding: 0 1rem 0 1rem !important;
 }
