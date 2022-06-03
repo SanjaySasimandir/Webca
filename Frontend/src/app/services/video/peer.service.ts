@@ -51,11 +51,24 @@ export class PeerService {
   }
 
   private initPeer(): void {
-    this.peer = new Peer(this.myPeerId, {
-      host: '/',
-      port: 3001,
-      // secure: true
-    });
+    const peerJsOptions = {
+      debug: 3,
+      config: {
+        iceServers: [
+          {
+            urls: [
+              'stun:stun1.l.google.com:19302',
+              'stun:stun2.l.google.com:19302',
+            ],
+          }]
+      }
+    };
+    this.peer = new Peer(this.myPeerId, peerJsOptions);
+    // this.peer = new Peer(this.myPeerId, {
+    //   host: '/',
+    //   port: 3001,
+    //   // secure: true
+    // });
   }
 
 }

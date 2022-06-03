@@ -23,6 +23,7 @@
 
 <div class="d-flex container-fluid p-0 body-container vh-100" *ngIf="userIsMember">
 
+
   <mat-drawer-container class="body-container w-100 p-0">
     <mat-drawer class="row" #sidenav mode="side" position="end">
 
@@ -35,29 +36,57 @@
         [selectedChannel]="selectedChannel" [showVideoButton]="false">
       </app-chatbox>
     </mat-drawer>
-    <mat-drawer-content class="overflow-hidden">
+
+
+    <mat-drawer-content class="overflow-hidden d-flex flex-column">
+
       <button mat-fab class="position-absolute top-50 start-100 translate-middle toggler-button" color="primary"
         aria-label="Toggle Chat" (click)="sidenav.toggle()">
         <mat-icon>{{sidenav.opened ? 'keyboard_arrow_right' : 'keyboard_arrow_left'}}</mat-icon>
       </button>
-      <app-video-player class="my-video col-12" *ngIf="fullScreenStream" [stream]="fullScreenStream"
-        (dblclick)="fullScreenStream=''">
-      </app-video-player>
-      <div class="mx-auto w-100 p-0">
-        <div class="row row-cols-1 row-cols-md-3">
+
+
+      <div class="mx-auto w-100 p-0 flex-fill flex-column" style="overflow-y: scroll; overflow-x:hidden;">
+        <app-video-player class="my-video col-12" *ngIf="fullScreenStream" [stream]="fullScreenStream"
+          (dblclick)="fullScreenStream=''">
+        </app-video-player>
+
+
+        <div class="row" [ngClass]="{
+          'row-cols-1': joinedUsers.length === 1,
+          'row-cols-2': joinedUsers.length > 1 && joinedUsers.length <= 4,
+          'row-cols-3': joinedUsers.length > 4 && joinedUsers.length <= 9,
+          'row-cols-4': joinedUsers.length > 9
+          }">
           <!-- <app-video-player class="my-video col-1 position-absolute bottom-0 end-0" *ngIf="localStream" [mode]="'owner'" [stream]="localStream">
         </app-video-player> -->
+          <span class="col-3" *ngFor="let user of joinedUsers">
+            <app-video-player class="col rounded" [stream]="user.stream" [details]="joinedUsersDetails.get(user.peerId)"
+              (dblclick)="setFullScreenStream(user.stream)" style="border-radius: 3rem;">
+            </app-video-player>
+          </span>
+        </div>
+        <!-- <div class="row row-cols-1 row-cols-md-3">
+          
           <span *ngFor="let user of joinedUsers">
             <app-video-player class="col rounded" [stream]="user.stream"
               [details]="joinedUsersDetails.get(user.peerId)" (dblclick)="setFullScreenStream(user.stream)">
             </app-video-player>
           </span>
-        </div>
+        </div> -->
+
       </div>
-      <app-video-player
-        class="my-video col-xs-6 col-sm-6 col-md-4 col-lg-3 position-absolute bottom-0 end-0 rounded shadow"
+
+
+      <!-- <app-video-player
+        class="my-video col-1 col-xs-3 col-sm-3 col-md-1 col-lg-1 position-absolute bottom-0 end-0 rounded shadow"
         *ngIf="localStream" [mode]="'owner'" [stream]="localStream">
+      </app-video-player> -->
+      <app-video-player class="" *ngIf="localStream" [mode]="'owner'" [stream]="localStream">
       </app-video-player>
+      <!-- <app-video-player class="position-absolute bottom-0 start-50 translate-middle-x w-100" *ngIf="localStream"
+        [mode]="'owner'" [stream]="localStream">
+      </app-video-player> -->
     </mat-drawer-content>
   </mat-drawer-container>
 

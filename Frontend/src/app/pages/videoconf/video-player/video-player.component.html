@@ -1,5 +1,5 @@
-<div class="video-player" [ngClass]="{ 'my-video': mode === 'owner' }">
-    <video #videoPlayer muted></video>
+<!-- <div class="video-player" [ngClass]="{ 'my-video': mode === 'owner' }">
+    <video #videoPlayer muted ></video>
 
     <div class="action" *ngIf="mode === 'owner'">
         <button mat-fab class="icon" *ngIf="micIconSrc" color="primary" aria-label="Camera On Or Off"
@@ -31,5 +31,54 @@
                 <span>{{webCamIconSrc? 'Hide video' : 'Show Video'}}</span>
             </button>
         </mat-menu>
+    </div>
+</div> -->
+
+<!-- For Other User -->
+
+<div class="video-player p-0" *ngIf=" mode !== 'owner'">
+    <video #videoPlayer muted></video>
+    <div class="position-absolute top-0 end-0 m-2">
+        <mat-icon class="m-2" *ngIf="micIconSrc=='volume_off'" matTooltip="You put this user on mute"
+            matTooltipPosition="below">volume_off</mat-icon>
+        <mat-icon class="m-2" *ngIf="webCamIconSrc=='videocam_off'" matTooltip="You hid this user's video"
+            matTooltipPosition="below">videocam_off</mat-icon>
+    </div>
+    <div class="position-absolute bottom-0 start-0 details-text" *ngIf="mode==='view'">
+        <h3 matTooltip="@{{details.username}}" matTooltipPosition="after">{{details.fullname}}</h3>
+    </div>
+
+    <div class="position-absolute bottom-0 end-0 shadow " *ngIf="mode === 'view'">
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="User Actions">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="muteOrUnMute()">
+                <mat-icon>{{micIconSrc}}</mat-icon>
+                <span>{{micIconSrc=='volume_up'? 'Mute user' : 'Unmute user'}}</span>
+            </button>
+            <button mat-menu-item (click)="turnVideoOnOrOff()">
+                <mat-icon>{{webCamIconSrc}}</mat-icon>
+                <span>{{webCamIconSrc=='videocam'? 'Hide video' : 'Show Video'}}</span>
+            </button>
+        </mat-menu>
+    </div>
+</div>
+
+<!-- For This User -->
+
+<div class="d-flex">
+    <div class="action flex-grow-1 d-flex justify-content-center" *ngIf="mode === 'owner'">
+        <button mat-fab class="icon mx-2" *ngIf="micIconSrc" color="primary" aria-label="Camera On Or Off"
+            (click)="muteOrUnMute()">
+            <mat-icon>{{micIconSrc}}</mat-icon>
+        </button>
+        <button mat-fab class="icon mx-2" *ngIf="webCamIconSrc" color="primary" aria-label="Camera On Or Off"
+            (click)="turnVideoOnOrOff()">
+            <mat-icon>{{webCamIconSrc}}</mat-icon>
+        </button>
+    </div>
+    <div class="d-flex justify-content-end p-0 col-1" *ngIf="mode === 'owner'">
+        <video class="w-100" #videoPlayer muted style="object-fit: cover; height: 4rem;"></video>
     </div>
 </div>

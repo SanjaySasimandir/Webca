@@ -31,6 +31,7 @@ export class VideoPlayerComponent implements OnInit {
     this.mediaService.stream = this.stream;
     this.videoElementRef = this.videoElement.nativeElement;
     if (this.mode === 'owner') {
+      this.muteOrUnMute();
       this.videoElementRef.muted = true;
     }
     this.playVideo();
