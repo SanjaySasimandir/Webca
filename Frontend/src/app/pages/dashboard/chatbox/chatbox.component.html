@@ -1,7 +1,9 @@
 <div class="container-fluid">
     <div class="d-flex align-items-center title-bar custom-container" #titleBar>
-        <div class="me-auto ms-auto">
-            <h3><span>{{selectedChannel.channelname}}</span></h3>
+        <div class="w-100 ms-3 d-flex align-items-center">
+            <img mat-card-avatar class="channel-icon"
+                [src]="'https://ui-avatars.com/api/?background=random&length=1&size=128&font-size=0.75&bold=true&name='+selectedChannel.channelname">
+            <b class="fs-4 lead ms-2">{{selectedChannel.channelname}}</b>
         </div>
         <button mat-fab color="primary" *ngIf="showVideoButton" (click)="getVideoCallLink()" aria-label="Video Call"
             matTooltip="Video Call" matTooltipPosition="before">
@@ -58,7 +60,7 @@
         <div class="d-flex justify-content-center align-items-center text-box custom-container" #inputBar>
             <!-- <mat-card class="d-flex justify-content-center bottom-input-card align-items-center"> -->
 
-            <button mat-fab matSuffix color="primary" type="button" (click)="uploadToggle=!uploadToggle">
+            <!-- <button mat-fab matSuffix color="primary" type="button" (click)="uploadToggle=!uploadToggle">
                 <mat-icon *ngIf="!uploadToggle"> insert_photo </mat-icon>
                 <mat-icon *ngIf="uploadToggle"> close </mat-icon>
             </button>
@@ -69,7 +71,7 @@
             <button mat-fab matSuffix color="primary" *ngIf="uploadToggle" (click)="sendImageSelected()"
                 [disabled]="!this.selectedImage">
                 <mat-icon>send</mat-icon>
-            </button>
+            </button> -->
 
             <mat-card class="w-100 message-input">
                 <mat-form-field appearance="fill" color="warn" class="w-100" *ngIf="!uploadToggle">

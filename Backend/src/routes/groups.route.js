@@ -119,6 +119,7 @@ GroupRouter.post('/create', (req, res) => {
     });
 });
 
+
 GroupRouter.post('/inviteinquiry', (req, res) => {
     let id = jwt.verify(req.body.data.token, "Lancia047").uniqueID;
     let invString = req.body.data.inviteString;

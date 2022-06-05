@@ -36,7 +36,7 @@
 
 <!-- For Other User -->
 
-<div class="video-player p-0" *ngIf=" mode !== 'owner'">
+<div class="video-player p-0 w-100" *ngIf=" mode !== 'owner'">
     <video #videoPlayer muted></video>
     <div class="position-absolute top-0 end-0 m-2">
         <mat-icon class="m-2" *ngIf="micIconSrc=='volume_off'" matTooltip="You put this user on mute"

@@ -18,17 +18,19 @@
                         </span></mat-icon>
                     <span>Copy invite link</span>
                 </button>
-                <button mat-menu-item>
+                <!-- <button mat-menu-item>
                     <mat-icon>notifications_off</mat-icon>
                     <span>Disable alerts</span>
-                </button>
+                </button> -->
             </mat-menu>
 
         </div>
-        <div class="channel-list-item" *ngFor="let channel of selectedGroup.channels"
+        <div class="channel-list-item m-1 mb-2 {{channel==selectedChannel? 'fw-bold bg-secondary' : ''}}" *ngFor="let channel of selectedGroup.channels"
             (click)="selectedChannel=channel; refreshChatbox()">
-            <div mat-card-avatar class="channel-icon"></div>
-            <h2 class="channel-name">{{channel.channelname}}</h2>
+            <!-- <img mat-card-avatar class="channel-icon"
+                [src]="'https://ui-avatars.com/api/?background=random&length=1&size=128&font-size=0.75&bold=true&name='+channel.channelname"> -->
+            <span
+                class="channel-name p-2 ps-1 fs-5">{{channel.channelname}}</span>
         </div>
     </div>
     <app-chatbox *ngIf="selectedGroup.groupname" [selectedChannel]="selectedChannel"

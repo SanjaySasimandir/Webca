@@ -27,9 +27,9 @@ mat-card-title {
 
 .channel-list-item {
   background-color: #3a3a3a;
-  padding-left: 0.75rem;
+  /* padding-left: 0.75rem;
   padding-top: 0.75rem;
-  margin: 0.25rem;
+  margin: 0.25rem; */
   border-radius: 0.5rem;
   cursor: pointer;
 }

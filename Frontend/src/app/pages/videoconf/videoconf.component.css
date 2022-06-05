@@ -16,10 +16,8 @@ mat-drawer {
   margin-right: -1rem;
 }
 
-.toggler-button mat-icon {
-  margin-left: -2rem;
-  font-size: 250%;
-  line-height: 60%;
+.toggler-button {
+  margin: 0.5rem;
 }
 
 .rounded {

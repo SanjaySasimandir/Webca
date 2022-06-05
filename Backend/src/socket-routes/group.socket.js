@@ -137,34 +137,42 @@ function joingroup(id, invString, socket_id, io) {
                         picture: user.picture
                     });
                     group.save().then(() => {
+                        let groupToPush = {
+                            groupname: group.name,
+                            groupid: group._id,
+                            grouppicture: group.picture,
+                            grouprole: 'member',
+                            channels: []
+                        };
 
-                        ChannelData.findById(group.mainChannelId).then(channel => {
-                            channel.members.push({
-                                username: user.username,
-                                fullname: user.fullName,
-                                id: user._id,
-                                online: true,
-                                role: 'member',
-                                picture: user.picture
-                            });
-                            channel.save().then(() => {
-                                user.groups.push({
-                                    groupname: group.name,
-                                    groupid: group._id,
-                                    grouppicture: group.picture,
-                                    grouprole: 'member',
-                                    channels: [{
-                                        channelname: channel.name,
-                                        channelid: channel._id,
-                                        channelpicture: channel.picture,
-                                        channelrole: 'member',
-                                    }]
+                        group.channels.forEach(channel => {
+                            if (channel.channelOpenness == 'public') {
+                                groupToPush.channels.push({
+                                    channelname: channel.channelName,
+                                    channelid: channel.channelID,
+                                    channelpicture: channel.channelPicture,
+                                    channelrole: 'member',
                                 });
-                                user.save().then(() => {
-                                    io.to(socket_id).emit('join group response', { "message": "done" });
+                                ChannelData.findById(channel.channelID).then(eachChannel=>{
+                                    eachChannel.members.push({
+                                        username: user.username,
+                                        fullname: user.fullName,
+                                        id: user._id,
+                                        online: true,
+                                        role: 'member',
+                                        picture: user.picture
+                                    });
+                                    eachChannel.save();
                                 });
-                            });
+                            }
                         });
+                        user.groups.push(groupToPush);
+                        console.log(groupToPush);
+                        user.save().then(() => {
+                            io.to(socket_id).emit('join group response', { "message": "done" });
+                        });
+
+
 
                     });
 

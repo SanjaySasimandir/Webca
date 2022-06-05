@@ -33,30 +33,24 @@
     </button>
 
     <!-- Child Folders -->
-    <div class="row justify-content-center folder-container" *ngIf="selectedFolder">
-        <button mat-raised-button class="col-3" *ngFor="let folder of selectedFolder.folders"
-            (click)="openFolder(folder)">
-            <mat-icon>folder</mat-icon>
-            {{folder.name}}
-        </button>
+    <h4 class="lead fs-4 d-flex mt-3">Folders</h4>
+    <div class="row justify-content-start folder-container w-100" *ngIf="selectedFolder">
+        <p class="lead fs-6" *ngIf="!selectedFolder.folders.length">Nothing to show here, start by creating a folder.</p>
+        <div  class="col-xs-6 col-sm-6 col-md-4 col-lg-2"  *ngFor="let folder of selectedFolder.folders">
+            <button class="w-100 text-start" mat-raised-button
+                (click)="openFolder(folder)">
+                <mat-icon>folder</mat-icon>
+                {{folder.name}}
+            </button>
+        </div>
     </div>
 
     <!-- Files in folder -->
-    <h4 class="fw-bold fs-4 d-flex">Files</h4>
-    <div class="d-flex justify-content-center">
-        <table class="vw-100" mat-table *ngIf="selectedFolder" [dataSource]="selectedFolder.files" matSort
+    <h4 class="lead fs-4 d-flex">Files</h4>
+    <div class="d-flex justify-content-center" *ngIf="selectedFolder">
+        <p class="lead fs-6 w-100" *ngIf="!selectedFolder.files.length">Nothing to show here, start by uploading a file.</p>
+        <table class="vw-100" mat-table *ngIf="selectedFolder.files.length" [dataSource]="selectedFolder.files" matSort
             class="mat-elevation-z8">
-
-            <!-- <ng-container matColumnDef="icon">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name">
-                    &nbsp;
-                </th>
-                <td mat-cell class="filetype-icon" *matCellDef="let element">
-                    <mat-icon *ngIf="element.filetype=='txt'">description</mat-icon>
-                    <mat-icon *ngIf="['jpg','png'].indexOf(element.filetype)!=-1">image</mat-icon>
-                </td>
-            </ng-container> -->
-
             <ng-container matColumnDef="name">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name">
                     Filename
@@ -89,6 +83,8 @@
 
         </table>
     </div>
+
+
 
 
 

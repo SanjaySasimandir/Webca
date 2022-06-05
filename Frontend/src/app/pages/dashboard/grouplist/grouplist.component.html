@@ -3,7 +3,13 @@
         <div class="row d-inline group-list">
             <div class="group-item-cover" *ngFor="let group of groups">
                 <img class="group-item group-avatar {{selectedGroup.groupid == group.groupid ? 'selected-group': ''}}"
-                    [matTooltip]="group.groupname" matTooltipPosition="after" (click)="selectGroup(group)">
+                    [matTooltip]="group.groupname" matTooltipPosition="after"
+                    [src]="'https://ui-avatars.com/api/?background=717171&color=fafafa&size=128&font-size=0.75&bold=true&length=1&name='+group.groupname"
+                    (click)="selectGroup(group)">
+                <!-- <img class="group-item group-avatar {{selectedGroup.groupid == group.groupid ? 'selected-group': ''}}"
+                    [matTooltip]="group.groupname" matTooltipPosition="after"
+                    [src]="'https://ui-avatars.com/api/?background=random&size=128&font-size=0.75&bold=true&length=1&name='+group.groupname"
+                    (click)="selectGroup(group)"> -->
             </div>
         </div>
 

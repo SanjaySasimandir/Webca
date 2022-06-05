@@ -36,14 +36,20 @@ td {
   cursor: pointer;
 }
 
-.filetype-icon{
+.filetype-icon {
   margin-bottom: -0.5rem;
 }
 
 .folder-container {
-  padding: 2rem 0 2rem 0;
+  /* padding: 2rem 0 2rem 0; */
 }
 
 .folder-container button {
   margin: 0.5rem;
+}
+
+.folder-icon {
+  cursor: pointer;
+  border: 2px solid rgb(107, 107, 107);
+  border-radius: 8px;
 }
