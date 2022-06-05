@@ -82,36 +82,37 @@ GroupRouter.post('/create', (req, res) => {
                 mainFolder.folders = [];
                 mainFolder.save().then(mainFolder => {
                     main_channel.mainFolderId = mainFolder._id;
-                });
 
+                    // });
 
-                group.save().then(response => {
-                    main_channel.groupid = response._id;
-                    main_channel.save().then(main_channel => {
-                        group.mainChannelId = main_channel._id;
-                        group.save()
-                    });
-
-                    UserData.findById(id).then(user => {
-                        user.groups.push({
-                            groupname: response.name,
-                            groupid: response._id,
-                            grouppicture: response.picture,
-                            grouprole: 'owner',
-                            channels: [{
-                                channelname: channel.name,
-                                channelid: channel._id,
-                                channelpicture: channel.picture,
-                                channelrole: 'owner'
-                            }]
+                    group.save().then(response => {
+                        main_channel.groupid = response._id;
+                        main_channel.save().then(main_channel => {
+                            group.mainChannelId = main_channel._id;
+                            group.save()
                         });
 
-                        user.save().then(() => {
-                            if (response) {
-                                res.send({ "message": "success" })
-                            }
+                        UserData.findById(id).then(user => {
+                            user.groups.push({
+                                groupname: response.name,
+                                groupid: response._id,
+                                grouppicture: response.picture,
+                                grouprole: 'owner',
+                                channels: [{
+                                    channelname: channel.name,
+                                    channelid: channel._id,
+                                    channelpicture: channel.picture,
+                                    channelrole: 'owner'
+                                }]
+                            });
+
+                            user.save().then(() => {
+                                if (response) {
+                                    res.send({ "message": "success" })
+                                }
+                            })
                         })
-                    })
+                    });
                 });
             });
         }

@@ -54,7 +54,6 @@ const multipartMiddleware = multipart({
 });
 
 userRouter.post('/uploadPFP', multipartMiddleware, (req, res) => {
-    console.log("uploadworking", req.files);
     let username = req.files.uploads[0].name.split('|&&&|')[0];
 
     UserData.find({ username: username }).then(data => {

@@ -14,15 +14,6 @@ const multipartMiddleware = multipart({
     uploadDir: './files'
 });
 
-// FileRouter.post('/getFolder', (req, res) => {
-//     let userid = jwt.verify(req.headers.token, "Lancia047").uniqueID;
-//     let folderid = req.body.folderid;
-//     let channelid = req.body.channelid;
-//     ChannelData.findById(channelid, { members: 1 }).then(channel => {
-//         console.log(channel);
-//     });
-// });
-
 FileRouter.post('/uploadfile', multipartMiddleware, (req, res) => {
     let data = JSON.parse(req.files.uploads[0].name.split('|&&&|')[0]);
     let token = data.token;

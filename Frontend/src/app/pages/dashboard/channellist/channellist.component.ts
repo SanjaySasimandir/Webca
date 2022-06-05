@@ -43,6 +43,15 @@ export class ChannellistComponent implements OnInit {
     this.webSocket.listen('get invite string').subscribe((res: any) => {
       this.inviteLink = this.userAuth.host_address + '/invite/' + res.inviteString;
     });
+
+    // this.webSocket.listen('channel added').subscribe((res: any) => {
+    //   console.log(res.groupid, this.selectedGroup.groupid)
+    //   if (res.groupid == this.selectedGroup.groupid) {
+    //     console.log('before', this.selectedGroup.channels);
+    //     this.selectedGroup.channels.push(res.channel);
+    //     console.log('after', this.selectedGroup.channels);
+    //   }
+    // });
   }
 
   initFunctions() {

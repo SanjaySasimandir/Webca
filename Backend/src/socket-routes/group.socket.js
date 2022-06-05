@@ -1,14 +1,16 @@
 const UserData = require('../models/UserData');
 const GroupData = require('../models/GroupData');
 const ChannelData = require('../models/ChannelData');
+const FolderData = require('../models/FolderData');
 const jwt = require('jsonwebtoken');
 const moment = require('moment');
 
 module.exports = function (socket, id, io) {
     socket.on('get groups trigger', () => {
-        UserData.findById(id, { groups: 1 }).then(user => {
-            io.to(id).emit('get groups', (user.groups));
-        });
+        // UserData.findById(id, { groups: 1 }).then(user => {
+        //     io.to(id).emit('get groups', (user.groups));
+        // });
+        sendGroups(io, id);
     });
 
     socket.on('dupe channel check', (req) => {
@@ -24,7 +26,6 @@ module.exports = function (socket, id, io) {
         let groupid = req.groupid;
         let openness = req.openness;
         let grouprole = req.grouprole;
-        console.log(user_id, channelname, groupid, openness);
         UserData.findById(user_id).then(user => {
             GroupData.findOne({ _id: req.groupid, 'members.id': user_id }, { channels: 1, mainChannelId: 1 }).then(group => {
                 ChannelData.findById(group.mainChannelId).then(mainChannel => {
@@ -35,16 +36,7 @@ module.exports = function (socket, id, io) {
                         description: channelname,
                         picture: "",
                         pinnedMessage: "",
-                        members: [
-                            /*{
-                                username: user.username,
-                                fullname: user.fullname,
-                                id: user._id,
-                                online: true,
-                                role: grouprole,
-                                picture: user.picture
-                            }*/
-                        ],
+                        members: [],
                         messages: [{
                             date: moment().format('LL'), messagesForTheDay: [
                                 {
@@ -60,52 +52,60 @@ module.exports = function (socket, id, io) {
                             ]
                         }]
                     });
+                    let mainFolder = new FolderData();
+                    mainFolder.name = newChannel.name;
+                    mainFolder.author = user.username;
+                    mainFolder.creationDate = moment().format('lll');
+                    mainFolder.files = [];
+                    mainFolder.folders = [];
+                    mainFolder.save().then(mainFolder => {
+                        newChannel.mainFolderId = mainFolder._id;
 
-
-                    newChannel.save().then(newChannel => {
-                        if (openness == 'public') {
-                            newChannel.members = mainChannel.members;
-                            newChannel.save();
-                            newChannel.members.forEach(member => {
-                                addChannelToUserList(group._id, member.id, io, {
-                                    channelname: newChannel.name,
-                                    channelid: newChannel._id,
-                                    channelpicture: newChannel.picture,
-                                    channelrole: member.role
-                                });
-                            });
-                        }
-                        else {
-                            newChannel.save();
-                            mainChannel.members.forEach(member => {
-                                if (member.role == 'owner' || member.role == 'admin') {
+                        newChannel.save().then(newChannel => {
+                            if (openness == 'public') {
+                                newChannel.members = mainChannel.members;
+                                newChannel.save();
+                                newChannel.members.forEach(member => {
                                     addChannelToUserList(group._id, member.id, io, {
                                         channelname: newChannel.name,
                                         channelid: newChannel._id,
                                         channelpicture: newChannel.picture,
                                         channelrole: member.role
                                     });
-                                }
-                            });
-                        }
-                        let newChannelToGroup = {
-                            channelName: channelname,
-                            channelID: newChannel._id,
-                            channelOpenness: openness,
-                            channelPicture: '',
-                        }
-                        group.channels.push(newChannelToGroup);
-                        group.save().then()
+                                });
+                            }
+                            else {
+                                newChannel.save();
+                                mainChannel.members.forEach(member => {
+                                    if (member.role == 'owner' || member.role == 'admin') {
+                                        let channel_to_add = {
+                                            channelname: newChannel.name,
+                                            channelid: newChannel._id,
+                                            channelpicture: newChannel.picture,
+                                            channelrole: member.role
+                                        };
+                                        addChannelToUserList(group._id, member.id, io, channel_to_add);
+                                        // io.to(id).emit('channel added', { channel: channel_to_add, groupid: group._id });
+                                    }
+                                });
+                            }
+                            let newChannelToGroup = {
+                                channelName: channelname,
+                                channelID: newChannel._id,
+                                channelOpenness: openness,
+                                channelPicture: '',
+                            }
+                            group.channels.push(newChannelToGroup);
+                            group.save().then()
+                        });
                     });
 
                 });
             });
         });
-        console.log('add channel', channelname, groupid, user_id);
     });
 
     socket.on('get invite string trigger', (req) => {
-        console.log(req)
         if (req.groupid) {
             GroupData.findById(req.groupid, { inviteString: 1 }).then(group => {
                 io.to(id).emit('get invite string', { "inviteString": group.inviteString });
@@ -136,11 +136,9 @@ function joingroup(id, invString, socket_id, io) {
                         role: 'member',
                         picture: user.picture
                     });
-                    console.log(group)
                     group.save().then(() => {
 
                         ChannelData.findById(group.mainChannelId).then(channel => {
-                            console.log(channel)
                             channel.members.push({
                                 username: user.username,
                                 fullname: user.fullName,
@@ -187,7 +185,13 @@ function addChannelToUserList(groupid, userid, io, channel) {
             }
         });
         user.save().then(user => {
-            io.to(userid).emit('get groups', (user.groups));
+            sendGroups(io, userid);
         });
+    });
+}
+
+function sendGroups(io, id) {
+    UserData.findById(id, { groups: 1 }).then(user => {
+        io.to(id).emit('get groups', (user.groups));
     });
 }

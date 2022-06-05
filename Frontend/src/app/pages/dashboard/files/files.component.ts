@@ -59,7 +59,6 @@ export class FilesComponent implements OnInit {
     this.http.get(this.userauthService.server_address + 'files/getFile/' + file.filelocation, { headers, responseType: 'blob' as 'json' }).subscribe(
       (response: any) => {
         let dataType = response.type;
-        console.log(dataType)
         let binaryData = [];
         binaryData.push(response);
         let downloadLink = document.createElement('a');
@@ -73,7 +72,6 @@ export class FilesComponent implements OnInit {
   }
 
   createFolder() {
-    console.log('as')
     this.dialog.open(NewFolderDialogComponent, {
       data: {
         "folderid": this.selectedFolder._id,
@@ -84,8 +82,8 @@ export class FilesComponent implements OnInit {
     this.refreshParentFolder();
   }
 
-  sortFolder(folderlist:any){
-    
+  sortFolder(folderlist: any) {
+
   }
 
   getMainFolder() {

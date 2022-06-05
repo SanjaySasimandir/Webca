@@ -8,9 +8,7 @@ const moment = require('moment');
 module.exports = function (socket, id, io) {
     socket.on('get main folder trigger', (req) => {
         ChannelData.findById(req.channelid, { mainFolderId: 1 }).then(channel => {
-            console.log(channel)
             FolderData.findById(channel.mainFolderId).then(folder => {
-                console.log(folder)
                 io.to(id).emit('get main folder', folder);
             });
         });

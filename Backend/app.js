@@ -40,43 +40,15 @@ app.use('/files', FilesRouter);
 
 const path = require('path');
 
-/*app.get('/imgtest', (req, res) => {
-    console.log(req.headers)
-    const options = {
-        root: path.join(__dirname, '/'),
-        dotfiles: 'deny',
-        headers: {
-            'x-timestamp': Date.now(),
-            'x-sent': true
-        }
-    }
-    if (req.headers.token) {
-        
-        res.sendFile('/src/models/ChannelData.js', options);
-    }
-    else {
-        res.send("hello");
-    }
-});*/
-
-// app.post('/imgtest', (req, res) => {
-//     console.log(req)
-//     const options = {
-//         root: path.join(__dirname, 'public'),
-//         dotfiles: 'deny',
-//         headers: {
-//             'x-timestamp': Date.now(),
-//             'x-sent': true
-//         }
-//     }
-//     res.sendFile('/pfp/2m7ADozZ44RXYfpD5PxxQYN5.png', options);
-// });
-
+app.get('', (req, res) => {
+    res.send('works');
+});
 const moment = require('moment');
 
 
 const jwt = require('jsonwebtoken');
 const UserData = require('./src/models/UserData');
+const { get } = require('mongoose');
 
 let connectedUsers = new Map();
 let roomDetails = new Map();

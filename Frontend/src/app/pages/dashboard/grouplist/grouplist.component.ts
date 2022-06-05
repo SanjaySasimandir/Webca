@@ -77,6 +77,9 @@ export class GrouplistComponent implements OnInit {
     this.webSocket.listen('get groups').subscribe((res: any) => {
       this.groups = res;
       console.log(this.groups)
+      if (this.selectedChannel.channelid) {
+        this.selectedGroup = this.groups.filter(group => group.groupid == this.selectedGroup.groupid)[0];
+      }
       this.refreshChannelList();
       setTimeout(() => this.refreshChannelList(), 200);
 
