@@ -41,7 +41,7 @@ export class ChannellistComponent implements OnInit {
 
   socketListeners() {
     this.webSocket.listen('get invite string').subscribe((res: any) => {
-      this.inviteLink = this.userAuth.host_address + 'invite/' + res.inviteString;
+      this.inviteLink = this.userAuth.host_address + '/invite/' + res.inviteString;
     });
   }
 

@@ -73,6 +73,7 @@ export class FilesComponent implements OnInit {
   }
 
   createFolder() {
+    console.log('as')
     this.dialog.open(NewFolderDialogComponent, {
       data: {
         "folderid": this.selectedFolder._id,

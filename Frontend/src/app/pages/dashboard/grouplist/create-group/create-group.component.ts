@@ -18,7 +18,7 @@ export class CreateGroupComponent implements OnInit {
   }
 
   groupname = new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(20)]);
-  openness = new FormControl('invite-only', [Validators.required]);
+  openness = new FormControl('public', [Validators.required]);
 
   createGroup() {
     console.log('create group')

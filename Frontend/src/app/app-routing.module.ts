@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
 import { NotLoggedInGuard } from './guards/not-logged-in.guard';
+import { FourZeroFourComponent } from './pages/four-zero-four/four-zero-four.component';
 import { InviteComponent } from './pages/invite/invite.component';
 import { LoginComponent } from './pages/login/login.component';
 import { MainComponent } from './pages/main/main.component';
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'signup', canActivate: [NotLoggedInGuard], component: RegisterComponent },
   { path: 'invite/:invitestring', canActivate: [AuthGuard], component: InviteComponent },
   { path: 'video/:roomid', canActivate: [AuthGuard], component: VideoconfComponent },
+  { path: '**', component: FourZeroFourComponent },
 ];
 
 @NgModule({

@@ -66,6 +66,7 @@ import { WebSocketService } from './services/web-socket.service';
 import { GroupService } from './services/group.service';
 import { MediaService } from './services/video/media.service';
 import { PeerService } from './services/video/peer.service';
+import { FourZeroFourComponent } from './pages/four-zero-four/four-zero-four.component';
 
 const materialModules = [
   CommonModule,
@@ -128,6 +129,7 @@ const materialModules = [
     FilesComponent,
     NewFolderDialogComponent,
     VideoPlayerComponent,
+    FourZeroFourComponent,
   ],
   imports: [
     BrowserModule,

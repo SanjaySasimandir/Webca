@@ -32,6 +32,9 @@ export class GrouplistComponent implements OnInit {
   }
 
   logout() {
+    console.log('logging out')
+    this.selectedGroup = new UsersGroupModel('', '', '', '', []);
+    this.selectedChannel = new UsersChannelModel('', '', '', '');
     this.userAuth.logOut();
     this.webSocket.close();
     this.router.navigate(['/login']);
@@ -76,7 +79,7 @@ export class GrouplistComponent implements OnInit {
       console.log(this.groups)
       this.refreshChannelList();
       setTimeout(() => this.refreshChannelList(), 200);
-      
+
       this.loadProfilePicture();
     });
 
