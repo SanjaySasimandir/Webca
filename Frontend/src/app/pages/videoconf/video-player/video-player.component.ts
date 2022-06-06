@@ -62,4 +62,8 @@ export class VideoPlayerComponent implements OnInit {
     }
   }
 
+  public endCall(){
+    window.location.replace('');
+  }
+
 }

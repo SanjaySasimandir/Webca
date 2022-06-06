@@ -77,6 +77,10 @@
             (click)="turnVideoOnOrOff()">
             <mat-icon>{{webCamIconSrc}}</mat-icon>
         </button>
+        <button mat-fab class="icon mx-2" color="warn" aria-label="End Call"
+            (click)="endCall()">
+            <mat-icon>call_end</mat-icon>
+        </button>
     </div>
     <div class="d-flex justify-content-end p-0 col-1" *ngIf="mode === 'owner'">
         <video class="w-100" #videoPlayer muted style="object-fit: cover; height: 4rem;"></video>
