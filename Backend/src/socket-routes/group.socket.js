@@ -119,6 +119,54 @@ module.exports = function (socket, id, io) {
         joingroup(user_id, invString, id, io);
     });
 
+    socket.on('get channel members trigger', (req) => {
+        ChannelData.find({ _id: req.channelid }, { members: { username: 1, fullname: 1, id: 1, role: 1, picture: 1 } }).then(data => {
+            if (data.length) {
+                io.to(id).emit('get channel members', { members: data[0].members });
+            }
+        });
+    });
+
+    socket.on('get members to add', (req) => {
+
+    });
+    socket.on('change user group role', (req) => {
+        let user_id = jwt.verify(req.token, "Lancia047").uniqueID;
+        GroupData.find({ _id: req.groupid }, { channels: { channelID: 1 }, members: { username: 1, id: 1, role: 1 } }).then(data => {
+            if (data.length) {
+                (data[0].members).forEach(member => {
+                    if (member.id == req.member.id && member.username == req.member.username) {
+                        member.role = req.member.role;
+                        data[0].save();
+                    }
+                });
+                UserData.find({ _id: req.member.id }, { groups: 1 }).then(user => {
+                    if (user.length) {
+                        (user[0].groups).forEach(group => {
+                            if (group.groupid == req.groupid) {
+                                group.grouprole = req.member.role;
+                                group.channels.forEach(channel => {
+                                    channel.channelrole = req.member.role;
+                                });
+                            }
+                        });
+                        user[0].save();
+                    }
+                });
+                (data[0].channels).forEach(channel => {
+                    ChannelData.find({ _id: channel.channelID, "members.id": req.member.id }).then(eachChannel => {
+                        (eachChannel[0].members).forEach(member => {
+                            if (member.id == req.member.id && member.username == req.member.username) {
+                                member.role = req.member.role;
+                                eachChannel[0].save();
+                            }
+                        });
+                    });
+                });
+            }
+        });
+    });
+
 
 }
 
@@ -153,7 +201,7 @@ function joingroup(id, invString, socket_id, io) {
                                     channelpicture: channel.channelPicture,
                                     channelrole: 'member',
                                 });
-                                ChannelData.findById(channel.channelID).then(eachChannel=>{
+                                ChannelData.findById(channel.channelID).then(eachChannel => {
                                     eachChannel.members.push({
                                         username: user.username,
                                         fullname: user.fullName,

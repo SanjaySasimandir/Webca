@@ -67,6 +67,8 @@ import { GroupService } from './services/group.service';
 import { MediaService } from './services/video/media.service';
 import { PeerService } from './services/video/peer.service';
 import { FourZeroFourComponent } from './pages/four-zero-four/four-zero-four.component';
+import { ViewmembersComponent } from './pages/dashboard/channellist/viewmembers/viewmembers.component';
+import { AddMembersDialogComponent } from './pages/dashboard/add-members-dialog/add-members-dialog.component';
 
 const materialModules = [
   CommonModule,
@@ -130,6 +132,8 @@ const materialModules = [
     NewFolderDialogComponent,
     VideoPlayerComponent,
     FourZeroFourComponent,
+    ViewmembersComponent,
+    AddMembersDialogComponent,
   ],
   imports: [
     BrowserModule,

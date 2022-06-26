@@ -40,8 +40,8 @@
 
     <mat-drawer-content class="overflow-hidden d-flex flex-column">
 
-      <button mat-fab class="position-absolute bottom-0 start-0 toggler-button" color="primary"
-        aria-label="Toggle Chat" (click)="sidenav.toggle()">
+      <button mat-fab class="position-absolute bottom-0 start-0 toggler-button" color="primary" aria-label="Toggle Chat"
+        (click)="sidenav.toggle()">
         <!-- <mat-icon>{{sidenav.opened ? 'keyboard_arrow_right' : 'keyboard_arrow_left'}}</mat-icon> -->
         <mat-icon>{{!sidenav.opened ? 'chat' : 'speaker_notes_off'}}</mat-icon>
       </button>
@@ -61,7 +61,7 @@
           }">
           <!-- <app-video-player class="my-video col-1 position-absolute bottom-0 end-0" *ngIf="localStream" [mode]="'owner'" [stream]="localStream">
         </app-video-player> -->
-          <span class="col-3" *ngFor="let user of joinedUsers">
+          <span class="col-xs-12 col-sm-3 col-md-3" *ngFor="let user of joinedUsers">
             <app-video-player class="col rounded" [stream]="user.stream" [details]="joinedUsersDetails.get(user.peerId)"
               (dblclick)="setFullScreenStream(user.stream)" style="border-radius: 3rem;">
             </app-video-player>

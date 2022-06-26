@@ -6,6 +6,7 @@ import { UserauthService } from 'src/app/services/userauth.service';
 import { WebSocketService } from 'src/app/services/web-socket.service';
 import { ChatboxComponent } from '../chatbox/chatbox.component';
 import { AddChannelDialogComponent } from './add-channel-dialog/add-channel-dialog.component';
+import { ViewmembersComponent } from './viewmembers/viewmembers.component';
 @Component({
   selector: 'app-channellist',
   templateUrl: './channellist.component.html',
@@ -22,6 +23,16 @@ export class ChannellistComponent implements OnInit {
   addChannel() {
     this.dialog.open(AddChannelDialogComponent, {
       data: {
+        "groupid": this.selectedGroup.groupid,
+        "role": this.selectedGroup.grouprole
+      }
+    });
+  }
+
+  viewMembers() {
+    this.dialog.open(ViewmembersComponent, {
+      data: {
+        "mainchannelid": this.selectedGroup.channels[0].channelid, // zeroth index is always main channel
         "groupid": this.selectedGroup.groupid,
         "role": this.selectedGroup.grouprole
       }

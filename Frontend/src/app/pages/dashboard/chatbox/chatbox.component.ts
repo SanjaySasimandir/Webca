@@ -19,6 +19,7 @@ export class ChatboxComponent implements OnInit {
 
   @Input() selectedChannel = new UsersChannelModel('', '', '', '');
   @Input() showVideoButton: Boolean = true;
+  @Input() grouprole: String = 'member';
 
   constructor(private webSocket: WebSocketService, private dialog: MatDialog, private router: Router) { }
 
@@ -31,6 +32,13 @@ export class ChatboxComponent implements OnInit {
       disableClose: true,
       height: '85vh',
       width: '80vw'
+    });
+  }
+  openAddMembersDialog(){
+    this.dialog.open(FilesComponent, {
+      data: {
+        "selectedChannel": this.selectedChannel
+      }
     });
   }
 

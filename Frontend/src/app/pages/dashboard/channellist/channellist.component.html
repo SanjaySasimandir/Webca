@@ -12,6 +12,12 @@
                     <mat-icon>add</mat-icon>
                     <span>Add a channel</span>
                 </button>
+
+                <button mat-menu-item (click)="viewMembers()">
+                    <mat-icon>group</mat-icon>
+                    <span>View all members</span>
+                </button>
+
                 <button mat-menu-item [cdkCopyToClipboard]="inviteLink">
                     <mat-icon><span class="material-icons">
                             content_copy
@@ -25,14 +31,13 @@
             </mat-menu>
 
         </div>
-        <div class="channel-list-item m-1 mb-2 {{channel==selectedChannel? 'fw-bold bg-secondary' : ''}}" *ngFor="let channel of selectedGroup.channels"
-            (click)="selectedChannel=channel; refreshChatbox()">
+        <div class="channel-list-item m-1 mb-2 {{channel==selectedChannel? 'fw-bold bg-secondary' : ''}}"
+            *ngFor="let channel of selectedGroup.channels" (click)="selectedChannel=channel; refreshChatbox()">
             <!-- <img mat-card-avatar class="channel-icon"
                 [src]="'https://ui-avatars.com/api/?background=random&length=1&size=128&font-size=0.75&bold=true&name='+channel.channelname"> -->
-            <span
-                class="channel-name p-2 ps-1 fs-5">{{channel.channelname}}</span>
+            <span class="channel-name p-2 ps-1 fs-5">{{channel.channelname}}</span>
         </div>
     </div>
     <app-chatbox *ngIf="selectedGroup.groupname" [selectedChannel]="selectedChannel"
-        style="width: calc(100vw - 316px);"></app-chatbox>
+        [grouprole]="selectedGroup.grouprole" style="width: calc(100vw - 316px);"></app-chatbox>
 </div>
