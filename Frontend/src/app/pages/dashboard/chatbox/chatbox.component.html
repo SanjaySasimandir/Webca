@@ -15,11 +15,29 @@
                 <mat-icon>folder_shared</mat-icon>
             </button>
         </div>
-        <!-- <button mat-fab color="primary" *ngIf="showVideoButton && (grouprole=='owner' || grouprole=='admin')"
+        <!-- <button class="me-2" mat-fab color="primary"
+            *ngIf="showVideoButton && (grouprole=='owner' || grouprole=='admin') && selectedChannel.channelname!='main'"
             (click)="openAddMembersDialog()" aria-label="Add Members" matTooltip="Add Members"
             matTooltipPosition="below">
-            <mat-icon>video_call</mat-icon>
+            <mat-icon>group_add</mat-icon>
         </button> -->
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item class="me-2" color="primary"
+                *ngIf="showVideoButton && (grouprole=='owner' || grouprole=='admin') && selectedChannel.channelname!='main'"
+                (click)="openAddMembersDialog()" aria-label="Add Members" matTooltip="Add Members"
+                matTooltipPosition="below">
+                <mat-icon>group_add</mat-icon>
+                <span>Add Members</span>
+            </button>
+            <button mat-menu-item (click)="viewMembers()">
+                <mat-icon>group</mat-icon>
+                <span>View all members</span>
+            </button>
+        </mat-menu>
+
 
     </div>
 

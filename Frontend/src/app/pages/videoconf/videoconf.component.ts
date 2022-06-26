@@ -117,13 +117,11 @@ export class VideoconfComponent implements OnInit {
 
     this.webSocket.listen('refresh details list').subscribe((res: any) => {
       this.joinedUsersDetails = new Map(JSON.parse(res.details));
-      console.log(this.joinedUsersDetails);
     });
 
     this.webSocket.listen('user-connected').subscribe((res: any) => {
       this.joinedId.next(res.userId);
       this.joinedUsersDetails = new Map(JSON.parse(res.details));
-      console.log(this.joinedUsersDetails);
     });
     this.webSocket.listen('user-disconnected').subscribe((userId: any) => {
       this.leavedId.next(userId);
@@ -185,5 +183,8 @@ export class VideoconfComponent implements OnInit {
     this.fullScreenStream = stream;
   }
 
+  ngOnDestroy(){
+    window.location.replace('');
+  }
 
 }

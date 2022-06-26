@@ -75,9 +75,16 @@ module.exports = function (socket, id, io) {
                                 });
                             }
                             else {
-                                newChannel.save();
                                 mainChannel.members.forEach(member => {
                                     if (member.role == 'owner' || member.role == 'admin') {
+                                        newChannel.members.push({
+                                            username: member.username,
+                                            fullname: member.fullname,
+                                            id: member.id,
+                                            online: member.online,
+                                            role: member.role,
+                                            picture: member.picture
+                                        });
                                         let channel_to_add = {
                                             channelname: newChannel.name,
                                             channelid: newChannel._id,
@@ -88,6 +95,7 @@ module.exports = function (socket, id, io) {
                                         // io.to(id).emit('channel added', { channel: channel_to_add, groupid: group._id });
                                     }
                                 });
+                                newChannel.save();
                             }
                             let newChannelToGroup = {
                                 channelName: channelname,
@@ -127,9 +135,53 @@ module.exports = function (socket, id, io) {
         });
     });
 
-    socket.on('get members to add', (req) => {
+    socket.on('get members to add trigger', (req) => {
+        let user_id = jwt.verify(req.token, "Lancia047").uniqueID;
+        ChannelData.findById(req.mainchannelid, { members: { _id: 0 } }).then(mainchannel => {
+            ChannelData.findById(req.selectedchannelid, { members: { _id: 0 } }).then(selectedchannel => {
 
+                let difference_members = mainchannel.members.filter(mainmember => {
+                    return !selectedchannel.members.some(selectmember => {
+                        return mainmember.id == selectmember.id
+                    })
+                });
+                io.to(id).emit('get members to add', { 'memberstoadd': difference_members });
+
+            });
+        });
     });
+
+    socket.on('add user to channel', (req) => {
+        let user_id = jwt.verify(req.token, "Lancia047").uniqueID;
+        ChannelData.findById(req.channelid, { members: 1, groupid: 1, name: 1, members: 1, picture: 1 }).then(channel => {
+            channel.members.push({
+                username: req.member.username,
+                fullname: req.member.fullname,
+                id: req.member.id,
+                online: req.member.online,
+                role: req.member.role,
+                picture: req.member.picture
+            });
+            console.log('channel', channel)
+            channel.save();
+
+            UserData.findById(req.member.id, { groups: 1 }).then(user => {
+                user.groups.forEach(group => {
+                    if (group.groupid == channel.groupid) {
+                        group.channels.push({
+                            channelname: channel.name,
+                            channelid: channel._id,
+                            channelpicture: channel.picture,
+                            channelrole: req.member.role,
+                        })
+                        console.log('user', group.channels);
+                    }
+                });
+                user.save();
+            });
+        });
+    });
+
     socket.on('change user group role', (req) => {
         let user_id = jwt.verify(req.token, "Lancia047").uniqueID;
         GroupData.find({ _id: req.groupid }, { channels: { channelID: 1 }, members: { username: 1, id: 1, role: 1 } }).then(data => {

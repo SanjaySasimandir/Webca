@@ -21,9 +21,7 @@ export class CreateGroupComponent implements OnInit {
   openness = new FormControl('public', [Validators.required]);
 
   createGroup() {
-    console.log('create group')
     this.groupService.createGroup({ "groupname": this.groupname.value, "openness": this.openness.value, "token": localStorage.getItem('token') }).subscribe(res => {
-      console.log(res);
       this.webSocket.emit('get groups trigger',{});
     });
     this.dialogClose();

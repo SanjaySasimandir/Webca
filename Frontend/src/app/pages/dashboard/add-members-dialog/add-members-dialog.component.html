@@ -1,1 +1,18 @@
-<p>add-members-dialog works!</p>
+<h2 mat-dialog-title>Members to add</h2>
+<mat-dialog-content class="mat-typography">
+    <mat-list>
+        <mat-list-item *ngFor="let member of members">
+            <img mat-list-icon class="member-pfp-image" [src]="backendurl + member.picture">
+            <h3 mat-line class="lh-1">{{member.fullname}}</h3>
+            <p mat-line mat-card-subtitle> @{{member.username}} </p>
+            <button class="ms-5" mat-raised-button (click)="addUser(member)">
+                <mat-icon class="my-1">add</mat-icon>Basic
+            </button>
+        </mat-list-item>
+    </mat-list>
+
+    <h3 class="lead my-3" *ngIf="members.length==0">Looks like there is no one else to add.</h3>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-raised-button mat-dialog-close cdkFocusInitial>Cancel</button>
+</mat-dialog-actions>

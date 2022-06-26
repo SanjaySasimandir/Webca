@@ -1,6 +1,6 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { UsersChannelModel } from 'src/app/models/group.model';
+import { UsersChannelModel, UsersGroupModel } from 'src/app/models/group.model';
 import { SendMessageModel } from 'src/app/models/sendmessage.model';
 import * as moment from "moment";
 import { WebSocketService } from 'src/app/services/web-socket.service';
@@ -9,6 +9,8 @@ import { Message, MessagesModel } from 'src/app/models/message.model';
 import { MatDialog } from '@angular/material/dialog';
 import { FilesComponent } from '../files/files.component';
 import { Router } from '@angular/router';
+import { AddMembersDialogComponent } from '../add-members-dialog/add-members-dialog.component';
+import { ViewmembersComponent } from '../channellist/viewmembers/viewmembers.component';
 
 @Component({
   selector: 'app-chatbox',
@@ -18,6 +20,7 @@ import { Router } from '@angular/router';
 export class ChatboxComponent implements OnInit {
 
   @Input() selectedChannel = new UsersChannelModel('', '', '', '');
+  @Input() selectedGroup = new UsersGroupModel('', '', '', '', []);
   @Input() showVideoButton: Boolean = true;
   @Input() grouprole: String = 'member';
 
@@ -34,10 +37,22 @@ export class ChatboxComponent implements OnInit {
       width: '80vw'
     });
   }
-  openAddMembersDialog(){
-    this.dialog.open(FilesComponent, {
+  openAddMembersDialog() {
+    this.dialog.open(AddMembersDialogComponent, {
       data: {
-        "selectedChannel": this.selectedChannel
+        "selectedChannel": this.selectedChannel,
+        "selectedGroup": this.selectedGroup,
+        "role": this.grouprole
+      }
+    });
+  }
+
+  viewMembers() {
+    this.dialog.open(ViewmembersComponent, {
+      data: {
+        "channelid": this.selectedGroup.channels[0].channelid, // zeroth index is always main channel
+        "groupid": this.selectedGroup.groupid,
+        "role": this.selectedGroup.grouprole
       }
     });
   }
@@ -47,7 +62,6 @@ export class ChatboxComponent implements OnInit {
   selectedImage!: FileList;
   imageSelected(element: any) {
     this.selectedImage = element.target.files;
-    console.log(this.selectedImage)
   }
 
   sendImageSelected() {

@@ -17,12 +17,12 @@ export class ViewmembersComponent implements OnInit {
     private userauth: UserauthService) { }
 
   initFunctions() {
-    this.webSocket.emit('get channel members trigger', { "channelid": this.data.mainchannelid });
+    this.webSocket.emit('get channel members trigger', { "channelid": this.data.channelid });
   }
   public backendurl = this.userauth.server_address;
 
   changeRole(member: MemberModel) {
-    this.webSocket.emit('change user group role', { "member": member, "channelid": this.data.mainchannelid, "groupid": this.data.groupid, "token": localStorage.getItem('token') });
+    this.webSocket.emit('change user group role', { "member": member, "channelid": this.data.channelid, "groupid": this.data.groupid, "token": localStorage.getItem('token') });
   }
   members: MemberModel[] = [];
   socketListeners() {
@@ -35,6 +35,7 @@ export class ViewmembersComponent implements OnInit {
   ngOnInit(): void {
     this.initFunctions();
     this.socketListeners();
+    console.log(this.data)
   }
 
   ngOnDestroy() {

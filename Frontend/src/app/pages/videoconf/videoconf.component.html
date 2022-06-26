@@ -5,21 +5,26 @@
     <span class="visually-hidden">Loading...</span>
   </div>
 </div>
-<div class="d-flex flex-column vw-100 vh-100 align-items-center justify-content-center body-container"
-  *ngIf="invalidLink">
+
+<!-- <div class="d-flex flex-column vw-100 vh-100 align-items-center justify-content-center body-container">
   <h1 class="text-center">Invalid Link</h1> <br>
   <button mat-raised-button routerLink="/">Dashboard</button>
-</div>
-<div class="d-flex flex-column vw-100 vh-100 align-items-center justify-content-center body-container"
+</div> -->
+<app-four-zero-four *ngIf="invalidLink" [message]="'Invalid Link'"></app-four-zero-four>
+
+<!-- <div class="d-flex flex-column vw-100 vh-100 align-items-center justify-content-center body-container"
   *ngIf="linkexpired">
   <h1 class="text-center">Link Expired</h1> <br>
   <button mat-raised-button routerLink="/">Dashboard</button>
-</div>
-<div class="d-flex flex-column vw-100 vh-100 align-items-center justify-content-center body-container"
-  *ngIf="userNotAuthorized">
-  <h1 class="text-center">You are not authorized to enter this call</h1> <br>
-  <button mat-raised-button routerLink="/">Dashboard</button>
-</div>
+</div> -->
+<app-four-zero-four *ngIf="linkexpired" [message]="'Expired Link'"></app-four-zero-four>
+
+<!-- <div class="d-flex flex-column vw-100 vh-100 align-items-center justify-content-center body-container"
+*ngIf="userNotAuthorized">
+<h1 class="text-center">You are not authorized to enter this call</h1> <br>
+<button mat-raised-button routerLink="/">Dashboard</button>
+</div> -->
+<app-four-zero-four *ngIf="linkexpired" [message]="'You are not authorized to enter this call'"></app-four-zero-four>
 
 <div class="d-flex container-fluid p-0 body-container vh-100" *ngIf="userIsMember">
 

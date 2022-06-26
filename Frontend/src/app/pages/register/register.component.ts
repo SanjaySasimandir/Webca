@@ -121,7 +121,6 @@ export class RegisterComponent implements OnInit {
   uploadedFile: Array<File> = [];
   fileChange(element: any) {
     this.uploadedFile = element.target.files;
-    console.log(this.uploadedFile[0]);
   }
 
   verifyOTP() {
@@ -162,7 +161,6 @@ export class RegisterComponent implements OnInit {
 
   timer(remaining: number) {
     let m = Math.floor(remaining / 60).toString();
-    console.log(m)
     let s = (remaining % 60).toString();
     m = Number(m) < 10 ? '0' + m : m;
     s = Number(s) < 10 ? '0' + s : s;

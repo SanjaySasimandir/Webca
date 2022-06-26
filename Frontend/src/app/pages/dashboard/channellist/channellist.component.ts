@@ -32,7 +32,7 @@ export class ChannellistComponent implements OnInit {
   viewMembers() {
     this.dialog.open(ViewmembersComponent, {
       data: {
-        "mainchannelid": this.selectedGroup.channels[0].channelid, // zeroth index is always main channel
+        "channelid": this.selectedGroup.channels[0].channelid, // zeroth index is always main channel
         "groupid": this.selectedGroup.groupid,
         "role": this.selectedGroup.grouprole
       }
